@@ -8,25 +8,27 @@ Name | Email | StudentId |
 ----------- | ------------ | ------------ | ------------
 Enbo Chen | enbo.chen@student.tut.fi | 256331 |
 Pauli Tupeli | pauli.tupeli@student.tut.fi | 228926 |
-Jingyi Bai | jingyi.bai@student.tut.fi |  |
+Jingyi Bai | jingyi.bai@student.tut.fi | 267936 |
 Mengyang Chen | mengyang.chen@student.tut.fi| 256481 |
 
 ## Project execution
-* We will use wechat & whatsapp for communication.
+* We will use whatsapp for communication.
 * Normally, everyone is assigned her/his own tasks, and coding seperately.
-* We will meet face in face at least once a Month to see what's going on, and what need to be adjusted.
+* We will meet face in face at least 2 weeks once to see what's going on, and what need to be adjusted.
+* We use gitlab issue tracker for management.
 * Coding jams will be held when necessary.
 
 ## List of features
-* Back-end
-    * RESTful APIs
-    * Database (sqlite/mongodb/mysql/Postgres(highly recommanded by Heroku) ...)
-* Front-end
-    * Single Page Application using React framework (React, React-router)
-    * High user experience (CSS3)
-    * Dynamic state control with Redux (Redux, Redux-thunk)
-* A simple js game
-    * 
+* User accounts (Minimun requirements)
+* Authentication
+* Basic player functionalities(Buy,play,Security,search)
+* Basic developer functionalities(manage the game,inventory and statistics, Security)
+* Game/service interaction(post score, game states)
+* JS game (something moving and interesting)
+* 3rd party login (facebook login)
+* RESTful APIs (GET, POST, PUT, DELETE)
+* Mobile Friendly
+* Testing your service with other groups’ games
 
 ## Implementation of features
 * Back-end
@@ -59,7 +61,7 @@ Mengyang Chen | mengyang.chen@student.tut.fi| 256481 |
 * Games
 
 ## Extra features
-* One more playable javascript game.
+* We are using react stack to build the front-end.
 
 ## Tasks and timetable
 Task | Description | Weight(0-5) | Deadline
