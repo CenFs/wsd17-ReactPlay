@@ -7,7 +7,7 @@ ReactPlay
 Name | Email | StudentId | 
 ----------- | ------------ | ------------ | ------------
 Enbo Chen | enbo.chen@student.tut.fi |  |
-Pauli Tupeli | pauli.tupeli@student.tut.fi |  |
+Pauli Tupeli | pauli.tupeli@student.tut.fi | 228926 |
 Jingyi Bai | jingyi.bai@student.tut.fi |  |
 Mengyang Chen | mengyang.chen@student.tut.fi| 256481 |
 
