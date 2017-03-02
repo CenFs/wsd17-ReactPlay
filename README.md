@@ -14,54 +14,65 @@ Mengyang Chen | mengyang.chen@student.tut.fi| 256481 |
 ## Project execution
 * We will use whatsapp for communication.
 * Normally, everyone is assigned her/his own tasks, and coding seperately.
-* We will meet face in face at least 2 weeks once to see what's going on, and what need to be adjusted.
-* We use gitlab issue tracker for management.
+* We will meet face to face at least once every two weeks to see what's going on, and what need to be adjusted.
+* We will use gitlab issue tracker for task and issue tracking.
 * Coding jams will be held when necessary.
 
 ## List of features
-* User accounts (Minimun requirements)
-* Authentication
-* Basic player functionalities(Buy,play,Security,search)
-* Basic developer functionalities(manage the game,inventory and statistics, Security)
-* Game/service interaction(post score, game states)
-* JS game (something moving and interesting)
-* 3rd party login (facebook login)
+
+* User groups and basic user functionalities.
+    * Any users can browse and search games.
+    * Players can buy and play games, check and submit to highscores, save and load gamestates.
+    * Developers can add/modify/remove and see sales statistics of their own games.
+* Authentication.
+* Game/service communication.
+* JavaScript game (something moving and interesting)
 * RESTful APIs (GET, POST, PUT, DELETE)
-* Mobile Friendly
 * Testing your service with other groups’ games
+* Mobile Friendly (???yes/no???)
+* 3rd party login (optional, implemented if time allows it)
 
 ## Implementation of features
+
+The project is implemented with Django framework, using wide variety of built-in Django features.
+Back-end and front-end will be implemented as separate Django apps.
+Back-end will have the database, exposed through a RESTful API.
+Front-end will have the views and static files required user interface implementation.
+
 * Back-end
-    * Database (mysql sqlite or mongodb, why? nosql support unstructured record, the state of games can be quite different from each other
-    ,so using relational database can be hard)
-        * tables or collections design
-    * Django urls.py (API format)
-    * Django views.py (How many views do we need? explain each one, related with which url? what it will reponse)
-    * Django models (Which models do we need? What is each one's relation with views)
-        * User (id, name, password, email, role:"Player/Developer", money)
-        * Game (id, name, url, price, developers:[array], Players[{user.id,savedState:{},highestScore},{}...])
-        * Playrecord (id, gid[ref Game.id], uid[ref User.id], )
+    * Database: sqlite3 for local testing (ease of use), postgre for Heroku (as per Heroku recommendation)
+    * Django Models: User, UserGames, Game, GameScore, GameSave (self explanatory)
+    * Django Views: There will be RESTful API endpoints at least for all listed models, perhaps more.
+    * Django Tests: Tests for REST endpoints will be written here.
 
 * Front-end
-    * Redux
-        * Store structure
-    * React
-        * Components
-            * 
-            * 
-            * 
-        * Containers
-            * 
-            * 
-            * 
-        * Router
-            * define routes.js, route to different components based on current path
-            * import routes.js into container Root, set the Router (import from react-router)'s routes property
+    * Views
+        * Index (frontpage, maybe popular games highlighted)
+        * Game list (with filter/search options)
+        * Game detail (details of a single game)
+            * Players can buy, play and check highscores.
+            * Developer can modify and see sales statistics.
+        * User detail (Details of the currently logged in user)
+            * Basic user info.
+            * Players have a list of bought games.
+            * Developers have a list of their published games.
+    * Used technologies
+        * Redux
+            * Store structure
+        * React
+            * Components
+                * 
+                * 
+                * 
+            * Containers
+                * 
+                * 
+                * 
+            * Router
+                * define routes.js, route to different components based on current path
+                * import routes.js into container Root, set the Router (import from react-router)'s routes property
 
 * Games
-
-## Extra features
-* We are using react stack to build the front-end.
 
 ## Tasks and timetable
 Task | Description | Weight(0-5) | Deadline
