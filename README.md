@@ -37,7 +37,7 @@ Mengyang Chen | mengyang.chen@student.tut.fi| 256481 |
 The project is implemented with Django framework, using wide variety of built-in Django features.
 Back-end and front-end will be implemented as separate Django apps.
 Back-end will have the database, exposed through a RESTful API.
-Front-end will have the views and static files required user interface implementation.
+Front-end will have the views and static files required for the user interfaces.
 
 * Back-end
     * Database: sqlite3 for local testing (ease of use), postgre for Heroku (as per Heroku recommendation)
