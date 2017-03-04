@@ -58,16 +58,27 @@ Front-end will have the views and static files required for the user interfaces.
             * Developers have a list of their published games.
     * Used technologies
         * Redux
-            * Store structure
+            * Store structure:
+```
+{user:{id,name,group},
+ games:[
+    {id,name,state,highestScore....}
+    ......
+ ]
+}
+```
+        * Action
+            * Play, save, load
+            * login, register
+            * purchuse
+
         * React
             * Components
-                * 
-                * 
-                * 
+                * App
+                * Login, Register
+                * Game
             * Containers
-                * 
-                * 
-                * 
+                * GameList, inject data into Game component
             * Router
                 * define routes.js, route to different components based on current path
                 * import routes.js into container Root, set the Router (import from react-router)'s routes property
