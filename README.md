@@ -78,16 +78,17 @@ Front-end will have the views and static files required for the user interfaces.
 Task | Description | Weight(0-5) | Deadline
 ----------- | ------------ | ------------ | ------------
 Project plan | Create an issue, assign to wsd-agent | 3 | **2017-03-06**
-Develop js game | Need to talk about details later, something moving and interesting | 1 | **2017-03-20**
-Basic user functionalities | Register, Login/logout, Developers(add, modify, browse, search), Players(buy, play, record, browse, search) | 1 | **2017-03-25**
-Authentication | ... | 1 | **2017-03-25**
-Test js game | ... | 1 | **2017-03-28**
+Develop JavaScript game | Need to talk about details later, something moving and interesting | 3 | **2017-03-20**
+Basic user functionalities | Register, Login/logout, Developers(add, modify, browse, search), Players(buy, play, record, browse, search) | 3 | **2017-03-25**
+Authentication | Security restrictions | 2 | **2017-03-25**
+Test JavaScript game | Testing and optimization | 1 | **2017-03-28**
 JavaScript games distribution | Register our game using online form | 2 | **2017-03-31**
-Game/service communication | ... | 1 | **2017-04-07**
-RESTful APIs | GET, POST, PUT, DELETE | 1 | **2017-04-10**
-Mobile Friendly | Optional | 1 | **2017-04-10**
+Game/service communication | Messages between service and game | 2 | **2017-04-07**
+RESTful APIs | Design and implement with GET, POST, PUT, DELETE methods | 3 | **2017-04-10**
+Mobile Friendly | Optional, if time allows | 1 | **2017-04-10**
 3rd party login | Optional, if time allows | 1 | **2017-04-10**
-Test our store with other groups’ games | Optimization | 1 | **2017-04-16**
+Test our store with other groups’ games | Testing and optimization, give feedbacks | 1 | **2017-04-16**
+Final testing | Meaningful testing and optimization, imporve user experience | 2 | **2017-04-23**
+Check with all submission needed documents | ... | 1 | **2017-04-23**
 Final submission | ... | 1 | **2017-04-23**
-Final testing | ... | 1 | **2017-04-26**
 Presentation | ... | 2 | **2017-04-28**
