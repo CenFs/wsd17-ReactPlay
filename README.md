@@ -78,17 +78,15 @@ Front-end will have the views and static files required for the user interfaces.
 Task | Description | Weight(0-5) | Deadline
 ----------- | ------------ | ------------ | ------------
 Project plan | Create an issue, assign to wsd-agent | 3 | **2017-03-06**
-Develop JavaScript game | Need to talk about details later, something moving and interesting | 3 | **2017-03-20**
-Basic user functionalities | Register, Login/logout, Developers(add, modify, browse, search), Players(buy, play, record, browse, search) | 3 | **2017-03-25**
-Authentication | Security restrictions | 2 | **2017-03-25**
-Test JavaScript game | Testing and optimization | 1 | **2017-03-28**
+Analysis & Design | Analysis requirement and design architecture and componenets | 4 | 2017-03-08
+Backend development | Implement basic functionalities for backend (Register, Authentication, Login/logout, Developers(add, modify, browse, search), Players(buy, play, record, browse, search),etc.) | 5 | 2017-03-15
+Front development | Design and build UI for frontend, game/service communication | 5 | 2017-03-31
+JavaScript game development | Develop and host fist version of game on heroku | 5 | 2017-03-25
+Test JavaScript game | Testing and optimization | 3 | 2017-03-29
 JavaScript games distribution | Register our game using online form | 2 | **2017-03-31**
-Game/service communication | Messages between service and game | 2 | **2017-04-07**
-RESTful APIs | Design and implement with GET, POST, PUT, DELETE methods | 3 | **2017-04-10**
-Mobile Friendly | Optional, if time allows | 1 | **2017-04-10**
-3rd party login | Optional, if time allows | 1 | **2017-04-10**
-Test our store with other groups’ games | Testing and optimization, give feedbacks | 1 | **2017-04-16**
-Final testing | Meaningful testing and optimization, imporve user experience | 2 | **2017-04-23**
-Check with all submission needed documents | ... | 1 | **2017-04-23**
-Final submission | ... | 1 | **2017-04-23**
-Presentation | ... | 2 | **2017-04-28**
+Test your store with other groups’ games | Testing and find bugs and problems  | 1 | **2017-04-16**
+Integration and Enhancement | Improve backend and frontend, add more features (RESTful APIs, Mobile Friendly, 3rd party login, etc.) | 5 | 2017-04-15
+Game Improvement | Optimization of the Game depending on feedback | 3 | 2017-03-29
+Final testing | Meaningful testing and optimization, imporve user experience | 5 | 2017-04-21
+Final submission | Submit project | 1 | **2017-04-23**
+Presentation | Get ready to present | 2 | **2017-04-28**
