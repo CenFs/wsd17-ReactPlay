@@ -13,13 +13,18 @@ Mengyang Chen | mengyang.chen@student.tut.fi| 256481 |
 
 ## Project execution
 * We will use whatsapp for communication.
-* We will use Scrum methodology during development, so development is divided into sprints.
+* We will use Scrum methodology during development, so we will divide our development into sprints, BUT...
+    * We will not systematically evaluate difficulty, value or risks of any tasks.
+    * We will not have extensive sprint reviews.
 * We will meet live (face to face/Skype) when starting new sprints and when needed.
-* Normally everyone is assigned their own tasks and coding is done seperately.
-* Coding night will be held when necessary.
+* Normally everyone is assigned their own tasks and development is done seperately.
+* Coding nights will be held when necessary or convenient.
 * We will use gitlab issue tracker for sprint backlog and issue tracking.
 
 ## List of features
+
+These features will be implemented, unless otherwise specified.
+
 * User groups and basic user functionalities.
     * Any users can browse and search games.
     * Players can buy and play games, check and submit to highscores, save and load gamestates.
@@ -27,8 +32,11 @@ Mengyang Chen | mengyang.chen@student.tut.fi| 256481 |
 * Authentication.
 * Game/service communication.
 * JavaScript game (something moving and interesting)
+* Quality of work (Testing, agreed coding standard, quality assurance...)
+* Documentation (game and final report separately)
+* Testing the service with other groups’ games
 * RESTful API (GET, POST, PUT, DELETE)
-* Testing your service with other groups’ games
+* Save/load and resolution feature (save/load will be implemented, resolution if time allows it)
 * Mobile Friendly (optional, implemented if time allows it)
 * 3rd party login (optional, implemented if time allows it)
 
@@ -61,10 +69,13 @@ Front-end will have the views and static files required for the user interfaces.
         * Redux (Good front-end tool which usually come with React, it makes data and state storage in front-end application easier)
 
 * Games
+    * Something moving, with save/load feature.
 
 ## Tasks and timetable
 
-Course hard deadlines bolded. Sprint deadlines are flexible, depending on how we can set up our meetings.
+Course hard deadlines bolded. 
+Sprint deadlines and content are flexible. 
+They may change depending on how we can set up meetings and how busy we are with other courses/work.
 
 Task | Description | Deadline
 ----------- | ------------ | ------------
