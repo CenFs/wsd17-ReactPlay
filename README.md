@@ -73,9 +73,8 @@ Front-end will have the views and static files required for the user interfaces.
 
 ## Tasks and timetable
 
-Course hard deadlines bolded. 
-Sprint deadlines and content are flexible. 
-They may change depending on how we can set up meetings and how busy we are with other courses/work.
+Course tasks and hard deadlines derived from those tasks are **bolded**.
+Sprint content is subjec to change based on our performance.
 
 Task | Description | Deadline
 ----------- | ------------ | ------------
