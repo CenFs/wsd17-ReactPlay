@@ -13,13 +13,13 @@ Mengyang Chen | mengyang.chen@student.tut.fi| 256481 |
 
 ## Project execution
 * We will use whatsapp for communication.
-* Normally, everyone is assigned her/his own tasks, and coding seperately.
-* We will meet face to face at least once every two weeks to see what's going on, and what need to be adjusted.
-* We will use gitlab issue tracker for task and issue tracking.
-* Coding jams will be held when necessary.
+* We will use Scrum methodology during development, so development is divided into sprints.
+* We will meet live (face to face/Skype) when starting new sprints and when needed.
+* Normally everyone is assigned their own tasks and coding is done seperately.
+* Coding night will be held when necessary.
+* We will use gitlab issue tracker for sprint backlog and issue tracking.
 
 ## List of features
-
 * User groups and basic user functionalities.
     * Any users can browse and search games.
     * Players can buy and play games, check and submit to highscores, save and load gamestates.
@@ -27,9 +27,9 @@ Mengyang Chen | mengyang.chen@student.tut.fi| 256481 |
 * Authentication.
 * Game/service communication.
 * JavaScript game (something moving and interesting)
-* RESTful APIs (GET, POST, PUT, DELETE)
+* RESTful API (GET, POST, PUT, DELETE)
 * Testing your service with other groups’ games
-* Mobile Friendly (???yes/no???)
+* Mobile Friendly (optional, implemented if time allows it)
 * 3rd party login (optional, implemented if time allows it)
 
 ## Implementation of features
@@ -59,21 +59,22 @@ Front-end will have the views and static files required for the user interfaces.
     * Used technologies
         * React (A popular front-end framework, we will use it to write different components)
         * Redux (Good front-end tool which usually come with React, it makes data and state storage in front-end application easier)
+
 * Games
 
 ## Tasks and timetable
 Task | Description | Weight(0-5) | Deadline
 ----------- | ------------ | ------------ | ------------
 Project plan | Create an issue, assign to wsd-agent | 3 | **2017-03-06**
-Analysis & Design | Analysis requirement and design architecture and componenets | 4 | 2017-03-10
-JavaScript game development | Develop and host fist version of game on heroku | 5 | 2017-03-24
+Analysis & Design | Figure out requirements, design overall architecture, start first sprint | 4 | 2017-03-10
+Backend development | Implement basic functionalities for backend (Register, Authentication, Login/logout, Developers(add, modify, browse, search), Players(buy, play, record, browse, search),etc.) | 5 | 2017-04-14
+JavaScript game development | Develop and host first version of game on heroku | 5 | 2017-03-24
 Test JavaScript game | Testing and optimization | 3 | 2017-03-26
 Game Improvement | Optimization of the Game depending on feedback | 3 | 2017-03-29
 JavaScript games distribution | Register our game using online form | 2 | **2017-03-31**
-Backend development | Implement basic functionalities for backend (Register, Authentication, Login/logout, Developers(add, modify, browse, search), Players(buy, play, record, browse, search),etc.) | 5 | 2017-04-14
 Front development | Design and build UI for frontend, game/service communication | 5 | 2017-04-14
-Test your store with other groups’ games | Testing and find bugs and problems  | 1 | **2017-04-16**
-Integration and Enhancement | Improve backend and frontend, add more features (RESTful APIs, Mobile Friendly, 3rd party login, etc.) | 5 | 2017-04-19
-Final testing | Meaningful system level testing(unit test, etc) and optimization, and imporve user experience | 5 | 2017-04-20
-Final submission | Submit project | 1 | **2017-04-23**
-Presentation | Get ready to present | 2 | **2017-04-28**
+Test your store with other groups’ games | Register other teams game using online form. | 1 | **2017-04-16**
+Integration and Enhancement | Improve backend and frontend, add optional features (Mobile Friendly, 3rd party login, etc.) | 5 | 2017-04-19
+Final testing | System level testing and optimization, usability improvements | 5 | 2017-04-20
+Final submission | Upload project to Heroku, submit project to course staff | 1 | **2017-04-23**
+Presentation | Reserve a time slot, prep and execute presentation | 2 | **2017-04-28**
