@@ -36,9 +36,9 @@ These features will be implemented, unless otherwise specified.
 * Documentation (game and final report separately)
 * Testing the service with other groups’ games
 * RESTful API (GET, POST, PUT, DELETE)
-* Save/load and resolution feature (save/load will be implemented, resolution if time allows it)
-* Mobile Friendly (optional, implemented if time allows it)
-* 3rd party login (optional, implemented if time allows it)
+* Save/load and resolution feature (resolution is implemented only if time allows it)
+* Mobile Friendly (implemented if time allows it)
+* 3rd party login (implemented if time allows it)
 
 ## Implementation of features
 
@@ -82,10 +82,7 @@ Task | Description | Deadline
 Project plan | Create an issue, assign to wsd-agent. | **2017-03-06**
 Analysis & Design | Figure out requirements, design overall architecture, start first sprint | 2017-03-07
 Sprint 1 | Back-end models, exposed through a RESTful API.<br>Back-end functionality at least for user registering+login.<br>Front-end overall design, register+login views.<br>Unit tests for back-end models. | 2017-03-20
-Sprint 2 | JavaScript game, uploaded to Heroku.<br>Communication between back-end and game.<br>Figure out a meaningful ways of testing the above two.<br>Create documentation for the game. | 2017-03-31
-JavaScript games ready for distribution | Register our game using online form. | **2017-03-31**
-Sprint 3 | All things front-end.<br>Required back-end support for the above.<br>Front-end testing, likely exploratory. | 2017-04-16
-Test your store with other groups’ games | Add other teams games to our service, fix any issues on our side. | **2017-04-16**
-Sprint 4 | Quality assurance.<br>Optional features.<br>Create report for final submission. | 2017-04-23
-Final submission | Upload project to Heroku, submit project to course staff. | **2017-04-23**
+Sprint 2 | JavaScript game, uploaded to Heroku.<br>Communication between back-end and game.<br>Figure out a meaningful ways of testing the above two.<br>Create documentation for the game.<br>**Register our game using online form given by course staff.** | **2017-03-31**
+Sprint 3 | All things front-end.<br>Required back-end support for the above.<br>Front-end testing, likely exploratory.<br>**Add other teams games to our service, fix any issues on our side.** | **2017-04-16**
+Sprint 4 | Quality assurance.<br>Optional features.<br>Create report for final submission.<br>**Upload project to Heroku, submit project to course staff.** | **2017-04-23**
 Presentation | Reserve a time slot, prep and execute presentation. | **2017-04-28**
