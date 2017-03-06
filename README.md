@@ -78,10 +78,10 @@ Sprint content is subjec to change based on our performance.
 
 Task | Description | Deadline
 ----------- | ------------ | ------------
-Project plan | Create an issue, assign to wsd-agent. | **2017-03-06**
+Project plan | **Create an issue, assign to wsd-agent.** | **2017-03-06**
 Analysis & Design | Figure out requirements, design overall architecture, start first sprint | 2017-03-07
 Sprint 1 | Back-end models, exposed through a RESTful API.<br>Back-end functionality at least for user registering+login.<br>Front-end overall design, register+login views.<br>Unit tests for back-end models. | 2017-03-20
 Sprint 2 | JavaScript game, uploaded to Heroku.<br>Communication between back-end and game.<br>Figure out a meaningful ways of testing the above two.<br>Create documentation for the game.<br>**Register our game using online form given by course staff.** | **2017-03-31**
 Sprint 3 | All things front-end.<br>Required back-end support for the above.<br>Front-end testing, likely exploratory.<br>**Add other teams games to our service, fix any issues on our side.** | **2017-04-16**
 Sprint 4 | Quality assurance.<br>Optional features.<br>Create report for final submission.<br>**Upload project to Heroku, submit project to course staff.** | **2017-04-23**
-Presentation | Reserve a time slot, prep and execute presentation. | **2017-04-28**
+Presentation | **Reserve a time slot, prep and execute presentation.** | **2017-04-28**
