@@ -13,17 +13,9 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url, include
-from django.contrib import admin
+from django.conf.urls import url
+from gamestore import views as storeviews
 
-# Django view here, include frontend/backend
 urlpatterns = [
-    
-    # Frontend URLs
-    url(r'store/', include('gamestore.urls', namespace='store')),
-    
-    # RESTful api urls
-    url(r'api/', include('restfuldb.urls', namespace='api')),
-    
-    url(r'^admin/', admin.site.urls),
+    url(r'^$', storeviews.homepage),
 ]
