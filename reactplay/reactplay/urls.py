@@ -14,10 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
+from django.views.generic import RedirectView
 from django.contrib import admin
 
 # Django view here, include frontend/backend
 urlpatterns = [
+    url(r'^$', RedirectView.as_view(url='/store/')),
     
     # Frontend URLs
     url(r'store/', include('gamestore.urls', namespace='store')),
@@ -25,5 +27,6 @@ urlpatterns = [
     # RESTful api urls
     url(r'api/', include('restfuldb.urls', namespace='api')),
     
+    # Admin view
     url(r'^admin/', admin.site.urls),
 ]
