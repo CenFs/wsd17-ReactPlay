@@ -32,7 +32,7 @@ def all_games(request):
         games = Game.objects.all()
         gamelist = []
         for eachgame in games:
-            gamelist.append(eachgame.game.name)
+            gamelist.append(eachgame.name)
         return HttpResponse(json.dumps({'name': gamelist}), content_type="application/json")
     except Game.DoesNotExist:
         raise Http404("Game does not exist!")
