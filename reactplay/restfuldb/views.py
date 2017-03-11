@@ -12,6 +12,8 @@ def apitest(request):
             }
     return HttpResponse(json.dumps(data), content_type="application/json")
 
+
+
 def all_users(request):
     try:
         users = User.objects.all()
@@ -32,7 +34,7 @@ def all_games(request):
         for eachgame in games:
             gamelist.append(eachgame.game.name)
         return HttpResponse(json.dumps({'name': gamelist}), content_type="application/json")
-    except User.DoesNotExist:
+    except Game.DoesNotExist:
         raise Http404("Game does not exist!")
     except:
         raise Http404("Other problems...")
@@ -58,6 +60,8 @@ def user_info(request, userid):
         return HttpResponse(json.dumps(userinfo), content_type="application/json")
     except User.DoesNotExist:
         raise Http404("User does not exist!")
+    except UserGame.DoesNotExist:
+        raise Http404("UserGame does not exist!")
     except:
         raise Http404("Other problems...")
 
