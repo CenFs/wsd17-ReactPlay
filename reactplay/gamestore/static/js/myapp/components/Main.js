@@ -1,10 +1,7 @@
-// This component should combine all sub-components or containers together
-// and it will be passed to the entry file, be rendered to the html page
-
 import React from 'react';
 import Gamelist from '../containers/Gamelist';
 
-const App = () => (
+const Main = () => (
 <div>
     <h1>Django+React+Redux+Webpack </h1>
     <ul>
@@ -19,7 +16,25 @@ const App = () => (
         <li>8. Chrome is strongly recommended, and you should install React Developer Tools for Chrome, it is awesome</li>
     </ul>
     <Gamelist />
+
+    <a href="/store/login"> login page </a> <br/>
+    <a href="/store/register"> register page </a>
 </div>
 );
 
-export default App;
+export default Main;
+
+
+//import React from 'react';
+//
+//
+//const Main = ({}) => (
+//    <div>
+//        <h1>
+//            Welcome to ReactPlay
+//        </h1>
+//    </div>
+//);
+//
+//export default Main;
+

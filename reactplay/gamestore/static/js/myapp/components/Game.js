@@ -8,13 +8,13 @@ const Item  = ({gameName}) => (
 );
 
 const Game = ({name,games,fetchClick,clearClick}) => (
-<div>
-    <button onClick={()=>fetchClick()}>Fetch</button>
-    <button onClick={()=>clearClick()}>Clear</button>
-    <ul>
-        {games.map((g,index)=><Item key={index} gameName={g} />)}
-    </ul>
-</div>
+    <div>
+        <button onClick={()=>fetchClick()}>Fetch</button>
+        <button onClick={()=>clearClick()}>Clear</button>
+        <ul>
+            {games.map((g,index)=><Item key={index} gameName={g} />)}
+        </ul>
+    </div>
 );
 
 export default Game;
