@@ -11,19 +11,19 @@ const Register = () => (
 
   <label>
     Password:
-    <input type="text" name="name" />
+    <input type="password" name="password" />
   </label>
   <input type="submit" value="Submit" />
 
   <label>
     Retype password:
-    <input type="text" name="name" />
+    <input type="password" name="passwordRetype" />
   </label>
   <input type="submit" value="Submit" />
 
   <label>
     Email:
-    <input type="text" name="name" />
+    <input type="email" name="email" />
   </label>
   <input type="submit" value="Submit" />
 

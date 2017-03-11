@@ -7,7 +7,11 @@ const Login = () => (
     Name:
     <input type="text" name="name" />
   </label>
-  <input type="submit" value="Submit" />
+  <label>
+    Password:
+    <input type="password" name="password" />
+  </label>
+  <input type="submit" value="Login" />
 </form>
 
 );
