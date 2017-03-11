@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register test</title>
+</head>
+<body>
+    <h1>Register test</h1>
+    <form action="/api/register" method="post">
+        {% csrf_token %}
+        Username: <input type="text" name="username"><br>
+        Password: <input type="password" name="password"><br>
+        Email: <input type="email" name="email"><br>
+        <input type="radio" name="role" value="UserPlayer"> I'm a Player<br>
+        <input type="radio" name="role" value="UserDeveloper"> I'm a Developer<br>
+        <input type="submit" value="Register">
+    </form>
+    {{ result }}
+</body>
+</html>
