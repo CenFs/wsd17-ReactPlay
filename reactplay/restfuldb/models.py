@@ -25,7 +25,7 @@ class UserGame(models.Model):
     state = models.TextField()
 
     def __str__(self):
-        return "{} {}".format(self.player, self.game)
+        return "{} {}".format(self.user, self.game)
 
     def set_score(self, score):
         self.score = score
