@@ -17,5 +17,5 @@ from django.conf.urls import url
 from gamestore import views as storeviews
 
 urlpatterns = [
-    url(r'^$', storeviews.homepage),
+    url(r'^.*$', storeviews.homepage),
 ]
