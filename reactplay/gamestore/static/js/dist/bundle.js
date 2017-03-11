@@ -13336,7 +13336,13 @@ var Login = function Login() {
       "Name:",
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "text", name: "name" })
     ),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "submit", value: "Submit" })
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      "label",
+      null,
+      "Password:",
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "password", name: "password" })
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "submit", value: "Login" })
   );
 };
 
@@ -13466,21 +13472,21 @@ var Register = function Register() {
       "label",
       null,
       "Password:",
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "text", name: "name" })
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "password", name: "password" })
     ),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "submit", value: "Submit" }),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       "label",
       null,
       "Retype password:",
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "text", name: "name" })
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "password", name: "passwordRetype" })
     ),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "submit", value: "Submit" }),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       "label",
       null,
       "Email:",
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "text", name: "name" })
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "email", name: "email" })
     ),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("input", { type: "submit", value: "Submit" })
   );
