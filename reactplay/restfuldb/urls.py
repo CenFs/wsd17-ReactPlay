@@ -18,4 +18,10 @@ from restfuldb import views as restviews
 
 urlpatterns = [
     url(r'^test', restviews.apitest),
+    url(r'^users/$', restviews.all_users),
+    url(r'^users/(?P<userid>[0-9]+)/$', restviews.user_info),
+    url(r'^users/(?P<userid>[0-9]+)/games/(?P<gameid>[0-9]+)/$', restviews.gamestates),
+    url(r'^games/$', restviews.all_games),
+    url(r'^games/(?P<gameid>[0-9]+)/$', restviews.game_detail),
+    url(r'^search-post$', restviews.post_test),
 ]

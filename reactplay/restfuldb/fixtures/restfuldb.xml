@@ -1,44 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <django-objects version="1.0">
-    <object pk="1" model="restfuldb.users">
-        <field type="CharField" name="username">player1</field>
-        <field type="CharField" name="password">111</field>
-        <field type="CharField" name="role">pl</field>
-        <field type="PositiveIntegerField" name="balance">5</field>
-    </object>
-    <object pk="2" model="restfuldb.users">
-        <field type="CharField" name="username">player2</field>
-        <field type="CharField" name="password">222</field>
-        <field type="CharField" name="role">pl</field>
-        <field type="PositiveIntegerField" name="balance">0</field>
-    </object>
-    <object pk="3" model="restfuldb.users">
-        <field type="CharField" name="username">developer3</field>
-        <field type="CharField" name="password">333</field>
-        <field type="CharField" name="role">de</field>
-        <field type="PositiveIntegerField" name="balance">0</field>
-    </object>
-
-    <object pk="1" model="restfuldb.games">
-        <field type="CharField" name="name">game1</field>
-        <field to="restfuldb.users" name="author" rel="ManyToOneRel">3</field>
-        <field type="PositiveIntegerField" name="price">5</field>
+    <object pk="1" model="restfuldb.game">
+        <field type="CharField" name="name">game</field>
+        <field to="django.contrib.auth.models.user" name="author" rel="ManyToOneRel">3</field>
+        <field type="PositiveIntegerField" name="price">10</field>
         <field type="TextField" name="description">blablabla...</field>
         <field type="URLField" name="url">https://www.google.fi</field>
     </object>
 
     <object pk="1" model="restfuldb.usergame">
-        <field to="restfuldb.users" name="player" rel="ManyToOneRel">1</field>
-        <field to="restfuldb.games" name="game" rel="ManyToOneRel">1</field>
+        <field to="django.contrib.auth.models.user" name="user" rel="ManyToOneRel">2</field>
+        <field to="restfuldb.game" name="game" rel="ManyToOneRel">1</field>
         <field type="DateField" name="purchase_date">2017-03-03</field>
         <field type="IntegerField" name="score">100</field>
-        <field type="TextField" name="state">some json data...</field>
-    </object>
-    <object pk="2" model="restfuldb.usergame">
-        <field to="restfuldb.users" name="player" rel="ManyToOneRel">2</field>
-        <field to="restfuldb.games" name="game" rel="ManyToOneRel">1</field>
-        <field type="DateField" name="purchase_date">2017-03-10</field>
-        <field type="IntegerField" name="score">120</field>
         <field type="TextField" name="state">some json data...</field>
     </object>
 </django-objects>
