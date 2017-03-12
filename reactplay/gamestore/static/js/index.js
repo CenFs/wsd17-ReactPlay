@@ -11,7 +11,7 @@ import Login from './myapp/components/Login';
 import Register from './myapp/components/Register';
 import reducer from './myapp/reducers';
 import thunk from 'redux-thunk';
-import { Router, Route, browserHistory} from 'react-router';
+import { Router, Route, browserHistory } from 'react-router';
 //import createHistory from 'history/createBrowserHistory';
 import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux';
 
