@@ -22,24 +22,30 @@ def logintest(request):
         return render_to_response('login_test.html')
 
 def login(request):
-    if request.GET:
-        username = request.GET['username']
-        password = request.GET['password']
+    # enable JSONP for cross domain
+    status = "failure"
+    desc = ""
+    if (request.method == 'POST'):
+        postData = json.loads(request.body)
+        username = postData['username']
+        password = postData['password']
         if username == '' or password == '':
-            return render(request, "login_test.html", {'result': 'Empty username/password!'})
+            desc = "Empty username/password!"
         user = auth.authenticate(username=username, password=password)
         if user is not None:
             # the password verified for the user
             if user.is_active:
                 auth.login(request, user)
-                url = "/api/users/" + str(user.id)
-                return HttpResponseRedirect(url)
+                status = "success"
             else:
-                return render(request, "login_test.html", {'result': 'The password is valid, but the account has been disabled!'})
+                desc = "The password is valid, but the account has been disabled!"
         else:
             # the authentication system was unable to verify the username and password
-            return render(request, "login_test.html", {'result': 'The username and password were incorrect.'})
-    return render(request, "login_test.html", {'result': 'Something wrong. Null GET request!'})
+            desc = "The username and password were incorrect!"
+    else:
+        pass
+    responseData = json.dumps({'status': status, 'desc': desc})
+    return HttpResponse(responseData, content_type="application/json")
 
 def registertest(request):
     if request.user.is_authenticated:

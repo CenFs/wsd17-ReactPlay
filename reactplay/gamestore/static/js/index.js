@@ -8,6 +8,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import Main from './myapp/components/Main';
 import Login from './myapp/components/Login';
+//import LoginPage from './myapp/containers/LoginPage';
 import Register from './myapp/components/Register';
 import reducer from './myapp/reducers';
 import thunk from 'redux-thunk';

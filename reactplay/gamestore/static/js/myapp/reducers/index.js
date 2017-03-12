@@ -2,7 +2,7 @@
 // You can write a very long single reducer, but for most of the case, we will write many reducers and combine them together
 // Every reducer should be pure function! You are recommended to learn reducer more from internet, it's easy
 
-import {REQUEST_DATA, RECEIVE_DATA, CLEAR_DATA, LOGIN, LOGOUT} from '../actions';
+import {REQUEST_DATA, RECEIVE_DATA, CLEAR_DATA, LOGIN, LOGIN_SUCCESS, LOGIN_FAIL,LOGOUT} from '../actions';
 import { combineReducers } from 'redux';
 
 const name = (state='unknown',action) => {
@@ -27,11 +27,27 @@ const games = (state=[],action) => {
     }
 };
 
+const loading = (state=false,action) => {
+    switch(action.type)
+    {
+        case LOGIN:
+            return true;
+        case LOGIN_SUCCESS:
+            return false;
+        case LOGIN_FAIL:
+            return false;
+        default:
+            return state;
+    }
+}
+
 // real cases here
 const isLogin = (state=false,action) => {
     switch (action.type){
-        case LOGIN:
+        case LOGIN_SUCCESS:
             return true;
+        case LOGIN_FAIL:
+            return false;
         case LOGOUT:
             return false;
         default:

@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from restfuldb import views as restviews
+from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
     url(r'^test', restviews.apitest),
@@ -25,7 +26,7 @@ urlpatterns = [
     url(r'^games/(?P<gameid>[0-9]+)/$', restviews.game_detail),
 
     url(r'^logintest$', restviews.logintest),
-    url(r'^login$', restviews.login),
+    url(r'^login$', csrf_exempt(restviews.login)),
     url(r'^registertest$', restviews.registertest),
     url(r'^register$', restviews.register),
     url(r'^logouttest$', restviews.logouttest),
