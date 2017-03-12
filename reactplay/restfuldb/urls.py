@@ -28,4 +28,5 @@ urlpatterns = [
     url(r'^login$', restviews.login),
     url(r'^registertest$', restviews.registertest),
     url(r'^register$', restviews.register),
+    url(r'^logouttest$', restviews.logouttest),
 ]
