@@ -22,10 +22,10 @@ urlpatterns = [
     url(r'^$', RedirectView.as_view(url='/store/')),
     
     # Frontend URLs
-    url(r'store/', include('gamestore.urls', namespace='store')),
+    url(r'^store/', include('gamestore.urls', namespace='store')),
     
     # RESTful api urls
-    url(r'api/', include('restfuldb.urls', namespace='api')),
+    url(r'^api/', include('restfuldb.urls', namespace='api')),
     
     # Admin view
     url(r'^admin/', admin.site.urls),
