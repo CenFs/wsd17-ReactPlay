@@ -39,7 +39,7 @@ def login(request):
         else:
             # the authentication system was unable to verify the username and password
             return render(request, "login_test.html", {'result': 'The username and password were incorrect.'})
-    return render(request, "login_test.html", {'result': 'Something wrong. Not a GET request!'})
+    return render(request, "login_test.html", {'result': 'Something wrong. Null GET request!'})
 
 def registertest(request):
     if request.user.is_authenticated:
@@ -67,7 +67,7 @@ def register(request):
             raise Http404("Group does not exist!")
         except User.DoesNotExist:
             raise Http404("User does not exist!")
-    return render(request, "register_test.html", {'result': 'Something wrong. Not a POST request!'})
+    return render(request, "register_test.html", {'result': 'Something wrong. Null POST request!'})
 
 def logouttest(request):
     auth.logout(request)
@@ -110,7 +110,6 @@ def all_games(request):
 
 
 def user_info(request, userid):
-    
     # Check that logged in user matches wanted user (in the future, could allow admin access here)
     logged_user = request.user
     user = User.objects.get(pk=userid)
