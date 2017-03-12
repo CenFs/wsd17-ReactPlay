@@ -99,7 +99,7 @@ def user_info(request, userid):
     
     # Check that logged in user matches wanted user (in the future, could allow admin access here)
     user = request.user
-    if user.is_authenticated:
+    if user.is_authenticated and user.pk == userid:
         try:
             user = User.objects.get(pk=userid)
             owned_games = user.usergames.all()
