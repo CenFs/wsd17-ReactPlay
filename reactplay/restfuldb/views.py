@@ -98,10 +98,10 @@ def all_games(request):
 def user_info(request, userid):
     
     # Check that logged in user matches wanted user (in the future, could allow admin access here)
-    user = request.user
-    if user.is_authenticated and user.pk == userid:
+    logged_user = request.user
+    user = User.objects.get(pk=userid)
+    if user.is_authenticated and logged_user == user:
         try:
-            user = User.objects.get(pk=userid)
             owned_games = user.usergames.all()
             gamelist = []
             
@@ -123,7 +123,6 @@ def user_info(request, userid):
                         'email': user.email,
                         'owned_games': gamelist,
                         }
-            print(userinfo)
             return HttpResponse(json.dumps(userinfo), content_type="application/json")
         
         except User.DoesNotExist:

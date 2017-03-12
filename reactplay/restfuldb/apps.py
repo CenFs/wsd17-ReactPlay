@@ -75,7 +75,7 @@ def CreateDebugData(sender, **kwargs):
     #--------------------------------------------------------------------
     # Create a usergame
     usergame_data = {
-        'user': user,
+        'user': player,
         'game': game,
         'purchase_date': datetime.now(),
         'score': 1337,
