@@ -96,30 +96,44 @@ def all_games(request):
 
 
 def user_info(request, userid):
-    try:
-        if request.user.is_authenticated:
+    
+    # Check that logged in user matches wanted user (in the future, could allow admin access here)
+    user = request.user
+    if user.is_authenticated:
+        try:
             user = User.objects.get(pk=userid)
-            owned_games = UserGame.objects.filter(user=user)
+            owned_games = user.usergames.all()
             gamelist = []
-            if not owned_games:
-                gamelist.append('None')
-            else:
-                for eachgame in owned_games:
-                    gamelist.append(eachgame.game.name)
+            
+            # List required information about each game
+            for usergame in owned_games:
+                gameheader = {'id': usergame.game.pk,
+                              'name': usergame.game.name,
+                              'author': usergame.game.author.username,
+                             }
+                usergameinfo = {'gameheader': gameheader,
+                                'purchase_date': usergame.purchase_date.ctime(),
+                                'score': usergame.score,
+                               }
+                gamelist.append(usergameinfo)
+            
+            # Add user information on top of the game infos
             userinfo = {'id': userid,
                         'username': user.username,
-                        'password': user.password,
-                        'owned_games': gamelist
+                        'email': user.email,
+                        'owned_games': gamelist,
                         }
+            print(userinfo)
             return HttpResponse(json.dumps(userinfo), content_type="application/json")
-        else:
-            return Http404("Sorry, no permission!")
-    except User.DoesNotExist:
-        raise Http404("User does not exist!")
-    except UserGame.DoesNotExist:
-        raise Http404("UserGame does not exist!")
-    except:
-        raise Http404("Other problems...")
+        
+        except User.DoesNotExist:
+            raise Http404("User does not exist!")
+        except UserGame.DoesNotExist:
+            raise Http404("UserGame does not exist!")
+        except:
+            raise Http404("Other problems...")
+    else:
+        return Http404("Sorry, no permission!")
 
 
 

@@ -26,6 +26,8 @@ def CreateDefaultGroups(sender, **kwargs):
 def CreateDebugData(sender, **kwargs):
     # import here, because apps.py is loaded before django models are initialized
     from django.contrib.auth.models import User, Group
+    from restfuldb.models import Game, UserGame
+    from datetime import datetime
     
     def _get_or_create_user(username, password, email, groupname=None):
         # Either get or create a new user
@@ -51,13 +53,36 @@ def CreateDebugData(sender, **kwargs):
     
     #--------------------------------------------------------------------
     # Create a player
-    user = _get_or_create_user('player', 'debugpass', 'nobody@nowhere.com', 'UserPlayer')
-    user.save()
+    player = _get_or_create_user('player', 'debugpass', 'nobody@nowhere.com', 'UserPlayer')
+    player.save()
     
     #--------------------------------------------------------------------
     # Create a developer
-    user = _get_or_create_user('developer', 'debugpass', 'nobody@nowhere.com', 'UserDeveloper')
-    user.save()
+    developer = _get_or_create_user('developer', 'debugpass', 'nobody@nowhere.com', 'UserDeveloper')
+    developer.save()
+    
+    #--------------------------------------------------------------------
+    # Create a game
+    game_data = {
+        'name': 'test game',
+        'author': developer,
+        'price': 10,
+        'description': 'test description',
+        'url': 'http://notvalid.com',
+    }
+    game, created = Game.objects.get_or_create(**game_data)
+    
+    #--------------------------------------------------------------------
+    # Create a usergame
+    usergame_data = {
+        'user': user,
+        'game': game,
+        'purchase_date': datetime.now(),
+        'score': 1337,
+        'state': '',
+    }
+    usergame, created = UserGame.objects.get_or_create(**usergame_data)
+    
 
 class RestfuldbConfig(AppConfig):
     name = 'restfuldb'
