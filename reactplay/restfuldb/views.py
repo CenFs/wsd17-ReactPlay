@@ -11,6 +11,7 @@ FORBIDDEN = 403
 OK = 200
 NOT_FOUND = 404
 CREATED = 201
+CONTINUE = 100
 
 def apitest(request):
     data = {'name': 'DeveloperC',
@@ -39,6 +40,9 @@ def logouttest(request):
 
 def login(request):
     # enable JSONP for cross domain
+    if not request.user.is_anonymous:
+        responseData = json.dumps({'status': "logged-in-user", 'desc': "already logged in"})
+        return HttpResponse(responseData, content_type="application/json", status=CONTINUE)
     status = "failure"
     desc = ""
     response_status_code = BAD_REQUEST
@@ -63,6 +67,7 @@ def login(request):
                 status = "success"
                 desc = "login successfully!"
                 response_status_code = OK
+                print(request.user)
             else:
                 desc = "The password is valid, but the account has been disabled!"
                 response_status_code = UNAUTHORIZED
@@ -158,25 +163,11 @@ def all_users(request):
             userlist = []
             for eachuser in users:
                 userlist.append(eachuser.username)
-            return HttpResponse(json.dumps({'username': userlist}), content_type="application/json")
+            return HttpResponse(json.dumps({'username': userlist}), content_type="application/json", status=OK)
         else:
             return HttpResponse("Sorry, no permission!")
     except User.DoesNotExist:
         raise Http404("User does not exist!")
-    except:
-        raise Http404("Other problems...")
-
-
-
-def all_games(request):
-    try:
-        games = Game.objects.all()
-        gamelist = []
-        for eachgame in games:
-            gamelist.append(eachgame.name)
-        return HttpResponse(json.dumps({'name': gamelist}), content_type="application/json")
-    except Game.DoesNotExist:
-        raise Http404("Game does not exist!")
     except:
         raise Http404("Other problems...")
 
@@ -212,14 +203,30 @@ def user_info(request, userid):
                         'email': user.email,
                         'owned_games': gamelist,
                         }
-            return HttpResponse(json.dumps(userinfo), content_type="application/json")
+            return HttpResponse(json.dumps(userinfo), content_type="application/json", status=OK)
         
         except UserGame.DoesNotExist:
             raise Http404("UserGame does not exist!")
         except:
             raise Http404("Other problems...")
     else:
-        return HttpResponse('No permission!', status=401)
+        return HttpResponse('No permission!', status=UNAUTHORIZED)
+
+
+
+
+def all_games(request):
+    try:
+        games = Game.objects.all()
+        gamelist = []
+        for eachgame in games:
+            gamelist.append(eachgame.name)
+        return HttpResponse(json.dumps({'name': gamelist}), content_type="application/json", status=OK)
+    except Game.DoesNotExist:
+        raise Http404("Game does not exist!")
+    except:
+        raise Http404("Other problems...")
+
 
 
 
@@ -233,7 +240,7 @@ def game_detail(request, gameid):
                     'description': game.description,
                     'url': game.url
                     }
-        return HttpResponse(json.dumps(gameinfo), content_type="application/json")
+        return HttpResponse(json.dumps(gameinfo), content_type="application/json", status=OK)
     except Game.DoesNotExist:
         raise Http404("Game does not exist!")
     except:
@@ -242,11 +249,12 @@ def game_detail(request, gameid):
 
 
 def gamestates(request, userid, gameid):
+    # PERMISSION CHECKING!
     try:
         user = User.objects.get(pk=userid)
         game = Game.objects.get(pk=gameid)
         usergame = UserGame.objects.get(user=user, game=game)
-        return HttpResponse(json.dumps(usergame.state), content_type="application/json")
+        return HttpResponse(json.dumps(usergame.state), content_type="application/json", status=OK)
     except User.DoesNotExist:
         raise Http404("User does not exist!")
     except Game.DoesNotExist:

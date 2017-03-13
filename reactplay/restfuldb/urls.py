@@ -31,4 +31,5 @@ urlpatterns = [
 
     url(r'^login$', csrf_exempt(restviews.login)),
     url(r'^register$', csrf_exempt(restviews.register)),
+    url(r'^logout$', restviews.logout),
 ]
