@@ -32,9 +32,12 @@ export const logoutPage = () => ({
 export const loginClick = formData => dispatch => {
     dispatch(loginPage());
     console.log("JSON.stringify(formData) is "+JSON.stringify(formData));
-    return fetch('/api/login',{method:'post', headers: {
-                                'Content-Type': 'application/json'
-                              }, body:JSON.stringify(formData)})
+    return fetch('/api/login', {  
+      credentials: 'include',
+      method:'post', headers: {
+        'Content-Type': 'application/json'
+      }, body:JSON.stringify(formData)
+    })
         .then(x=>x.json())
         .then(result=>{
             console.log(result);
