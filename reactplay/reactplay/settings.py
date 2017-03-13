@@ -25,7 +25,6 @@ SECRET_KEY = 'c*l7c8q73!k=@83zgd!!^w1lt1*%xpuy@zpvu_x8utp^alp-gr'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -58,7 +57,7 @@ ROOT_URLCONF = 'reactplay.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,  'templates'),],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

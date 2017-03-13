@@ -1,5 +1,4 @@
 from django.shortcuts import render, render_to_response
-from django.views.decorators import csrf
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 import json
 from restfuldb.models import Game, UserGame
@@ -7,7 +6,6 @@ from django.contrib.auth.models import User, Group
 from django.contrib import auth
 
 
-"""  ++++++++++++++  TEST FUNCS  ++++++++++++++  """
 def apitest(request):
     data = {'name': 'DeveloperC',
             'age': 12,
@@ -21,71 +19,115 @@ def logintest(request):
     else:
         return render_to_response('login_test.html')
 
-def login(request):
-    # enable JSONP for cross domain
-    status = "failure"
-    desc = ""
-    if (request.method == 'POST'):
-        postData = json.loads(request.body)
-        username = postData['username']
-        password = postData['password']
-        if username == '' or password == '':
-            desc = "Empty username/password!"
-        user = auth.authenticate(username=username, password=password)
-        if user is not None:
-            # the password verified for the user
-            if user.is_active:
-                auth.login(request, user)
-                status = "success"
-            else:
-                desc = "The password is valid, but the account has been disabled!"
-        else:
-            # the authentication system was unable to verify the username and password
-            desc = "The username and password were incorrect!"
-    else:
-        pass
-    responseData = json.dumps({'status': status, 'desc': desc})
-    return HttpResponse(responseData, content_type="application/json")
-
 def registertest(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('/store/')
     else:
         return render_to_response('register_test.html')
 
-@csrf.csrf_exempt
+def logouttest(request):
+    auth.logout(request)
+    return HttpResponseRedirect('/store/')
+
+
+
+def login(request):
+    # enable JSONP for cross domain
+    status = "failure"
+    desc = ""
+    if request.method == 'POST':
+        postData = json.loads(request.body)
+        username = postData['username']
+        password = postData['password']
+        if username == '' or password == '':
+            desc = "Empty username/password!"
+            responseData = json.dumps({'status': status, 'desc': desc})
+            return HttpResponse(responseData, content_type="application/json")
+        user = auth.authenticate(username=username, password=password)
+        if user is not None:
+            # the password verified for the user
+            if user.is_active:
+                auth.login(request, user)
+                status = "success"
+                desc = "login successfully!"
+            else:
+                desc = "The password is valid, but the account has been disabled!"
+        else:
+            # the authentication system was unable to verify the username and password
+            desc = "The username and password were incorrect!"
+    else:
+        desc = "not a POST request!"
+    responseData = json.dumps({'status': status, 'desc': desc})
+    return HttpResponse(responseData, content_type="application/json")
+
 def register(request):
-    if request.POST:
-        username = request.POST['username']
-        password = request.POST['password']
-        email = request.POST['email']
-        groupname = request.POST['role']
+    # Copied from login(), waiting for connect with react parts.
+    # Get from frontend: (username, password, email, role)
+    # Return: (status, desc, userinfo)
+    status = "failure"
+    desc = ""
+    userinfo = {}
+    if request.method == 'POST':
+        postData = json.loads(request.body)
+        username = postData['username']
+        password = postData['password']
+        email = postData['email']
+        groupname = postData['role']
+        if username == '' or password == '':
+            desc = "Empty username/password!"
+            responseData = json.dumps({'status': status, 'desc': desc, 'userinfo': userinfo})
+            return HttpResponse(responseData, content_type="application/json")
+        if groupname == '':
+            desc = "Choose a role please!"
+            responseData = json.dumps({'status': status, 'desc': desc, 'userinfo': userinfo})
+            return HttpResponse(responseData, content_type="application/json")
         try:
             group = Group.objects.get(name=groupname)
             if group is not None:
                 user = User.objects.create_user(username=username, email=email, password=password)
                 group.user_set.add(user)
                 user.save()
-                return render(request, "register_test.html", {'result': user})
+                userinfo = {'userid': user.id,
+                            'username': username,
+                            'email': email,
+                            'password': password,
+                            'role': groupname}
+                status = "success"
+                desc = "register successfully!"
             else:
-                return render(request, "register_test.html", {'result': 'Wrong group!'})
+                desc = 'Wrong group!'
         except Group.DoesNotExist:
-            raise Http404("Group does not exist!")
+            desc = "Group does not exist!"
         except User.DoesNotExist:
-            raise Http404("User does not exist!")
-    return render(request, "register_test.html", {'result': 'Something wrong. Null POST request!'})
+            desc = "User does not exist!"
+    else:
+       desc = "not a POST request!"
+    responseData = json.dumps({'status': status, 'desc': desc, 'userinfo': userinfo})
+    return HttpResponse(responseData, content_type="application/json")
 
-def logouttest(request):
+def logout(request):
+    # Not connect to anything, waiting for connect with react parts.
+    status = "failure"
+    desc = "something wrong, cannot logout."
     auth.logout(request)
-    return render_to_response('login_test.html')
+    if request.user.is_anonymous:
+        status = "success"
+        desc = 'logout successfully!'
+    # return render_to_response('login_test.html')
+    return HttpResponse(json.dumps({'status': status, 'desc': desc}), content_type="application/json")
 
 
 
-"""  ++++++++++++++  ACTUAL FUNCS  ++++++++++++++  """
+
+
+
+
+
 
 def all_users(request):
     try:
         user = request.user
+        print(user)
         if user.is_authenticated and user.is_superuser:
             users = User.objects.all()
             userlist = []

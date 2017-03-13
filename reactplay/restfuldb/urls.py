@@ -26,8 +26,9 @@ urlpatterns = [
     url(r'^games/(?P<gameid>[0-9]+)/$', restviews.game_detail),
 
     url(r'^logintest$', restviews.logintest),
-    url(r'^login$', csrf_exempt(restviews.login)),
     url(r'^registertest$', restviews.registertest),
-    url(r'^register$', restviews.register),
     url(r'^logouttest$', restviews.logouttest),
+
+    url(r'^login$', csrf_exempt(restviews.login)),
+    url(r'^register$', csrf_exempt(restviews.register)),
 ]
