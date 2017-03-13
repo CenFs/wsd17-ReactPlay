@@ -13,36 +13,17 @@ NOT_FOUND = 404
 CREATED = 201
 CONTINUE = 100
 
-def apitest(request):
-    data = {'name': 'DeveloperC',
-            'age': 12,
-            'games': ['game1', 'game2', 'game3']
-            }
-    return HttpResponse(json.dumps(data), content_type="application/json")
-
-def logintest(request):
-    if request.user.is_authenticated:
-        return HttpResponseRedirect('/store/')
-    else:
-        return render_to_response('login_test.html')
-
-def registertest(request):
-    if request.user.is_authenticated:
-        return HttpResponseRedirect('/store/')
-    else:
-        return render_to_response('register_test.html')
-
-def logouttest(request):
-    auth.logout(request)
-    return HttpResponseRedirect('/store/')
-
 
 
 def login(request):
     # enable JSONP for cross domain
+
+    # Logged-in User
     if not request.user.is_anonymous:
         responseData = json.dumps({'status': "logged-in-user", 'desc': "already logged in"})
         return HttpResponse(responseData, content_type="application/json", status=CONTINUE)
+
+    # Anonymous User
     status = "failure"
     desc = ""
     response_status_code = BAD_REQUEST
@@ -81,9 +62,24 @@ def login(request):
     return HttpResponse(responseData, content_type="application/json", status=response_status_code)
 
 def register(request):
-    # Copied from login(), waiting for connect with react parts.
-    # Get from frontend: (username, password, email, role)
+    # Waiting for connect with react parts
+    # Get: (username, password, email, role)
     # Return: (status, desc, userinfo)
+
+    # Logged-in User
+    if not request.user.is_anonymous:
+        user = request.user
+        userinfo = {'userid': user.id,
+                    'username': user.username,
+                    'email': user.email,
+                    'password': user.password,
+                    'role': 'DONT KNOW HOW TO GET IT EASILY.. WILL BE FIXED TOMORROW'}
+        responseData = json.dumps({'status': "logged-in-user",
+                                   'desc': "already logged in",
+                                   'userinfo': userinfo})
+        return HttpResponse(responseData, content_type="application/json", status=CONTINUE)
+
+    # Anonymous User
     status = "failure"
     desc = ""
     userinfo = {}
@@ -133,7 +129,7 @@ def register(request):
     return HttpResponse(responseData, content_type="application/json", status=response_status_code)
 
 def logout(request):
-    # Not connect to anything, waiting for connect with react parts.
+    # Waiting for connect with react parts.
     status = "failure"
     desc = "something wrong, cannot logout."
     response_status_code = BAD_REQUEST
@@ -145,8 +141,6 @@ def logout(request):
     # return render_to_response('login_test.html')
     responseData = json.dumps({'status': status, 'desc': desc})
     return HttpResponse(responseData, content_type="application/json", status=response_status_code)
-
-
 
 
 
@@ -170,7 +164,6 @@ def all_users(request):
         raise Http404("User does not exist!")
     except:
         raise Http404("Other problems...")
-
 
 
 def user_info(request, userid):
@@ -215,6 +208,9 @@ def user_info(request, userid):
 
 
 
+
+
+
 def all_games(request):
     try:
         games = Game.objects.all()
@@ -226,8 +222,6 @@ def all_games(request):
         raise Http404("Game does not exist!")
     except:
         raise Http404("Other problems...")
-
-
 
 
 def game_detail(request, gameid):
@@ -247,7 +241,6 @@ def game_detail(request, gameid):
         raise Http404("Other problems...")
 
 
-
 def gamestates(request, userid, gameid):
     # PERMISSION CHECKING!
     try:
@@ -264,3 +257,32 @@ def gamestates(request, userid, gameid):
     except:
         raise Http404("Other problems...")
 
+
+
+
+
+
+
+
+def apitest(request):
+    data = {'name': 'DeveloperC',
+            'age': 12,
+            'games': ['game1', 'game2', 'game3']
+            }
+    return HttpResponse(json.dumps(data), content_type="application/json")
+
+def logintest(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/store/')
+    else:
+        return render_to_response('login_test.html')
+
+def registertest(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/store/')
+    else:
+        return render_to_response('register_test.html')
+
+def logouttest(request):
+    auth.logout(request)
+    return HttpResponseRedirect('/store/')
