@@ -5,6 +5,12 @@ from restfuldb.models import Game, UserGame
 from django.contrib.auth.models import User, Group
 from django.contrib import auth
 
+UNAUTHORIZED = 401
+BAD_REQUEST = 400
+FORBIDDEN = 403
+OK = 200
+NOT_FOUND = 404
+CREATED = 201
 
 def apitest(request):
     data = {'name': 'DeveloperC',
@@ -35,14 +41,20 @@ def login(request):
     # enable JSONP for cross domain
     status = "failure"
     desc = ""
+    response_status_code = BAD_REQUEST
     if request.method == 'POST':
-        postData = json.loads(request.body)
-        username = postData['username']
-        password = postData['password']
+        try:
+            postData = json.loads(request.body)
+            username = postData['username']
+            password = postData['password']
+        except:
+            desc = "request.body missing username/password attribute!"
+            responseData = json.dumps({'status': status, 'desc': desc})
+            return HttpResponse(responseData, content_type="application/json", status=response_status_code)
         if username == '' or password == '':
             desc = "Empty username/password!"
             responseData = json.dumps({'status': status, 'desc': desc})
-            return HttpResponse(responseData, content_type="application/json")
+            return HttpResponse(responseData, content_type="application/json", status=response_status_code)
         user = auth.authenticate(username=username, password=password)
         if user is not None:
             # the password verified for the user
@@ -50,15 +62,18 @@ def login(request):
                 auth.login(request, user)
                 status = "success"
                 desc = "login successfully!"
+                response_status_code = OK
             else:
                 desc = "The password is valid, but the account has been disabled!"
+                response_status_code = UNAUTHORIZED
         else:
             # the authentication system was unable to verify the username and password
             desc = "The username and password were incorrect!"
+            response_status_code = UNAUTHORIZED
     else:
         desc = "not a POST request!"
     responseData = json.dumps({'status': status, 'desc': desc})
-    return HttpResponse(responseData, content_type="application/json")
+    return HttpResponse(responseData, content_type="application/json", status=response_status_code)
 
 def register(request):
     # Copied from login(), waiting for connect with react parts.
@@ -67,20 +82,26 @@ def register(request):
     status = "failure"
     desc = ""
     userinfo = {}
+    response_status_code = BAD_REQUEST
     if request.method == 'POST':
-        postData = json.loads(request.body)
-        username = postData['username']
-        password = postData['password']
-        email = postData['email']
-        groupname = postData['role']
+        try:
+            postData = json.loads(request.body)
+            username = postData['username']
+            password = postData['password']
+            email = postData['email']
+            groupname = postData['role']
+        except:
+            desc = "request.body missing username/password/email/role attribute!"
+            responseData = json.dumps({'status': status, 'desc': desc})
+            return HttpResponse(responseData, content_type="application/json", status=response_status_code)
         if username == '' or password == '':
             desc = "Empty username/password!"
             responseData = json.dumps({'status': status, 'desc': desc, 'userinfo': userinfo})
-            return HttpResponse(responseData, content_type="application/json")
+            return HttpResponse(responseData, content_type="application/json", status=response_status_code)
         if groupname == '':
             desc = "Choose a role please!"
             responseData = json.dumps({'status': status, 'desc': desc, 'userinfo': userinfo})
-            return HttpResponse(responseData, content_type="application/json")
+            return HttpResponse(responseData, content_type="application/json", status=response_status_code)
         try:
             group = Group.objects.get(name=groupname)
             if group is not None:
@@ -94,6 +115,7 @@ def register(request):
                             'role': groupname}
                 status = "success"
                 desc = "register successfully!"
+                response_status_code = CREATED
             else:
                 desc = 'Wrong group!'
         except Group.DoesNotExist:
@@ -103,18 +125,21 @@ def register(request):
     else:
        desc = "not a POST request!"
     responseData = json.dumps({'status': status, 'desc': desc, 'userinfo': userinfo})
-    return HttpResponse(responseData, content_type="application/json")
+    return HttpResponse(responseData, content_type="application/json", status=response_status_code)
 
 def logout(request):
     # Not connect to anything, waiting for connect with react parts.
     status = "failure"
     desc = "something wrong, cannot logout."
+    response_status_code = BAD_REQUEST
     auth.logout(request)
     if request.user.is_anonymous:
         status = "success"
         desc = 'logout successfully!'
+        response_status_code = OK
     # return render_to_response('login_test.html')
-    return HttpResponse(json.dumps({'status': status, 'desc': desc}), content_type="application/json")
+    responseData = json.dumps({'status': status, 'desc': desc})
+    return HttpResponse(responseData, content_type="application/json", status=response_status_code)
 
 
 
