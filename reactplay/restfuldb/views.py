@@ -160,7 +160,10 @@ def all_games(request):
 def user_info(request, userid):
     # Check that logged in user matches wanted user (in the future, could allow admin access here)
     logged_user = request.user
-    user = User.objects.get(pk=userid)
+    try:
+        user = User.objects.get(pk=userid)
+    except User.DoesNotExist:
+        raise Http404("User does not exist!")
     if user.is_authenticated and logged_user == user:
         try:
             owned_games = user.usergames.all()
@@ -186,14 +189,12 @@ def user_info(request, userid):
                         }
             return HttpResponse(json.dumps(userinfo), content_type="application/json")
         
-        except User.DoesNotExist:
-            raise Http404("User does not exist!")
         except UserGame.DoesNotExist:
             raise Http404("UserGame does not exist!")
         except:
             raise Http404("Other problems...")
     else:
-        return Http404("Sorry, no permission!")
+        return HttpResponse('No permission!', status=401)
 
 
 
