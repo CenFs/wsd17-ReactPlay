@@ -3,7 +3,7 @@ from django.conf import settings
 
 
 class Game(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='developedgames')
     price = models.PositiveIntegerField(default=0)
     description = models.TextField()
@@ -34,3 +34,6 @@ class UserGame(models.Model):
     def set_state(self, state):
         self.state = state
         return self.save()
+
+    class Meta:
+        unique_together = ('user','game')
