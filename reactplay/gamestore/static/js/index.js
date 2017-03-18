@@ -20,11 +20,13 @@ import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-ro
 
 const middleware = [ thunk ];
 
+// use createStore from Redux to create the store for the app, reducer is required
 const store = createStore(
   reducer,
   applyMiddleware(...middleware)
 );
 
+// render all react components into div#top
 render(
     <Provider store={store}>
         <Router history={browserHistory}>
@@ -35,11 +37,3 @@ render(
     </Provider>
     ,document.getElementById('top')
 );
-
-// <Route path="/store/login" component={Login}></Route>
-// <Route exact path="/" component={Main}/>
-// <Route path="/login" component={Login}/>
-
-//            <Route path="/" component={Main}>
-//                <Route path="/login" component={Login}> </Route>
-//            </Route>

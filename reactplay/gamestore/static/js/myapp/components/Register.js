@@ -4,6 +4,7 @@ import { registerClick } from '../actions';
 import { connect } from 'react-redux';
 import ReactDOM from 'react-dom'
 
+// Define Register Component
 class Register extends React.Component{
 
     constructor(props) {
@@ -98,6 +99,7 @@ class Register extends React.Component{
     }
 };
 
+// Pass the root store into Register component
 const mapStateToProps = (state) => ({
 });
 

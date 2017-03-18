@@ -26,6 +26,7 @@ def login(request):
     # Anonymous User
     status = "failure"
     desc = ""
+    userinfo = {}
     response_status_code = BAD_REQUEST
     if request.method == 'POST':
         try:
@@ -48,7 +49,12 @@ def login(request):
                 status = "success"
                 desc = "login successfully!"
                 response_status_code = OK
-                print(request.user)
+                u = User.objects.get(username=username)
+                userinfo = {'userid': u.id,
+                            'username': u.username,
+                            'email': u.email,
+                            'role': ''}
+                print(userinfo)
             else:
                 desc = "The password is valid, but the account has been disabled!"
                 response_status_code = UNAUTHORIZED
@@ -58,7 +64,7 @@ def login(request):
             response_status_code = UNAUTHORIZED
     else:
         desc = "not a POST request!"
-    responseData = json.dumps({'status': status, 'desc': desc})
+    responseData = json.dumps({'status': status, 'desc': desc, 'userinfo':userinfo})
     return HttpResponse(responseData, content_type="application/json", status=response_status_code)
 
 def register(request):
@@ -72,7 +78,7 @@ def register(request):
         userinfo = {'userid': user.id,
                     'username': user.username,
                     'email': user.email,
-                    'password': user.password,
+                    # 'password': user.password,
                     'role': 'DONT KNOW HOW TO GET IT EASILY.. WILL BE FIXED TOMORROW'}
         responseData = json.dumps({'status': "logged-in-user",
                                    'desc': "already logged in",
