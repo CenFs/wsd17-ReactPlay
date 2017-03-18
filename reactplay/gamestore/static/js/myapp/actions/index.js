@@ -12,6 +12,9 @@ export const LOGIN = 'LOGIN';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGOUT = 'LOGOUT';
+export const REGISTER = 'REGISTER'
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+export const REGISTER_FAIL = 'REGISTER_FAIL';
 // real actions
 export const loginPage = () => ({
     type:LOGIN
@@ -27,6 +30,18 @@ export const loginFailure = () => ({
 
 export const logoutPage = () => ({
     type:LOGOUT
+});
+
+export const registerPage = () => ({
+    type:REGISTER
+});
+
+export const registerSuccess = () => ({
+    type:REGISTER_SUCCESS
+});
+
+export const registerFailure = () => ({
+    type:REGISTER_FAIL
 });
 
 export const loginClick = formData => dispatch => {
@@ -54,6 +69,31 @@ export const loginClick = formData => dispatch => {
         });
 };
 //
+
+export const registerClick = formData => dispatch => {
+    dispatch(registerPage());
+    console.log("JSON.stringify(formData) is "+JSON.stringify(formData));
+    return fetch('/api/register', {  
+      credentials: 'include',
+      method:'post', headers: {
+        'Content-Type': 'application/json'
+      }, body:JSON.stringify(formData)
+    })
+        .then(x=>x.json())
+        .then(result=>{
+            console.log(result);
+            if (result.status == "success")
+            {
+                dispatch(registerSuccess());
+                alert("register success!");
+            }
+            else
+            {
+                dispatch(registerFailure());
+                alert(result.desc);
+            }
+        });
+};
 
 export const requestData = () => ({
     type:REQUEST_DATA
