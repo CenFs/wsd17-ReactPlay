@@ -2,9 +2,18 @@ from django.db import models
 from django.conf import settings
 
 
+class GameGenre(models.Model):
+    """Contains name for available game genre."""
+
+    name = models.CharField(max_length=32, unique=True)
+
+
 class Game(models.Model):
+    """Contains information about a single game."""
+
     name = models.CharField(max_length=255, unique=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='developedgames')
+    genre = models.ForeignKey(GameGenre, related_name='developedgames')
     price = models.PositiveIntegerField(default=0)
     description = models.TextField()
     url = models.URLField()
@@ -18,6 +27,8 @@ class Game(models.Model):
 
 
 class UserGame(models.Model):
+    """Contains information of a game that is related to a user."""
+
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='usergames')
     game = models.ForeignKey(Game)
     purchase_date = models.DateField(auto_now_add=True)

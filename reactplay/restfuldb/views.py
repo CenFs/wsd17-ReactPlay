@@ -1,7 +1,7 @@
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 import json
-from restfuldb.models import Game, UserGame
+from restfuldb.models import Game, GameGenre, UserGame
 from django.contrib.auth.models import User, Group
 from django.contrib import auth
 
@@ -215,22 +215,58 @@ def user_info(request, userid):
 
 
 
+def all_genres(request):
+    # Return all genres as {id, name}
+    genreobjs = GameGenre.objects.all()
+    genrelist = []
+    for genre in genreobjs:
+        genrelist.append({'id':genre.id, 'name':genre.name})
+    return HttpResponse(json.dumps(genrelist), content_type="application/json", status=OK)
 
 
 def all_games(request):
-    try:
-        games = Game.objects.all()
-        gamelist = []
-        for eachgame in games:
-            gamelist.append(eachgame.name)
-        return HttpResponse(json.dumps({'name': gamelist}), content_type="application/json", status=OK)
-    except Game.DoesNotExist:
-        raise Http404("Game does not exist!")
-    except:
-        raise Http404("Other problems...")
+    # Check for genre_ids filter (array of ids)
+    if request.method == 'POST':
+        try:
+            postData = json.loads(request.body)
+            genre_ids = postData['genre_ids']
+            if not isinstance(genre_ids, list):
+                raise Exception()
+        except:
+            desc = "request.body missing or has an invalid genre_ids filter"
+            responseData = json.dumps({'status': 'failure', 'desc': desc})
+            return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
+        
+        # Fetch games that are in the filter
+        try:
+            games = Game.objects.filter(genre__id__in=genre_ids)
+            gamelist = []
+            for eachgame in games:
+                gamelist.append({'id': eachgame.id,
+                                 'name': eachgame.name,
+                                 'author': eachgame.author.username,
+                                 'price': eachgame.price,
+                                 'description': eachgame.description
+                                 })
+            return HttpResponse(json.dumps(gamelist), content_type="application/json", status=OK)
+        except Game.DoesNotExist:
+            raise Http404("Game does not exist!")
+        except:
+            raise Http404("Other problems...")
+    else:
+       desc = "not a POST request!"
+    responseData = json.dumps({'status': 'failure', 'desc': desc})
+    return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
 
 
 def game_detail(request, gameid):
+    # If not logged in -> 
+    #   get: everything except url
+    # If logged in but does not own game ->
+    #   get: everything except url
+    #   post: TODO: figure out how the fake buying service integrates here
+    # If logged in and owns game ->
+    #   get: everything
     try:
         game = Game.objects.get(pk=gameid)
         gameinfo = {'id': gameid,
@@ -248,6 +284,8 @@ def game_detail(request, gameid):
 
 
 def gamestates(request, userid, gameid):
+    # check for login and owning game
+    # on post allow saving state and score separately or together
     # PERMISSION CHECKING!
     try:
         user = User.objects.get(pk=userid)

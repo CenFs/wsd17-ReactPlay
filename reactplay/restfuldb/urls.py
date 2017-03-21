@@ -22,6 +22,8 @@ urlpatterns = [
     url(r'^users/$', restviews.all_users),
     url(r'^users/(?P<userid>[0-9]+)/$', restviews.user_info),
     url(r'^users/(?P<userid>[0-9]+)/games/(?P<gameid>[0-9]+)/$', restviews.gamestates),
+    
+    url(r'^genres/$', restviews.all_genres),
     url(r'^games/$', restviews.all_games),
     url(r'^games/(?P<gameid>[0-9]+)/$', restviews.game_detail),
 

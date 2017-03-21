@@ -4,6 +4,7 @@ from django.db.models.signals import post_migrate
 def CreateDefaultGroups(sender, **kwargs):
     # import here, because apps.py is loaded before django models are initialized
     from django.contrib.auth.models import Group, Permission
+    from restfuldb.models import GameGenre
 
     # Player
     group_p, created = Group.objects.get_or_create(name='UserPlayer')
@@ -21,12 +22,22 @@ def CreateDefaultGroups(sender, **kwargs):
             Permission.objects.get(codename='add_game'),
             Permission.objects.get(codename='change_game'),
         ])
+    
+    
+    # Create game genres
+    genre_datas = [{'name': 'Platform'},
+                   {'name': 'Shooter'},
+                   {'name': 'Fighting'},
+                   {'name': 'Adventure'},
+                   {'name': 'Survival'}]
+    for genre_data in genre_datas:
+        GameGenre.objects.get_or_create(**genre_data)
 
 
 def CreateDebugData(sender, **kwargs):
     # import here, because apps.py is loaded before django models are initialized
     from django.contrib.auth.models import User, Group
-    from restfuldb.models import Game, UserGame
+    from restfuldb.models import Game, UserGame, GameGenre
     from datetime import datetime
     
     def _get_or_create_user(username, password, email, groupname=None):
@@ -60,15 +71,30 @@ def CreateDebugData(sender, **kwargs):
     # Create a developer
     developer = _get_or_create_user('developer', 'debugpass', 'nobody@nowhere.com', 'UserDeveloper')
     developer.save()
-
+    
     #--------------------------------------------------------------------
     # Create a game
+    genre = GameGenre.objects.get(id=1)
     game_data = {
         'name': 'test game',
         'author': developer,
+        'genre': genre,
         'price': 10,
         'description': 'test description',
         'url': 'http://notvalid.com',
+    }
+    game, created = Game.objects.get_or_create(**game_data)
+    
+    #--------------------------------------------------------------------
+    # Create a game
+    genre = GameGenre.objects.get(id=2)
+    game_data = {
+        'name': 'test game 2',
+        'author': developer,
+        'genre': genre,
+        'price': 20,
+        'description': 'test description 2',
+        'url': 'http://notvalid2.com',
     }
     game, created = Game.objects.get_or_create(**game_data)
     
