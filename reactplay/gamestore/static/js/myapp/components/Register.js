@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form,FormGroup,Col,FormControl,Button,ControlLabel,Row } from 'react-bootstrap';
+import { Form, FormGroup, Col, FormControl, Button, ControlLabel, Row } from 'react-bootstrap';
 import { registerClick } from '../actions';
 import { connect } from 'react-redux';
 import ReactDOM from 'react-dom'
@@ -15,19 +15,21 @@ class Register extends React.Component{
     handleSubmit = event => {
         event.preventDefault();
 
-        // Check whether password was written correctly
-        var password = ReactDOM.findDOMNode(this.password).value;
-        if (password == ReactDOM.findDOMNode(this.password_check).value) {
-            // Send register dispatch
-            var username = ReactDOM.findDOMNode(this.username).value;
-            var email = ReactDOM.findDOMNode(this.email).value;
-            var group = ReactDOM.findDOMNode(this.group).value;
-            this.props.dispatch(registerClick({
-                    username:username, password:password, email:email, role:group
-                }));
+        const password = ReactDOM.findDOMNode(this.password).value;
+        const password_check = ReactDOM.findDOMNode(this.password_check).value;
+        const username = ReactDOM.findDOMNode(this.username).value;
+        const email = ReactDOM.findDOMNode(this.email).value;
+        const role = ReactDOM.findDOMNode(this.role).value;
+        // submit register form after simple form validation
+        if (password === "" || password_check === "" || username === "" || email === "") {
+          alert('please fill all the blank!')
+        } else if (password !== password_check) {
+          alert("password does not match!")
         } else {
-            
+          // Send register dispatch
+          this.props.dispatch(registerClick({ username, password, email, role }));
         }
+        
     }
 
     render() {
@@ -77,7 +79,7 @@ class Register extends React.Component{
                         Account Type
                       </Col>
                       <Col sm={10}>
-                        <FormControl componentClass="select" placeholder="UserPlayer" ref={(input) => this.group = input}>
+                        <FormControl componentClass="select" placeholder="UserPlayer" ref={(input) => this.role = input}>
                           <option value="UserPlayer">Player</option>
                           <option value="UserDeveloper">Developer</option>
                         </FormControl>

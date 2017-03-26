@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form,FormGroup,Col,FormControl,Button,Checkbox,ControlLabel,Row } from 'react-bootstrap';
+import { Form, FormGroup, Col, FormControl, Button, Checkbox, ControlLabel, Row } from 'react-bootstrap';
 import { loginClick } from '../actions';
 import { connect } from 'react-redux';
 import ReactDOM from 'react-dom'
@@ -16,7 +16,9 @@ class Login extends React.Component{
     // handler submission of login form
     handleSubmit = event => {
         event.preventDefault();
-        this.props.dispatch(loginClick({username:ReactDOM.findDOMNode(this.username).value,password:ReactDOM.findDOMNode(this.password).value}));
+        const username = ReactDOM.findDOMNode(this.username).value;
+        const password = ReactDOM.findDOMNode(this.password).value;
+        this.props.dispatch(loginClick({ username, password }));
     }
 
     // render the JSX, use bootstrap components
