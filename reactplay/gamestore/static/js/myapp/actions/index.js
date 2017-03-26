@@ -5,6 +5,9 @@ The fetchData action can handle async request, actually it return a function ins
 You need to config Middleware in other place to enable fetchData, otherwise it won't work properly
 */
 
+// polyfill for unsupported browsers (e.g. safari)
+import 'whatwg-fetch';
+
 // tests
 export const REQUEST_DATA = 'REQUEST_DATA';
 export const RECEIVE_DATA = 'RECEIVE_DATA';
