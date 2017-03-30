@@ -12,6 +12,7 @@ import Login from './myapp/components/Login';
 import Register from './myapp/components/Register';
 import reducer from './myapp/reducers';
 import thunk from 'redux-thunk';
+import Game from './myapp/components/Game'
 import { Router, Route, browserHistory } from 'react-router';
 //import createHistory from 'history/createBrowserHistory';
 import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux';
@@ -33,6 +34,7 @@ render(
              <Route path="/store" component={Main} />
              <Route path="/store/login" component={Login} />
              <Route path="/store/register" component={Register} />
+             <Route path="/store/game" component={Game} />
         </Router>
     </Provider>
     ,document.getElementById('top')
