@@ -1,55 +1,72 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
+import React from 'react';
+import { connect } from 'react-redux';
 
-module.exports = React.createClass({
-  displayName: 'IFrame',
-
-  propTypes: {
-    src: React.PropTypes.string.isRequired,
-    width: React.PropTypes.number,
-    height: React.PropTypes.number,
-    onCloseFrame: React.PropTypes.func
-  },
-
+class Iframe extends React.Component {
   componentDidMount() {
-    // React does not work with onLoad events in iFrames yet
-    // Because of the event delegation setters
-    // https://github.com/facebook/react/issues/1718
-    const iframe = ReactDOM.findDOMNode(this.refs.iframe);
-    if (iframe.attachEvent) {
-      iframe.attachEvent('onload', () => {
-        this._iFrameCloseRegister();
-      });
-    } else {
-      iframe.onload = () => {
-        this._iFrameCloseRegister();
-      };
+    // this.ifr.onload = () => {
+    //   this.ifr.contentWindow.postMessage('hello', '*');
+    // };
+    window.addEventListener("message", this.handleFrameTasks);
+  }
+
+  // componentWillReceiveProps(nextProps) {
+  //   for (const [objectid, liveData] of Object.entries(nextProps.objectsLive)) {
+  //     const prevOn = this.props.objectsLive[objectid] ? this.props.objectsLive[objectid].on : null;
+  //     if (prevOn !== liveData.on) {
+  //       this.ifr.contentWindow.postMessage({ event: 'onoff', object: objectid, value: liveData.on }, '*');
+  //     }
+  //   }
+  // }
+
+  shouldComponentUpdate() {
+    return false;
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('message', this.handleFrameTasks);
+  }
+
+  sendToFrame(data) {
+    if(this.ifr) this.ifr.contentWindow.postMessage(data, '*');
+  }
+
+  handleFrameTasks = (e) => {
+    const message = {
+      messageType: "LOAD",
+      gameState: {
+        score: 10
+      }
     }
-  },
-
-  _iFrameCloseRegister() {
-    const element = ReactDOM.findDOMNode(this.refs.iframe);
-    if (element &&
-      element.contentWindow &&
-      element.contentWindow.registerClose) {
-      element.contentWindow.registerClose((options) => {
-        this.props.onCloseFrame(options);
-      });
+    
+    console.log(e.data)
+    switch (e.data.messageType) {
+      case 'LOAD_REQUEST':
+        console.log('postMessage to iframe')
+        this.sendToFrame( message );
+        break;
+      case 'SAVE':
+        // save the 
+        console.log('save score...')
+        this.sendToFrame('the score is saved')
+        break
+      default:
+        this.sendToFrame('some messages not handled')
     }
-  },
+    
+  }
 
-  render: function() {
-    const src = this.props.src;
-    const width = this.props.width || null;
-    const height = this.props.height || null;
-
+  render() {
     return (
-      <iframe ref='iframe'
-        src={src}
-        width={width}
-        height={height}
-        seamless
-        onLoad={this._iFrameCloseRegister} />
+      <div>
+        <iframe
+          sandbox="allow-scripts"
+          style={{ width: '50%' }}
+          src="http://62.75.150.23:8080/"
+          ref={(f) => { this.ifr = f }}
+        />
+      </div>
     );
   }
-});
+}
+
+export default Iframe;

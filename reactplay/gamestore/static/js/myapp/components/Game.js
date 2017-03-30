@@ -22,8 +22,7 @@ class Game extends React.Component{
     
     render() {
         return (
-          // hard-coding the url now
-          <Iframe src='http://62.75.150.23:8080/' />
+          <Iframe/>
         );
     }
 };
