@@ -151,3 +151,12 @@ div.prize{
     width: 26%;
     height: 35%;
 }
+
+p#score{
+    /*border:1px solid red;*/
+    position: absolute;
+    color: white;
+    padding-left: 15%;
+    bottom: 12%;
+    font-size: 2vw;
+}
