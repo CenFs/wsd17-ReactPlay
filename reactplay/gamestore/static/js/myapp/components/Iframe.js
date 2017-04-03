@@ -60,8 +60,8 @@ class Iframe extends React.Component {
       <div>
         <iframe
           sandbox="allow-scripts"
-          style={{ width: '50%' }}
-          src="http://62.75.150.23:8080/"
+          style={{ width: '50%', height:'400px' }}
+          src="https://www.students.tut.fi/~chenm/index.html"
           ref={(f) => { this.ifr = f }}
         />
       </div>
