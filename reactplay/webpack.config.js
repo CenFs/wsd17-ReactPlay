@@ -13,7 +13,7 @@ module.exports = {
         }]
     },
     output:{
-        path:'./gamestore/static/js/dist',
+        path:__dirname + '/gamestore/static/js/dist',
         filename:'bundle.js'
     }
 }
