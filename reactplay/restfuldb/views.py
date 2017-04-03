@@ -15,6 +15,10 @@ CONTINUE = 100
 
 DOESNT_EXIST = "This attr in request.body does't exist!"
 
+# Helpers to get user group (user should never be assigned more than 1 group)
+def get_user_group_name(user):
+    return user.groups.first().name
+
 
 def login(request):
     # enable JSONP for cross domain
@@ -55,7 +59,7 @@ def login(request):
                 userinfo = {'userid': u.id,
                             'username': u.username,
                             'email': u.email,
-                            'role': 'DONT KNOW HOW TO GET IT EASILY.. WILL BE FIXED TOMORROW'}
+                            'role': get_user_group_name(u)}
                 # print(userinfo)
             else:
                 desc = "The password is valid, but the account has been disabled!"
@@ -81,7 +85,7 @@ def register(request):
                     'username': user.username,
                     'email': user.email,
                     # 'password': user.password,
-                    'role': 'DONT KNOW HOW TO GET IT EASILY.. WILL BE FIXED TOMORROW'}
+                    'role': get_user_group_name(user)}
         responseData = json.dumps({'status': "logged-in-user",
                                    'desc': "already logged in",
                                    'userinfo': userinfo})
@@ -211,6 +215,7 @@ def user_info(request, userid):
                         'username': user.username,
                         'email': user.email,
                         'owned_games': gamelist,
+                        'role': get_user_group_name(user)
                         }
             return HttpResponse(json.dumps(userinfo), content_type="application/json", status=OK)
         except Game.DoesNotExist:
