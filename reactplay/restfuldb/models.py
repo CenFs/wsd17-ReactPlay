@@ -30,8 +30,9 @@ class UserGame(models.Model):
     """Contains information of a game that is related to a user."""
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='usergames')
-    game = models.ForeignKey(Game)
+    game = models.ForeignKey(Game, related_name='usergames')
     purchase_date = models.DateField(auto_now_add=True)
+    purchase_price = models.IntegerField()
     score = models.IntegerField(default=0)
     state = models.TextField()
 

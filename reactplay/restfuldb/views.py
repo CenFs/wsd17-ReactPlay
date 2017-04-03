@@ -446,7 +446,7 @@ def game_detail(request, gameid):
 
 
 
-def gamestates(request, userid, gameid):
+def usergames(request, userid, gameid):
     # If logged in and own the game ->
     #   GET: check UserGame(user, game)
     #   POST: create or update UserGame
@@ -569,8 +569,41 @@ def gamestates(request, userid, gameid):
         return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
 
 
+def game_analytic(request, gameid):
+    
+    # Get game states
+    if request.method == 'GET':
+        # PERMISSION CHECKING
+        if not request.user.is_anonymous:
+            logged_in_user = request.user
+            try:
+                game = Game.objects.get(pk=gameid)
+            except Game.DoesNotExist:
+                responseData = json.dumps({'status': 'failure', 'desc': "Game.DoesNotExist"})
+                return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
 
+            # collect relevant information from all related UserGames
+            usergames = game.usergames.all()
+            desc = []
+            for usergame in usergames:
+                # Check for author
+                if logged_in_user == game.author or logged_in_user.is_superuser:
+                    desc.append({'purchase_date': usergame.purchase_date.strftime('%d-%m-%Y'),
+                                 'purchase_price': usergame.purchase_price,
+                                 'score': usergame.score,})
+                else:
+                    desc.append({'score': usergame.score})
 
+            responseData = json.dumps({'status': 'success', 'desc': desc})
+            return HttpResponse(responseData, content_type="application/json", status=OK)
+        else:
+            # UNAUTHORIZED
+            responseData = json.dumps({'status': 'failure', 'desc': "You need to log in first"})
+            return HttpResponse(responseData, content_type="application/json", status=UNAUTHORIZED)
+    # not a GET method
+    else:
+        responseData = json.dumps({'status': 'failure', 'desc': "Wrong request method"})
+        return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
 
 
 
