@@ -7,6 +7,7 @@ You need to config Middleware in other place to enable fetchData, otherwise it w
 
 // polyfill for unsupported browsers (e.g. safari)
 import 'whatwg-fetch';
+import { browserHistory } from 'react-router';
 
 // tests
 export const REQUEST_DATA = 'REQUEST_DATA';
@@ -94,9 +95,14 @@ export const loginClick = formData => dispatch => {
         .then(x=>x.json())
         .then(result=>{
             console.log(result);
-            if (result.status == "success")
+            if (result.status === "success")
             {
                 dispatch(loginSuccess(result.userinfo));
+                if (result.userinfo.role === 'UserDeveloper'){
+                  browserHistory.push('/store/developer')
+                } else if (result.userinfo.role === 'UserPlayer') {
+                  browserHistory.push('/store/player')
+                }
                 alert("login success!");
             }
             else
@@ -120,9 +126,10 @@ export const registerClick = formData => dispatch => {
         .then(x=>x.json())
         .then(result=>{
             console.log(result);
-            if (result.status == "success")
+            if (result.status === "success")
             {
                 dispatch(registerSuccess(result.userinfo));
+                browserHistory.push('/store/login');
                 alert("register success!");
             }
             else

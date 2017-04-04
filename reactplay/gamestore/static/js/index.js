@@ -13,6 +13,9 @@ import Register from './myapp/components/Register';
 import reducer from './myapp/reducers';
 import thunk from 'redux-thunk';
 import Game from './myapp/components/Game'
+import DevHome from './myapp/components/DevHome'
+import PlayerHome from './myapp/components/PlayerHome'
+
 import { Router, Route, browserHistory } from 'react-router';
 //import createHistory from 'history/createBrowserHistory';
 import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux';
@@ -35,6 +38,8 @@ render(
              <Route path="/store/login" component={Login} />
              <Route path="/store/register" component={Register} />
              <Route path="/store/game" component={Game} />
+             <Route path="/store/player" component={PlayerHome} />
+             <Route path="/store/developer" component={DevHome} />
         </Router>
     </Provider>
     ,document.getElementById('top')
