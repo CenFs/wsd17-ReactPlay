@@ -25,8 +25,9 @@ def login(request):
 
     # Logged-in User
     if not request.user.is_anonymous:
-        desc = "already logged in, userid=" + str(request.user.id)
-        responseData = json.dumps({'status': "logged-in-user", 'desc': desc})
+        desc = "already logged in"
+        userId = str(request.user.id)
+        responseData = json.dumps({'status': "logged-in-user", 'desc': desc, 'userId': userId})
         return HttpResponse(responseData, content_type="application/json", status=CONTINUE)
 
     # Anonymous User
