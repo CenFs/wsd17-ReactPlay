@@ -103,7 +103,7 @@ export const loginClick = formData => dispatch => {
                 } else if (result.userinfo.role === 'UserPlayer') {
                   browserHistory.push('/store/player')
                 }
-                alert("login success!");
+                // alert("login success!");
             }
             else
             {
@@ -136,6 +136,33 @@ export const registerClick = formData => dispatch => {
             {
                 dispatch(registerFailure());
                 alert(result.desc);
+            }
+        });
+};
+
+
+export const logoutClick = () => dispatch => {
+    dispatch(logoutPage());
+    console.log('logout');
+    return fetch('/api/logout', {
+      credentials: 'include',
+      method:'post', headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+        .then(x=>x.json())
+        .then(result=>{
+            console.log(result);
+            if (result.status === "success")
+            {
+                // dispatch(logoutSuccess(result.userinfo));
+                browserHistory.push('/store/login');
+                // alert("logout success!");
+            }
+            else
+            {
+                // dispatch(loginFailure());
+                // alert(result.desc);
             }
         });
 };

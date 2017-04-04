@@ -1,6 +1,20 @@
 import React from 'react';
+import { logoutClick } from '../actions';
+import { connect } from 'react-redux';
 
 class NavBar extends React.Component {
+  
+  // constructor for Login, bind event handler to class
+  constructor(props) {
+      super(props);
+      this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  // handler submission of login form
+  handleLogout = event => {
+      event.preventDefault();
+      this.props.dispatch(logoutClick());
+  }
 
   render () {
     return (
@@ -25,8 +39,8 @@ class NavBar extends React.Component {
           </div>
         </form>
         <ul className="nav navbar-nav navbar-right">
-          <li><a href="#"><span className="glyphicon glyphicon-user"></span> username </a></li>
-          <li><a href="http://localhost:8000/api/logout"><span className="glyphicon glyphicon-log-out"></span> Logout</a></li>
+          <li><a href="#"><span className="glyphicon glyphicon-user"></span> Username </a></li>
+          <li><a href="#" onClick={this.handleLogout}><span className="glyphicon glyphicon-log-out"></span> Logout</a></li>
         </ul>
       </div>
     </nav>  
@@ -34,4 +48,8 @@ class NavBar extends React.Component {
   }
 }
 
-export default NavBar;
+const mapStateToProps = (state) => ({
+});
+// export default NavBar;
+export default connect(mapStateToProps)(NavBar);
+
