@@ -15,6 +15,7 @@ import thunk from 'redux-thunk';
 import Game from './myapp/components/Game'
 import DevHome from './myapp/components/DevHome'
 import PlayerHome from './myapp/components/PlayerHome'
+import NoMatch from './myapp/components/NoMatch.js'
 
 import { Router, Route, browserHistory } from 'react-router';
 //import createHistory from 'history/createBrowserHistory';
@@ -40,6 +41,7 @@ render(
              <Route path="/store/game" component={Game} />
              <Route path="/store/player" component={PlayerHome} />
              <Route path="/store/developer" component={DevHome} />
+             <Route path="*" component={NoMatch}/>
         </Router>
     </Provider>
     ,document.getElementById('top')
