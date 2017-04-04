@@ -1,10 +1,14 @@
 import React from 'react';
+import NavBar from './NavBar';
 
 class DevHome extends React.Component {
 
   render () {
     return (
-      <div> Home for Developer </div>
+      <div>
+        <NavBar />
+        <div> Home for Developer </div>
+      </div>
     );
   }
 }
