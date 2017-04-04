@@ -152,11 +152,14 @@ def logout(request):
     desc = "something wrong, cannot logout."
     response_status_code = BAD_REQUEST
     auth.logout(request)
-    if request.user.is_anonymous:
-        status = "success"
-        desc = 'logout successfully!'
-        response_status_code = OK
+    if request.method == 'POST':
+        if request.user.is_anonymous:
+            status = "success"
+            desc = 'logout successfully!'
+            response_status_code = OK
     # return render_to_response('login_test.html')
+    else:
+       desc = "logout - not a POST request!"
     responseData = json.dumps({'status': status, 'desc': desc})
     return HttpResponse(responseData, content_type="application/json", status=response_status_code)
 
