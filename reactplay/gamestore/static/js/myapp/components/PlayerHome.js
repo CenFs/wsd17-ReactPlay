@@ -8,8 +8,8 @@ class PlayerHome extends React.Component {
     return (
       <div>
        <NavBar />
+       <h1> Home for Player </h1>
        <GameList />
-       <div> Home for Player </div>
       </div>
     );
   }
