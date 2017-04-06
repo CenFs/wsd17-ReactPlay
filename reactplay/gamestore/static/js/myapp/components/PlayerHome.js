@@ -1,5 +1,6 @@
 import React from 'react';
 import NavBar from './NavBar';
+import GameList from './GameList';
 
 class PlayerHome extends React.Component {
 
@@ -7,6 +8,7 @@ class PlayerHome extends React.Component {
     return (
       <div>
        <NavBar />
+       <GameList />
        <div> Home for Player </div>
       </div>
     );
@@ -14,3 +16,4 @@ class PlayerHome extends React.Component {
 }
 
 export default PlayerHome;
+

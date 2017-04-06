@@ -25,8 +25,8 @@ class NavBar extends React.Component {
         </div>
         <ul className="nav navbar-nav">
           <li className="active"><a href="#">Home</a></li>
-          <li><a href="#">Link</a></li>
-          <li><a href="#">Link</a></li>
+          <li><a href="#">Game Store</a></li>
+          <li><a href="#">My Games</a></li>
         </ul>
         <form className="navbar-form navbar-left">
           <div className="input-group">
