@@ -297,7 +297,8 @@ def all_games(request):
                                      'name': eachgame.name,
                                      'author': eachgame.author.username,
                                      'price': eachgame.price,
-                                     'description': eachgame.description
+                                     'description': eachgame.description,
+                                     'url': eachgame.url
                                      })
                 return HttpResponse(json.dumps(gamelist), content_type="application/json", status=OK)
             except Game.DoesNotExist:
