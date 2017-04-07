@@ -7,8 +7,8 @@ import { browserHistory } from 'react-router';
 function isLoggedIn () {
   // here just for simple test (try return false)
   // real mechaniam to check loginedIn status should be implelemented here
-  // return true;
-  return false;
+  return true;
+  // return false;
 }
 
 class EnsureLoggedInContainer extends React.Component {
