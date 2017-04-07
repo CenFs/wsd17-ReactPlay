@@ -8,12 +8,14 @@ class GameGenre(models.Model):
     name = models.CharField(max_length=32, unique=True)
 
 
+
+
 class Game(models.Model):
     """Contains information about a single game."""
 
     name = models.CharField(max_length=255, unique=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='developedgames')
-    genre = models.ForeignKey(GameGenre, related_name='developedgames')
+    genre = models.ForeignKey(GameGenre, related_name='developedgames', null=True)
     price = models.PositiveIntegerField(default=0)
     description = models.TextField()
     url = models.URLField()
@@ -26,13 +28,15 @@ class Game(models.Model):
         return self.save()
 
 
+
+
 class UserGame(models.Model):
     """Contains information of a game that is related to a user."""
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='usergames')
     game = models.ForeignKey(Game, related_name='usergames')
     purchase_date = models.DateField(auto_now_add=True)
-    purchase_price = models.IntegerField()
+    purchase_price = models.IntegerField(default=0)
     score = models.IntegerField(default=0)
     state = models.TextField()
 
@@ -48,4 +52,4 @@ class UserGame(models.Model):
         return self.save()
 
     class Meta:
-        unique_together = ('user','game')
+        unique_together = ('user', 'game')
