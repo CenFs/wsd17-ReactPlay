@@ -42,7 +42,7 @@ class GameList extends React.Component {
             <TableHeaderColumn dataField='desc' tdStyle={{ whiteSpace: 'normal' }}>Description</TableHeaderColumn>
             <TableHeaderColumn dataField='genre' filterFormatted dataFormat={ enumFormatter } formatExtraData={ genreType }
               filter={ { type: 'SelectFilter', options: genreType } }>Game Genre</TableHeaderColumn>
-            <TableHeaderColumn dataField='price' dataSort={true} dataFormat={priceFormatter} width='10%'>Game Price</TableHeaderColumn>
+            <TableHeaderColumn dataField='price' dataSort={true} dataFormat={priceFormatter} width='10%'>Price</TableHeaderColumn>
             <TableHeaderColumn dataField='url'>URL</TableHeaderColumn>
         </BootstrapTable>
       </div>

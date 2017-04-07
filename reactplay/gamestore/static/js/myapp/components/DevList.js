@@ -51,7 +51,7 @@ class DevList extends React.Component {
             <TableHeaderColumn dataField='id' isKey={true} width='10%'>Game ID</TableHeaderColumn>
             <TableHeaderColumn dataField='name' filter={{ type: 'TextFilter', delay: 200 }} width='20%'>Game Name</TableHeaderColumn>
             <TableHeaderColumn dataField='desc' tdStyle={{ whiteSpace: 'normal' }}>Description</TableHeaderColumn>
-            <TableHeaderColumn dataField='price' dataSort={true} dataFormat={priceFormatter} width='10%'>Game Price</TableHeaderColumn>
+            <TableHeaderColumn dataField='price' dataSort={true} dataFormat={priceFormatter} width='10%'>Price</TableHeaderColumn>
             <TableHeaderColumn dataField='url'>URL</TableHeaderColumn>
         </BootstrapTable>
       </div>
