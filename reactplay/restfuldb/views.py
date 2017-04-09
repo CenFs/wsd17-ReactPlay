@@ -288,7 +288,8 @@ def game_register(request):
                      'url': url
                      }
         game, created = Game.objects.get_or_create(**game_data)
-        game_detail = {'name': game.name,
+        game_detail = {'gameid': game.id,
+                       'name': game.name,
                        'author': game.author.username,
                        'genre': game.genre.name,
                        'price': game.price,
