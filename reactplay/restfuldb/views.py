@@ -242,9 +242,68 @@ def user_info(request, userid):
             responseData = json.dumps({'status': 'failure', 'desc': "Other unknown problems..."})
             return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
     else:
-        return HttpResponse('No permission!', status=UNAUTHORIZED)
+        responseData = json.dumps({'status': 'failure', 'desc': "No permission!"})
+        return HttpResponse(responseData, content_type="application/json", status=UNAUTHORIZED)
 
 
+
+def game_register(request):
+    user = request.user
+    role = get_user_group_name(user)
+    if user.is_anonymous:
+        responseData = json.dumps({'status': 'failure', 'desc': "Log in first!"})
+        return HttpResponse(responseData, content_type="application/json", status=UNAUTHORIZED)
+    if not user.is_superuser:
+        if not role == "UserDeveloper":
+            responseData = json.dumps({'status': 'failure', 'desc': "You are not a developer"})
+            return HttpResponse(responseData, content_type="application/json", status=UNAUTHORIZED)
+    if request.method == 'POST':
+        try:
+            postData = json.loads(request.body)
+            genreid = postData['genreid']
+            genre = GameGenre.objects.get(pk=genreid)
+            gamename = postData['gamename']
+            url = postData['url']
+            try:
+                price = postData['price']
+            except:
+                price = 0
+            try:
+                description = postData['description']
+            except:
+                description = ""
+        except GameGenre.DoesNotExist:
+            responseData = json.dumps({'status': 'failure', 'desc': "GameGenre.DoesNotExist"})
+            return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
+        except:
+            desc = "request.body missing genre/gamename/url attribute!"
+            responseData = json.dumps({'status': 'failure', 'desc': desc})
+            return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
+
+        game_data = {'name': gamename,
+                     'author': user,
+                     'genre': genre,
+                     'price': price,
+                     'description': description,
+                     'url': url
+                     }
+        game, created = Game.objects.get_or_create(**game_data)
+        game_detail = {'name': game.name,
+                       'author': game.author.username,
+                       'genre': game.genre.name,
+                       'price': game.price,
+                       'description': game.description,
+                       'url': game.url
+                       }
+        if created:
+            responseData = json.dumps({'status': 'success', 'desc': "created", 'game_data': game_detail})
+            return HttpResponse(responseData, content_type="application/json", status=CREATED)
+        else:
+            responseData = json.dumps({'status': 'failure', 'desc': "game has already been signed up", 'game_data': game_detail})
+            return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
+    else:
+        responseData = json.dumps({'status': 'failure', 'desc': "Not a POST method!"})
+        return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
 
 
 
