@@ -10,9 +10,12 @@
   color: red;
 }
 
-.iframe {
+.wrapper {
   width:60%;
   float:left;
+  position: relative;
+  height: 0;
+  padding-bottom: 50%;
 }
 
 .highScores{
