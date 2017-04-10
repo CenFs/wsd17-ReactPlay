@@ -3,6 +3,8 @@
 
 import React from 'react';
 import Iframe from './Iframe';
+import NavBar from './NavBar';
+import HighScores from './HighScores'
 
 // const Item  = ({gameName}) => (
 // <li>{gameName}</li>
@@ -22,7 +24,11 @@ class Game extends React.Component{
     
     render() {
         return (
-          <Iframe/>
+          <div>
+            <NavBar />
+            <Iframe/>
+            <HighScores />
+          </div>
         );
     }
 };

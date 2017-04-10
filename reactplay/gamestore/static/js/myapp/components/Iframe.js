@@ -57,10 +57,10 @@ class Iframe extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="iframe">
         <iframe
           sandbox="allow-scripts"
-          style={{ width: '50%', height:'400px' }}
+          style={{ width: '100%', height:'450px' }}
           src="https://www.students.tut.fi/~chenm/index.html"
           ref={(f) => { this.ifr = f }}
         />
