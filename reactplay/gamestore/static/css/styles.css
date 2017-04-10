@@ -9,3 +9,15 @@
   text-align: center;
   color: red;
 }
+
+.iframe {
+  width:60%;
+  float:left;
+}
+
+.highScores{
+  width: 30%;
+  float: right;
+  margin-left: 10%;
+  margin-top: 10%;
+}
