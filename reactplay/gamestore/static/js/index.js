@@ -40,7 +40,7 @@ render(
              <Route path="/store/login" component={Login} />
              <Route path="/store/register" component={Register} />
              <Route component={EnsureLoggedInContainer}>
-               <Route path="/store/game" component={Game} />
+               <Route path="/store/game/:gameId" component={Game} />
                <Route path="/store/player" component={PlayerHome} />
                <Route path="/store/developer" component={DevHome} />
              </Route>

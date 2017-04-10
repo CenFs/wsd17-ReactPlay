@@ -1,6 +1,7 @@
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { browserHistory } from 'react-router';
 
 const games = [{id: 1, name: "BrowserQuest", price: 3.99, desc: "A Massively Multiplayer Adventure", genre:0, url:"http://browserquest.mozilla.org/"},
 {id:2, name:"HEXGL", price:5.99, desc: "A futuristic, fast-paced racing game", genre:1, url:"http://hexgl.bkcore.com/play/"},
@@ -26,6 +27,23 @@ function priceFormatter (cell, row) {
   return `<i class='glyphicon glyphicon-euro'></i> ${cell}`;
 }
 
+//  function onClickSelected(cell, row, rowIndex){
+//   console.log(cell, row, rowIndex);
+// }
+
+function urlFormatter (cell, row, enumObject, rowIndex) {
+  // return `<Link to='/store/game/1'> ${cell} </Link>`;
+  return (
+    <button type="button" 
+      onClick={() => {
+        console.log(cell, row, rowIndex);
+        browserHistory.push(`/store/game/${row.id}`);
+        }}>
+      Play
+    </button>
+  )
+}
+
 function enumFormatter(cell, row, enumObject) {
   return enumObject[cell];
 }
@@ -43,7 +61,7 @@ class GameList extends React.Component {
             <TableHeaderColumn dataField='genre' filterFormatted dataFormat={ enumFormatter } formatExtraData={ genreType }
               filter={ { type: 'SelectFilter', options: genreType } }>Game Genre</TableHeaderColumn>
             <TableHeaderColumn dataField='price' dataSort={true} dataFormat={priceFormatter} width='10%'>Price</TableHeaderColumn>
-            <TableHeaderColumn dataField='url'>URL</TableHeaderColumn>
+            <TableHeaderColumn dataField='url' dataFormat={urlFormatter}>Buy or Play</TableHeaderColumn>
         </BootstrapTable>
       </div>
     );
