@@ -55,31 +55,43 @@ class GameList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      genreTypes: {}
+      genreTypes: {},
+      games: []
     };
   }
   
   componentDidMount() {
-    // Get genres for the filter
-    return fetch('/api/genres')
+    // Fetch genres for the filter
+    fetch('/api/genres')
       .then(x=>x.json())
       .then(y=> {
-        var genres = {}
+        var genres = {};
         for (var i = 0; i < y.genrelist.length; ++i) {
-          // id-1 so we dont miss one genre
-          genres[y.genrelist[i].genreid-1] = y.genrelist[i].name;
+          genres[i] = y.genrelist[i].name;
         }
-        this.setState({genreTypes:genres})
+        this.setState({genreTypes:genres});
       });
+    
+    // Fetch games from the API
+    fetch('/api/games')
+      .then(x=>x.json())
+      .then(y=> {
+        var gamelist = [];
+        for (var i = 0; i < y.gamelist.length; ++i) {
+          gamelist[i] = y.gamelist[i];
+        }
+        this.setState({games:gamelist});
+      })
+    
     }
   
   render () {
     return (
       <div>
-        <BootstrapTable data={games} pagination>
-            <TableHeaderColumn dataField='id' isKey={true} width='10%'>Game ID</TableHeaderColumn>
+        <BootstrapTable data={this.state.games} pagination>
+            <TableHeaderColumn dataField='gameid' isKey={true} width='10%'>Game ID</TableHeaderColumn>
             <TableHeaderColumn dataField='name' filter={{ type: 'TextFilter', delay: 200 }} width='20%'>Game Name</TableHeaderColumn>
-            <TableHeaderColumn dataField='desc' tdStyle={{ whiteSpace: 'normal' }}>Description</TableHeaderColumn>
+            <TableHeaderColumn dataField='description' tdStyle={{ whiteSpace: 'normal' }}>Description</TableHeaderColumn>
             <TableHeaderColumn dataField='genre' filterFormatted dataFormat={ enumFormatter } formatExtraData={ this.state.genreTypes }
               filter={ { type: 'SelectFilter', options: this.state.genreTypes } }>Game Genre</TableHeaderColumn>
             <TableHeaderColumn dataField='price' dataSort={true} dataFormat={priceFormatter} width='10%'>Price</TableHeaderColumn>
