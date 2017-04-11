@@ -264,7 +264,7 @@ def all_games(request):
     #   UNAUTHORIZED
 
     # PERMISSION CHECKING
-    if request.user.is_anonymous:
+    if not request.user.is_anonymous:
         # Check for genre_ids filter (array of ids)
         if request.method == 'POST':
             user = request.user
