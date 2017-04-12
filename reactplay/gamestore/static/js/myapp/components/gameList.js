@@ -4,18 +4,6 @@ import ReactDOM from 'react-dom';
 import { browserHistory } from 'react-router';
 import { fetchGenres } from '../actions';
 
-const games = [{id: 1, name: "BrowserQuest", price: 3.99, desc: "A Massively Multiplayer Adventure", genre:0, url:"http://browserquest.mozilla.org/"},
-{id:2, name:"HEXGL", price:5.99, desc: "A futuristic, fast-paced racing game", genre:1, url:"http://hexgl.bkcore.com/play/"},
-{id:3, name:"HEXGL 2", price:6.99, desc: "A new, fast-paced racing game", genre:3, url:"http://hexgl.bkcore.com/play/"},
-{id:4, name:"HEXGL 3", price:6.99, desc: "A new, fast-paced racing game", genre:3, url:"http://hexgl.bkcore.com/play/"},
-{id:5, name:"HEXGL 4", price:6.99, desc: "A new, fast-paced racing game", genre:2, url:"http://hexgl.bkcore.com/play/"},
-{id:6, name:"HEXGL 5", price:6.99, desc: "A new, fast-paced racing game", genre:1, url:"http://hexgl.bkcore.com/play/"},
-{id:7, name:"HEXGL 6", price:6.99, desc: "A new, fast-paced racing game", genre:0, url:"http://hexgl.bkcore.com/play/"},
-{id:8, name:"HEXGL 7", price:6.99, desc: "A new, fast-paced racing game", genre:3, url:"http://hexgl.bkcore.com/play/"},
-{id:9, name:"HEXGL 8", price:6.99, desc: "A new, fast-paced racing game", genre:2, url:"http://hexgl.bkcore.com/play/"},
-{id:10, name:"HEXGL 9", price:6.99, desc: "A new, fast-paced racing game", genre:2, url:"http://hexgl.bkcore.com/play/"},
-{id:11, name:"HEXGL 10", price:6.99, desc: "A new, fast-paced racing game", genre:1, url:"http://hexgl.bkcore.com/play/"},]
-
 
 function priceFormatter (cell, row) {
   return `<i class='glyphicon glyphicon-euro'></i> ${cell}`;
@@ -73,7 +61,9 @@ class GameList extends React.Component {
       });
     
     // Fetch games from the API
-    fetch('/api/games')
+    fetch('/api/games', {
+      credentials: 'include',
+      method:'get'})
       .then(x=>x.json())
       .then(y=> {
         var gamelist = [];
