@@ -8,3 +8,4 @@ db.sqlite3
 /gamestore/static/js/dist/*
 .DS_Store
 npm-debug.log
+.vscode/*

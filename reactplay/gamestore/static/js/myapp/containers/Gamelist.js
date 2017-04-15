@@ -3,7 +3,7 @@
 
 import Game from '../components/Game';
 import { connect } from 'react-redux';
-import { fetchData, clearData } from '../actions';
+import { fetchGames, clearData } from '../actions';
 
 const mapStateToProps = (state) => ({
     name:state.name,
@@ -11,7 +11,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = ({
-    fetchClick:fetchData,
+    fetchClick:fetchGames,
     clearClick:clearData
 });
 

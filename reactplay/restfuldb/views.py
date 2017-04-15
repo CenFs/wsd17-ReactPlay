@@ -30,10 +30,10 @@ def login(request):
                     'username': user.username,
                     'email': user.email,
                     'role': get_user_group_name(user)}
-        responseData = json.dumps({'status': "logged-in-user",
+        responseData = json.dumps({'status': "success",
                                    'desc': "already logged in",
                                    'userinfo': userinfo})
-        return HttpResponse(responseData, content_type="application/json", status=CONTINUE)
+        return HttpResponse(responseData, content_type="application/json")
 
     # Anonymous User
     status = "failure"
@@ -347,7 +347,7 @@ def all_games(request):
                 responseData = json.dumps({'status': 'success', 'desc': "gamelist - GET", 'gamelist': gamelist})
                 return HttpResponse(responseData, content_type="application/json", status=OK)
             except:
-                responseData = json.dumps({'status': 'failure', 'desc': "Other unknown problems..."})
+                responseData = json.dumps({'status': 'failure', 'desc': "Other unknown problems...", 'gamelist': gamelist})
                 return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
         else:
            desc = "not a GET or POST request"

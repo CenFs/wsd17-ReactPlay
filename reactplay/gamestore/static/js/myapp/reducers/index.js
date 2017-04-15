@@ -2,7 +2,7 @@
 // You can write a very long single reducer, but for most of the case, we will write many reducers and combine them together
 // Every reducer should be pure function! You are recommended to learn reducer more from internet, it's easy
 
-import {REQUEST_DATA, RECEIVE_DATA, CLEAR_DATA, LOGIN, LOGIN_SUCCESS, LOGIN_FAIL,LOGOUT,
+import {REQUEST_DATA, RECEIVE_DATA, RECEIVE_GENRES, CLEAR_DATA, LOGIN, LOGIN_SUCCESS, LOGIN_FAIL,LOGOUT,
 REGISTER, REGISTER_SUCCESS, REGISTER_FAIL
 } from '../actions';
 import { combineReducers } from 'redux';
@@ -18,6 +18,16 @@ import { combineReducers } from 'redux';
 //    }
 //};
 //
+
+const genres = (state=[],action) => {
+    switch (action.type) {
+        case RECEIVE_GENRES:
+            return action.genres;
+        default:
+            return state;
+    }
+}
+
 const games = (state=[],action) => {
     switch (action.type) {
         case RECEIVE_DATA:
@@ -47,7 +57,7 @@ const loading = (state=false,action) => {
         default:
             return state;
     }
-}
+};
 
 const user = (state={},action) => {
     switch(action.type)
@@ -58,10 +68,12 @@ const user = (state={},action) => {
         case REGISTER_SUCCESS:
             return action.data;
             break;
+        case LOGOUT:
+            return {};
         default:
             return state;
     }
-}
+};
 
 // combine all reducers into single reducer, and export it
 const rootReducer = combineReducers({

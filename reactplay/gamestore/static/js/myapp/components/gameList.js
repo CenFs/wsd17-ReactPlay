@@ -1,8 +1,9 @@
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
+import ReactDOM from 'react-dom'
 import { browserHistory } from 'react-router';
-import { fetchGenres } from '../actions';
+import { fetchGames, fetchGenres } from '../actions';
 
 
 function priceFormatter (cell, row) {
@@ -42,54 +43,62 @@ function genreTypeFormatter(cell, row, enumObject) {
 class GameList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      genreTypes: {},
-      games: []
-    };
+    // this.state = {
+    //   genreTypes: {},
+    //   games: []
+    // };
   }
   
   componentDidMount() {
     // Fetch genres for the filter
-    fetch('/api/genres')
-      .then(x=>x.json())
-      .then(y=> {
-        var genres = {};
-        for (var i = 0; i < y.genrelist.length; ++i) {
-          genres[i] = y.genrelist[i].name;
-        }
-        this.setState({genreTypes:genres});
-      });
+    // this.props.dispatch(fetchGenres());
+    // fetch('/api/genres')
+    //   .then(x=>x.json())
+    //   .then(y=> {
+    //     var genres = {};
+    //     for (var i = 0; i < y.genrelist.length; ++i) {
+    //       genres[i] = y.genrelist[i].name;
+    //     }
+    //     this.setState({genreTypes:genres});
+    //   });
     
     // Fetch games from the API
-    fetch('/api/games', {
-      credentials: 'include',
-      method:'get'})
-      .then(x=>x.json())
-      .then(y=> {
-        var gamelist = [];
-        for (var i = 0; i < y.gamelist.length; ++i) {
-          gamelist[i] = y.gamelist[i];
-        }
-        this.setState({games:gamelist});
-      })
+    this.props.dispatch(fetchGames());
+    // fetch('/api/games', {
+    //   credentials: 'include',
+    //   method:'get'})
+    //   .then(x=>x.json())
+    //   .then(y=> {
+    //     var gamelist = [];
+    //     for (var i = 0; i < y.gamelist.length; ++i) {
+    //       gamelist[i] = y.gamelist[i];
+    //     }
+    //     this.setState({games:gamelist});
+    //   })
     
-    }
+  }
   
   render () {
     return (
       <div>
-        <BootstrapTable data={this.state.games} pagination>
+        {/*<BootstrapTable data={this.props.games} pagination>
             <TableHeaderColumn dataField='gameid' isKey={true} width='10%'>Game ID</TableHeaderColumn>
             <TableHeaderColumn dataField='name' filter={{ type: 'TextFilter', delay: 200 }} width='20%'>Game Name</TableHeaderColumn>
             <TableHeaderColumn dataField='description' tdStyle={{ whiteSpace: 'normal' }}>Description</TableHeaderColumn>
-            <TableHeaderColumn dataField='genre' filterFormatted dataFormat={ enumFormatter } formatExtraData={ this.state.genreTypes }
-              filter={ { type: 'SelectFilter', options: this.state.genreTypes } }>Game Genre</TableHeaderColumn>
+            <TableHeaderColumn dataField='genre' filterFormatted dataFormat={ enumFormatter } formatExtraData={ this.props.genreTypes }
+              filter={ { type: 'SelectFilter', options: this.props.genreTypes } }>Game Genre</TableHeaderColumn>
             <TableHeaderColumn dataField='price' dataSort={true} dataFormat={priceFormatter} width='10%'>Price</TableHeaderColumn>
             <TableHeaderColumn dataField='url' dataFormat={urlFormatter}>Buy or Play</TableHeaderColumn>
-        </BootstrapTable>
+        </BootstrapTable>*/}
       </div>
     );
   }
 }
 
-export default GameList;
+const mapStateToProps = (state) => ({
+  games:state.games,
+  genreTypes: state.genres
+});
+
+// connect the state of the application to Login component, so we can use dispatch at handleSubmit
+export default connect(mapStateToProps)(GameList);

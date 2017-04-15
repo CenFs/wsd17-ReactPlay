@@ -9,10 +9,13 @@ You need to config Middleware in other place to enable fetchData, otherwise it w
 import 'whatwg-fetch';
 import { browserHistory } from 'react-router';
 
-// tests
+// games
 export const REQUEST_DATA = 'REQUEST_DATA';
 export const RECEIVE_DATA = 'RECEIVE_DATA';
 export const CLEAR_DATA = 'CLEAR_DATA';
+
+// genres
+export const RECEIVE_GENRES = 'RECEIVE_GENRES';
 
 // real cases here
 export const LOGIN = 'LOGIN';
@@ -60,21 +63,34 @@ export const requestData = () => ({
 
 export const receiveData = (json) => ({
     type:RECEIVE_DATA,
-    games:json.games,
-    name:json.name,
-    age:json.age
+    games:json.games
 });
 
 export const clearData = () => ({
     type:CLEAR_DATA
 });
 
-/* below actions are all asynchronous which need dispatch from the top component */
-export const fetchData = () => dispatch => {
-    dispatch(requestData());
-    return fetch('/api/test')
-        .then(x=>x.json())
-        .then(y=>dispatch(receiveData(y)));
+export const receiveGenres = (json) => ({
+    type: RECEIVE_GENRES,
+    genres:json.genres
+});
+
+// fetch all games
+export const fetchGames = () => dispatch => {
+    return fetch('/api/games',{
+                credentials: 'include',
+                method:'get'})
+            .then(x=>x.json())
+            .then(y=>{
+                console.log("shuju: "+ JSON.stringify(y));
+                dispatch(receiveData({games:y.gamelist}));
+            });
+};
+
+export const fetchGenres = () => dispatch => {
+    return fetch('/api/genres')
+            .then(x=>x.json())
+            .then(y=>dispatch(receiveGenres({genres:y.genrelist})));
 };
 
 /* the procedure of login is divided into several phases
@@ -99,16 +115,16 @@ export const loginClick = formData => dispatch => {
             {
                 dispatch(loginSuccess(result.userinfo));
                 if (result.userinfo.role === 'UserDeveloper'){
-                  browserHistory.push('/store/developer')
+                  browserHistory.push('/store/developer');
                 } else if (result.userinfo.role === 'UserPlayer') {
-                  browserHistory.push('/store/player')
+                  browserHistory.push('/store/player');
                 }
                 // alert("login success!");
             }
             else
             {
                 dispatch(loginFailure());
-                alert(result.desc);
+                // alert(result.desc);
             }
         });
 };
