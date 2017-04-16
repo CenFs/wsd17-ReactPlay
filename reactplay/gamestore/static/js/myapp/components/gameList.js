@@ -47,11 +47,12 @@ class GameList extends React.Component {
     //   genreTypes: {},
     //   games: []
     // };
+    // this.props.genreTypes = {};
   }
   
   componentDidMount() {
     // Fetch genres for the filter
-    // this.props.dispatch(fetchGenres());
+    this.props.dispatch(fetchGenres());
     // fetch('/api/genres')
     //   .then(x=>x.json())
     //   .then(y=> {
@@ -81,7 +82,7 @@ class GameList extends React.Component {
   render () {
     return (
       <div>
-        {/*<BootstrapTable data={this.props.games} pagination>
+        <BootstrapTable data={this.props.games} pagination>
             <TableHeaderColumn dataField='gameid' isKey={true} width='10%'>Game ID</TableHeaderColumn>
             <TableHeaderColumn dataField='name' filter={{ type: 'TextFilter', delay: 200 }} width='20%'>Game Name</TableHeaderColumn>
             <TableHeaderColumn dataField='description' tdStyle={{ whiteSpace: 'normal' }}>Description</TableHeaderColumn>
@@ -89,15 +90,25 @@ class GameList extends React.Component {
               filter={ { type: 'SelectFilter', options: this.props.genreTypes } }>Game Genre</TableHeaderColumn>
             <TableHeaderColumn dataField='price' dataSort={true} dataFormat={priceFormatter} width='10%'>Price</TableHeaderColumn>
             <TableHeaderColumn dataField='url' dataFormat={urlFormatter}>Buy or Play</TableHeaderColumn>
-        </BootstrapTable>*/}
+        </BootstrapTable>
       </div>
     );
   }
 }
 
+function transform_genres(arr)
+{
+  var genres = {};
+  for (var i = 0; i < arr.length; ++i) 
+  {
+    genres[i] = arr[i].name;
+  }
+  return genres;
+}
+
 const mapStateToProps = (state) => ({
   games:state.games,
-  genreTypes: state.genres
+  genreTypes: transform_genres(state.genres)
 });
 
 // connect the state of the application to Login component, so we can use dispatch at handleSubmit

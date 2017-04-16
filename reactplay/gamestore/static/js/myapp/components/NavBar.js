@@ -39,7 +39,7 @@ class NavBar extends React.Component {
           </div>
         </form>
         <ul className="nav navbar-nav navbar-right">
-          <li><a href="#"><span className="glyphicon glyphicon-user"></span> Username </a></li>
+          <li><a href="#"><span className="glyphicon glyphicon-user"></span> {this.props.Username} </a></li>
           <li><a href="#" onClick={this.handleLogout}><span className="glyphicon glyphicon-log-out"></span> Logout</a></li>
         </ul>
       </div>
@@ -49,6 +49,7 @@ class NavBar extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+  Username: state.user.username
 });
 // export default NavBar;
 export default connect(mapStateToProps)(NavBar);

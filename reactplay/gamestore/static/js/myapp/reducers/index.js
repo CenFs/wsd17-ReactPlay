@@ -79,7 +79,8 @@ const user = (state={},action) => {
 const rootReducer = combineReducers({
   games,
   loading,
-  user
+  user,
+  genres
 });
 
 export default rootReducer;
