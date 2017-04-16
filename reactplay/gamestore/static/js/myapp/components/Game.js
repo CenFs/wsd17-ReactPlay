@@ -4,7 +4,9 @@
 import React from 'react';
 import Iframe from './Iframe';
 import NavBar from './NavBar';
-import HighScores from './HighScores'
+import HighScores from './HighScores';
+import { connect } from 'react-redux';
+import ReactDOM from 'react-dom';
 
 // const Item  = ({gameName}) => (
 // <li>{gameName}</li>
@@ -33,4 +35,7 @@ class Game extends React.Component{
     }
 };
 
-export default Game;
+const mapStateToProps = (state) => ({
+});
+
+export default connect(mapStateToProps)(Game);

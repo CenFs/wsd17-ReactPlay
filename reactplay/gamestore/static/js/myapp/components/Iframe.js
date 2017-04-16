@@ -1,7 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import ReactDOM from 'react-dom'
+import { loadState, saveState } from '../actions';
 
 class Iframe extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.handleFrameTasks = this.handleFrameTasks.bind(this);
+    // console.log("gameId is "+this.props.gameId);
+  }
+
   componentDidMount() {
     // this.ifr.onload = () => {
     //   this.ifr.contentWindow.postMessage('hello', '*');
@@ -34,21 +43,24 @@ class Iframe extends React.Component {
     const message = {
       messageType: "LOAD",
       gameState: {
-        score: 10
+        score: 199
       }
     }
     
-    console.log(e.data)
+    console.log(e.data);
     switch (e.data.messageType) {
       case 'LOAD_REQUEST':
-        console.log('postMessage to iframe')
+        console.log('postMessage to iframe');
+        // shoud dispatch an action which fetch data from back-end, change the state
+        this.props.dispatch(loadState({gameId:this.props.gameId, userId:this.props.userId}));
         this.sendToFrame( message );
         break;
       case 'SAVE':
         // save the 
-        console.log('save score...')
-        this.sendToFrame('the score is saved')
-        break
+        // console.log('save score...')
+        this.props.dispatch(saveState());
+        this.sendToFrame('the score is saved');
+        break;
       default:
         this.sendToFrame('some messages not handled')
     }
@@ -69,4 +81,10 @@ class Iframe extends React.Component {
   }
 }
 
-export default Iframe;
+const mapStateToProps = (state) => ({
+  gameId:2,
+  userId:2
+});
+
+export default connect(mapStateToProps)(Iframe);
+// export default Iframe;

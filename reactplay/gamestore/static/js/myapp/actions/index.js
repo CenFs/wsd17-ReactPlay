@@ -13,6 +13,8 @@ import { browserHistory } from 'react-router';
 export const REQUEST_DATA = 'REQUEST_DATA';
 export const RECEIVE_DATA = 'RECEIVE_DATA';
 export const CLEAR_DATA = 'CLEAR_DATA';
+export const LOAD_STATE = 'LOAD_STATE';
+export const SAVE_STATE = 'SAVE_STATE';
 
 // genres
 export const RECEIVE_GENRES = 'RECEIVE_GENRES';
@@ -75,6 +77,22 @@ export const receiveGenres = (json) => ({
     genres:json.genres
 });
 
+//
+export const loadState = json => dispatch => {
+    console.log("json.gameId is "+json.gameId);
+    console.log("json.userId is "+json.userId);
+    return fetch('/api/users/'+json.userId+'/games/'+json.gameId,{
+                credentials: 'include',
+                method:'get'})
+            .then(x=>x.json())
+            .then(y=>console.log("get state from server: "+JSON.stringify(y)))
+    ;
+};
+
+export const saveState = () => dispatch => {
+    type: SAVE_STATE
+};
+
 // fetch all games
 export const fetchGames = () => dispatch => {
     return fetch('/api/games',{
@@ -82,7 +100,6 @@ export const fetchGames = () => dispatch => {
                 method:'get'})
             .then(x=>x.json())
             .then(y=>{
-                console.log("shuju: "+ JSON.stringify(y));
                 dispatch(receiveData({games:y.gamelist}));
             });
 };
