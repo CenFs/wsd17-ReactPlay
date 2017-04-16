@@ -519,7 +519,7 @@ def usergames(request, userid, gameid):
                             if str(ownedgame.game.pk) == str(gameid):
                                 usergame_info = {'userid': user.id,
                                                  'gameid': game.id,
-                                                 'purchase_date': ownedgame.purchase_date,
+                                                 'purchase_date': str(ownedgame.purchase_date),
                                                  'score': ownedgame.score,
                                                  'state': ownedgame.state
                                                  }

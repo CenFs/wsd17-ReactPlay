@@ -36,14 +36,18 @@ class Iframe extends React.Component {
   }
 
   sendToFrame(data) {
-    if(this.ifr) this.ifr.contentWindow.postMessage(data, '*');
+    console.log("sendToFrame!!!");
+    if(this.ifr){
+      console.log("sendToFrame ifr!!! "+data);
+      this.ifr.contentWindow.postMessage(data, '*');
+    }
   }
 
   handleFrameTasks = (e) => {
     const message = {
       messageType: "LOAD",
       gameState: {
-        score: 199
+        score: 299
       }
     }
     
@@ -52,17 +56,17 @@ class Iframe extends React.Component {
       case 'LOAD_REQUEST':
         console.log('postMessage to iframe');
         // shoud dispatch an action which fetch data from back-end, change the state
-        this.props.dispatch(loadState({gameId:this.props.gameId, userId:this.props.userId}));
+        this.props.dispatch(loadState({gameId:this.props.gameId, userId:this.props.userId, cb:this.sendToFrame}));
         this.sendToFrame( message );
         break;
       case 'SAVE':
         // save the 
         // console.log('save score...')
-        this.props.dispatch(saveState());
+        this.props.dispatch(saveState({gameId:this.props.gameId, userId:this.props.userId, score:e.data.gameState.score}));
         this.sendToFrame('the score is saved');
         break;
       default:
-        this.sendToFrame('some messages not handled')
+        this.sendToFrame('some messages not handled');
     }
     
   }

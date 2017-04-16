@@ -79,18 +79,56 @@ export const receiveGenres = (json) => ({
 
 //
 export const loadState = json => dispatch => {
-    console.log("json.gameId is "+json.gameId);
-    console.log("json.userId is "+json.userId);
     return fetch('/api/users/'+json.userId+'/games/'+json.gameId,{
                 credentials: 'include',
                 method:'get'})
             .then(x=>x.json())
-            .then(y=>console.log("get state from server: "+JSON.stringify(y)))
+            .then(y=>{
+                if (!y.state)
+                {
+                    console.log("empty state");
+                    const message = {
+                        messageType: "LOAD",
+                        gameState: {score: 0}
+                    };
+                    window.postMessage(message,"*");
+                }
+                else
+                {
+                    console.log("y.state is "+y.state);
+                    const message = {
+                        messageType: "LOAD",
+                        gameState: JSON.parse(y.state)
+                    };
+                    window.postMessage(message,"*");
+                }
+            })
     ;
 };
 
-export const saveState = () => dispatch => {
-    type: SAVE_STATE
+export const saveState = json => dispatch => {
+    console.log("saving "+json.score);
+    return fetch('/api/users/'+json.userId+'/games/'+json.gameId+'/',{
+      credentials: 'include',
+      method:'post',
+      headers:
+      {
+        'Content-Type': 'application/json'
+      }, body:JSON.stringify({'score':json.score})
+    })
+    .then(x=>x.json())
+    .then(result=>{
+        console.log(result);
+        if (result.status === "success")
+        {
+            console.log("success saved!");
+        }
+        else
+        {
+            console.log("fail saved!");
+        }
+    })
+    ;
 };
 
 // fetch all games
