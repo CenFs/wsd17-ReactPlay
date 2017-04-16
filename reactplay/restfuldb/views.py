@@ -516,7 +516,7 @@ def usergames(request, userid, gameid):
                     try:
                         owned_games = user.usergames.all()
                         for ownedgame in owned_games:
-                            if ownedgame.game.pk == gameid:
+                            if str(ownedgame.game.pk) == str(gameid):
                                 usergame_info = {'userid': user.id,
                                                  'gameid': game.id,
                                                  'purchase_date': ownedgame.purchase_date,
