@@ -569,7 +569,8 @@ def usergames(request, userid, gameid):
                         state = DOESNT_EXIST
 
                     try:
-                        usergame = user.usergames.get(pk=gameid)
+                        usergame = user.usergames.get(game=game,user=user)
+                        # usergame = user.usergames.get(pk=gameid)
                     except:
                         # create new UserGame
                         usergame = UserGame.objects.create(user=user, game=game)
@@ -585,6 +586,7 @@ def usergames(request, userid, gameid):
                         usergame.score = score
                     if state != DOESNT_EXIST:
                         usergame.state = state
+                    print ("before save")
                     usergame.save()
                     responseData = json.dumps({'status': 'success', 'desc': "UserGame updated"})
                     return HttpResponse(responseData, content_type="application/json", status=OK)

@@ -91,7 +91,8 @@ export const loadState = json => dispatch => {
                         messageType: "LOAD",
                         gameState: {score: 0}
                     };
-                    window.postMessage(message,"*");
+                    // window.postMessage(message,"*");
+                    json.frame.contentWindow.postMessage(message, '*');
                 }
                 else
                 {
@@ -100,7 +101,7 @@ export const loadState = json => dispatch => {
                         messageType: "LOAD",
                         gameState: JSON.parse(y.state)
                     };
-                    window.postMessage(message,"*");
+                    json.frame.contentWindow.postMessage(message, '*');
                 }
             })
     ;
