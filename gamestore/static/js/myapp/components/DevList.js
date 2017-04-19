@@ -9,15 +9,12 @@ const games = [{id: 1, name: "BrowserQuest", price: 3.99, desc: "A Massively Mul
 {id:5, name:"HEXGL 4", price:6.99, desc: "A new, fast-paced racing game", url:"http://hexgl.bkcore.com/play/"},
 {id:6, name:"HEXGL 5", price:6.99, desc: "A new, fast-paced racing game", url:"http://hexgl.bkcore.com/play/"},
 {id:7, name:"HEXGL 6", price:6.99, desc: "A new, fast-paced racing game", url:"http://hexgl.bkcore.com/play/"},
-{id:8, name:"HEXGL 7", price:6.99, desc: "A new, fast-paced racing game", url:"http://hexgl.bkcore.com/play/"},
-{id:9, name:"HEXGL 8", price:6.99, desc: "A new, fast-paced racing game", url:"http://hexgl.bkcore.com/play/"},
-{id:10, name:"HEXGL 9", price:6.99, desc: "A new, fast-paced racing game", url:"http://hexgl.bkcore.com/play/"},
-{id:11, name:"HEXGL 10", price:6.99, desc: "A new, fast-paced racing game", url:"http://hexgl.bkcore.com/play/"},]
+{id:8, name:"HEXGL 7", price:6.99, desc: "A new, fast-paced racing game", url:"http://hexgl.bkcore.com/play/"}
+]
 
 function priceFormatter (cell, row) {
   return `<i class='glyphicon glyphicon-euro'></i> ${cell}`;
 }
-
 
 function onAfterSaveCell(row, cellName, cellValue) {
   alert(`Save cell ${cellName} with value ${cellValue}`);
@@ -43,11 +40,24 @@ const cellEditProp = {
   afterSaveCell: onAfterSaveCell  // a hook for after saving cell
 };
 
+function onAfterInsertRow(row) {
+  let newRowStr = '';
+
+  for (const prop in row) {
+    newRowStr += prop + ': ' + row[prop] + ' \n';
+  }
+  alert('The new row is:\n ' + newRowStr);
+}
+
+const options = {
+  afterInsertRow: onAfterInsertRow   // A hook for after insert rows
+};
+
 class DevList extends React.Component {
   render () {
     return (
       <div>
-        <BootstrapTable data={games} cellEdit={cellEditProp} insertRow={true} pagination>
+        <BootstrapTable data={games} cellEdit={cellEditProp} insertRow={true} options={options} pagination>
             <TableHeaderColumn dataField='id' isKey={true} width='10%'>Game ID</TableHeaderColumn>
             <TableHeaderColumn dataField='name' filter={{ type: 'TextFilter', delay: 200 }} width='20%'>Game Name</TableHeaderColumn>
             <TableHeaderColumn dataField='desc' tdStyle={{ whiteSpace: 'normal' }}>Description</TableHeaderColumn>
