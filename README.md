@@ -1,4 +1,4 @@
-# Project Plan
+# Project Plan 
 
 ## Name of the team
 ReactPlay
