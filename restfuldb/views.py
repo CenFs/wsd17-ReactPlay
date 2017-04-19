@@ -571,7 +571,7 @@ def usergames(request, userid, gameid):
                     except:
                         score = DOESNT_EXIST
                     try:
-                        state = postData['states']
+                        state = postData['state']
                     except:
                         state = DOESNT_EXIST
 
