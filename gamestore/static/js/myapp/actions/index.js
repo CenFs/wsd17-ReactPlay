@@ -140,8 +140,13 @@ export const fetchGames = () => dispatch => {
                 credentials: 'include',
                 method:'get'})
             .then(x=>x.json())
-            .then(y=>{
-                dispatch(receiveData({games:y.gamelist}));
+            .then(result=>{
+                if (result.status === "failure") {
+                  alert("Please login first!");
+                  browserHistory.push('/store/login');
+                } else if (result.status === "success") {
+                  dispatch(receiveData({games:result.gamelist}));
+                }
             });
 };
 
