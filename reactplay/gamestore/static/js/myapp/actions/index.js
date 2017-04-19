@@ -84,9 +84,9 @@ export const loadState = json => dispatch => {
                 method:'get'})
             .then(x=>x.json())
             .then(y=>{
-                if (!y.state)
+                if (!y.usergame_info.state)
                 {
-                    console.log("empty state");
+                    console.log("empty state y: "+JSON.stringify(y.usergame_info.state));
                     const message = {
                         messageType: "LOAD",
                         gameState: {score: 0}
@@ -96,10 +96,10 @@ export const loadState = json => dispatch => {
                 }
                 else
                 {
-                    console.log("y.state is "+y.state);
+                    console.log("y.state is "+y.usergame_info.state);
                     const message = {
                         messageType: "LOAD",
-                        gameState: JSON.parse(y.state)
+                        gameState: JSON.parse(y.usergame_info.state)
                     };
                     json.frame.contentWindow.postMessage(message, '*');
                 }
@@ -115,7 +115,9 @@ export const saveState = json => dispatch => {
       headers:
       {
         'Content-Type': 'application/json'
-      }, body:JSON.stringify({'score':json.score})
+      }, 
+      // body:JSON.stringify({'score':json.score})
+      body:JSON.stringify({"state":JSON.stringify({score:json.score})})
     })
     .then(x=>x.json())
     .then(result=>{
