@@ -32,7 +32,7 @@ SECRET_KEY = 'c*l7c8q73!k=@83zgd!!^w1lt1*%xpuy@zpvu_x8utp^alp-gr'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', u'reactplaytut.herokuapp.com']
 
 
 # Application definition
