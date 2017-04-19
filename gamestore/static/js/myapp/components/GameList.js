@@ -1,7 +1,7 @@
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import React from 'react';
 import { connect } from 'react-redux';
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom';
 import { browserHistory } from 'react-router';
 import { fetchGames, fetchGenres } from '../actions';
 
