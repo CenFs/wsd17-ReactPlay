@@ -38,7 +38,7 @@ class UserGame(models.Model):
     purchase_date = models.DateField(auto_now_add=True)
     purchase_price = models.IntegerField(default=0)
     score = models.IntegerField(default=0)
-    state = models.TextField()
+    state = models.TextField(default='')
 
     def __str__(self):
         return "{} {}".format(self.user, self.game)
