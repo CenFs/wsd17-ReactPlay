@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ReactDOM from 'react-dom'
-import { loadState, saveState } from '../actions';
+import { loadState, saveState, saveScore} from '../actions';
 
 class Iframe extends React.Component {
 
@@ -61,6 +61,9 @@ class Iframe extends React.Component {
         break;
       case 'SAVE':
         this.props.dispatch(saveState({gameId:this.props.gameId, userId:this.props.userId, score:e.data.gameState.score, frame:this.ifr}));
+        break;
+      case 'SCORE':
+        this.props.dispatch(saveScore({gameId:this.props.gameId, userId:this.props.userId, score:e.data.score, frame:this.ifr}));
         break;
       default:
         this.sendToFrame('some messages not handled');
