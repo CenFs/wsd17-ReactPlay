@@ -76,12 +76,12 @@ def CreateDebugData(sender, **kwargs):
     # Create a game
     genre = GameGenre.objects.get(id=1)
     game_data = {
-        'name': 'test game',
+        'name': 'Lucky Beer',
         'author': developer,
         'genre': genre,
         'price': 10,
-        'description': 'test description',
-        'url': 'http://notvalid.com',
+        'description': 'If you are luck, you will have a lot of beer',
+        'url': 'https://www.students.tut.fi/~chenm/index.html',
     }
     game, created = Game.objects.get_or_create(**game_data)
     
@@ -89,12 +89,12 @@ def CreateDebugData(sender, **kwargs):
     # Create a game
     genre = GameGenre.objects.get(id=2)
     game_data = {
-        'name': 'test game 2',
+        'name': 'Really Stupid Jumping Gaem',
         'author': developer,
         'genre': genre,
         'price': 20,
-        'description': 'test description 2',
-        'url': 'http://notvalid2.com',
+        'description': 'Really stupid game, where try to avoid the floor.',
+        'url': 'https://solidi.kapsi.fi/WSD17/',
     }
     game, created = Game.objects.get_or_create(**game_data)
     
