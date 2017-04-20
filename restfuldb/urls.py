@@ -19,16 +19,16 @@ from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
     url(r'^test', restviews.apitest),
-    url(r'^users/$', restviews.all_users),
-    url(r'^users/(?P<userid>[0-9]+)/$', restviews.user_info),
-    url(r'^users/(?P<userid>[0-9]+)/games/(?P<gameid>[0-9]+)/$', csrf_exempt(restviews.usergames)),
+    url(r'^users$', restviews.all_users),
+    url(r'^users/(?P<userid>[0-9]+)$', restviews.user_info),
+    url(r'^users/(?P<userid>[0-9]+)/games/(?P<gameid>[0-9]+)$', csrf_exempt(restviews.usergames)),
     
-    url(r'^genres/$', restviews.all_genres),
-    url(r'^games/$', csrf_exempt(restviews.all_games)),
-    url(r'^games/(?P<gameid>[0-9]+)/$', csrf_exempt(restviews.game_detail)),
-    url(r'^games/(?P<gameid>[0-9]+)/analytic/$', restviews.game_analytic),
-    url(r'^games/register/$', csrf_exempt(restviews.game_register)),
-    url(r'^games/purchase/$', csrf_exempt(restviews.game_purchase)),
+    url(r'^genres$', restviews.all_genres),
+    url(r'^games$', csrf_exempt(restviews.all_games)),
+    url(r'^games/(?P<gameid>[0-9]+)$', csrf_exempt(restviews.game_detail)),
+    url(r'^games/(?P<gameid>[0-9]+)/analytic$', restviews.game_analytic),
+    # url(r'^games/register$', csrf_exempt(restviews.game_register)),
+    url(r'^games/purchase$', csrf_exempt(restviews.game_purchase)),
 
     url(r'^login$', csrf_exempt(restviews.login)),
     url(r'^register$', csrf_exempt(restviews.register)),
