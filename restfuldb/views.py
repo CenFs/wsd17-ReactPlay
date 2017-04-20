@@ -1,5 +1,5 @@
-from django.shortcuts import render, render_to_response
-from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.shortcuts import render_to_response
+from django.http import HttpResponse, HttpResponseRedirect
 import json
 from restfuldb.models import Game, GameGenre, UserGame
 from django.contrib.auth.models import User, Group
@@ -19,6 +19,9 @@ DOESNT_EXIST = "This attr in request.body doesn't exist!"
 def get_user_group_name(user):
     return user.groups.first().name
 
+# To check if the user own that game or not
+# The user is a Player -> the game he bought
+# The user is a Developer -> the game he published
 def own_this_game(user, game):
     role = get_user_group_name(user)
     if role == "UserPlayer":
@@ -33,7 +36,8 @@ def own_this_game(user, game):
 
 
 def login(request):
-    # enable JSONP for cross domain
+    # Input params: (username, password)
+    # Return: (status, desc, userinfo)
 
     # Logged-in User
     if not request.user.is_anonymous:
@@ -43,7 +47,7 @@ def login(request):
                     'email': user.email,
                     'role': get_user_group_name(user)
                     }
-        responseData = json.dumps({'status': "success",
+        responseData = json.dumps({'status': "logged-in-user",
                                    'desc': "already logged in",
                                    'userinfo': userinfo
                                    })
@@ -65,7 +69,7 @@ def login(request):
 
         user = auth.authenticate(username=username, password=password)
         if user is not None:
-            # the password verified for the user
+            # The password verified for the user
             if user.is_active:
                 auth.login(request, user)
                 u = User.objects.get(username=username)
@@ -84,7 +88,7 @@ def login(request):
                 responseData = json.dumps({'status': "failure", 'desc': desc})
                 return HttpResponse(responseData, content_type="application/json", status=UNAUTHORIZED)
         else:
-            # the authentication system was unable to verify the username and password
+            # The authentication system was unable to verify the username and password
             responseData = json.dumps({'status': "failure", 'desc': "The username and password were incorrect!"})
             return HttpResponse(responseData, content_type="application/json", status=UNAUTHORIZED)
     else:
@@ -93,8 +97,7 @@ def login(request):
 
 
 def register(request):
-    # Waiting for connect with react parts
-    # Get: (username, password, email, role)
+    # Input params: (username, password, email, role)
     # Return: (status, desc, userinfo)
 
     # Logged-in User
@@ -138,7 +141,6 @@ def register(request):
                 userinfo = {'userid': user.id,
                             'username': username,
                             'email': email,
-                            # 'password': password,
                             'role': groupname
                             }
                 responseData = json.dumps({'status': "success",
@@ -164,7 +166,6 @@ def register(request):
 
 
 def logout(request):
-    # Waiting for connect with react parts.
     auth.logout(request)
     if request.method == 'POST':
         if request.user.is_anonymous:
@@ -184,7 +185,7 @@ def logout(request):
 
 
 def all_users(request):
-    # Only superuser can get the result
+    # Only SUPERUSER can get the userlist
     # Other users have no permission
     try:
         user = request.user
@@ -210,7 +211,10 @@ def all_users(request):
 
 
 def user_info(request, userid):
-    # Check that logged in user matches wanted user (in the future, could allow admin access here)
+    # If logged in and request for their own info ->
+    #   Get the info
+    # Else ->
+    #   UNAUTHORIZED
     try:
         user = User.objects.get(pk=userid)
     except User.DoesNotExist:
@@ -221,7 +225,7 @@ def user_info(request, userid):
             role = get_user_group_name(user)
             gamelist = []
             if role == "UserPlayer":
-                # logged in user is player, return all games he owned
+                # Logged in user is player, return all games he owned
                 owned_games = user.usergames.all()
                 # List required information about each game
                 for usergame in owned_games:
@@ -239,7 +243,7 @@ def user_info(request, userid):
                                     }
                     gamelist.append(usergameinfo)
             if role == "UserDeveloper":
-                # logged in user is developer, return all games he published
+                # Logged in user is developer, return all games he published
                 owned_games = Game.objects.filter(author=user)
                 # List required information about each game
                 for eachgame in owned_games:
@@ -294,12 +298,11 @@ def all_genres(request):
 
 def all_games(request):
     # If logged in ->
-    #   GET: (player and developer) all game info
+    #   GET: (player/developer) all game info, get game url if user own the game (purchased/author)
     #   POST: (developer) register a game
     # If not logged in ->
     #   UNAUTHORIZED
 
-    # PERMISSION CHECKING
     if not request.user.is_anonymous:
         if request.method == 'POST':
             user = request.user
@@ -428,21 +431,21 @@ def all_games(request):
            responseData = json.dumps({'status': "failure", 'desc': "not a GET or POST request"})
            return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
     else:
-        # not logged in
+        # Not logged in
         responseData = json.dumps({'status': "failure", 'desc': "You need to login first!"})
         return HttpResponse(responseData, content_type="application/json", status=UNAUTHORIZED)
 
 
 
 def game_detail(request, gameid):
-    # If not logged in -> 
+    # If NOT logged in ->
     #   GET: everything except url
-    # If logged in but does not own game ->
+    # If logged in but does NOT own game ->
     #   GET: everything except url
     #   POST: TODO: figure out how the fake buying service integrates here
     # If logged in and owns game ->
     #   GET: everything
-    # If logged in and is the author of the game ->
+    # If logged in and is the AUTHOR of the game ->
     #   GET: everything
     #   POST: able to update everything except gameid and author
 
@@ -450,12 +453,12 @@ def game_detail(request, gameid):
         game = Game.objects.get(pk=gameid)
         user = request.user
         role = get_user_group_name(user)
-        # PERMISSION CHECKING
+
         if not user.is_anonymous:
-            # get game details
+            # Get game details
             if request.method == 'GET':
                 try:
-                    # user is the author of the game, get everything
+                    # User is the author of the game, get everything
                     if game.author.username == user.username and role == "UserDeveloper":
                         game_detail = {'gameid': gameid,
                                        'name': game.name,
@@ -470,11 +473,11 @@ def game_detail(request, gameid):
                                                    })
                         return HttpResponse(responseData, content_type="application/json", status=OK)
                     if role == "UserPlayer":
-                        # user is a player
+                        # User is a player
                         owned_games = user.usergames.all()
                         for owned in owned_games:
                             if str(owned.game.pk) == str(gameid):
-                                # logged in and owns game, get everything
+                                # Logged in and owns game, get everything
                                 game_detail = {'gameid': gameid,
                                                'name': game.name,
                                                'author': game.author.username,
@@ -488,7 +491,7 @@ def game_detail(request, gameid):
                                                            })
                                 return HttpResponse(responseData, content_type="application/json", status=OK)
 
-                        # logged in but does not own game, get everything except url
+                        # Logged in but does not own game, get everything except url
                         game_detail = {'gameid': gameid,
                                        'name': game.name,
                                        'author': game.author.username,
@@ -504,7 +507,7 @@ def game_detail(request, gameid):
                     responseData = json.dumps({'status': "failure", 'desc': "logged in, unkonwn error!"})
                     return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
 
-            # update game details (if user is author of the game)
+            # Update game details (if user is author of the game)
             if request.method == 'POST':
                 if game.author.username == user.username:
                     postData = json.loads(request.body)
@@ -547,7 +550,7 @@ def game_detail(request, gameid):
                     return HttpResponse(responseData, content_type="application/json", status=UNAUTHORIZED)
 
         else:
-            # not logged in, can only get game details (everything except url), cannot edit
+            # Not logged in, can only get game details (everything except url), cannot edit
             if request.method == 'GET':
                 game_detail = {'gameid': gameid,
                                'name': game.name,
@@ -577,7 +580,7 @@ def game_detail(request, gameid):
 def usergames(request, userid, gameid):
     # If logged in and own the game ->
     #   GET: check UserGame(user, game)
-    #   POST: create or update UserGame
+    #   POST: create or update UserGame, input params: (score, state)
     # If logged in and not own the game ->
     #   UNAUTHORIZED
     # If not logged in ->
@@ -585,14 +588,12 @@ def usergames(request, userid, gameid):
 
     # Get game states
     if request.method == 'GET':
-        # PERMISSION CHECKING
         if not request.user.is_anonymous:
             logged_in_user = request.user
             try:
                 user = User.objects.get(pk=userid)
                 game = Game.objects.get(pk=gameid)
 
-                # PERMISSION CHECKING
                 if user == logged_in_user or logged_in_user.is_superuser:
                     try:
                         owned_games = user.usergames.all()
@@ -632,16 +633,14 @@ def usergames(request, userid, gameid):
         responseData = json.dumps({'status': "failure", 'desc': "You need to log in first"})
         return HttpResponse(responseData, content_type="application/json", status=UNAUTHORIZED)
 
-    # update game states
+    # Update game states
     if request.method == 'POST':
-        # PERMISSION CHECKING
         if not request.user.is_anonymous:
             logged_in_user = request.user
             try:
                 user = User.objects.get(pk=userid)
                 game = Game.objects.get(pk=gameid)
                 role = get_user_group_name(user)
-                # PERMISSION CHECKING
                 if user == logged_in_user and role == "UserPlayer":
                     postData = json.loads(request.body)
                     try:
@@ -656,7 +655,7 @@ def usergames(request, userid, gameid):
                     try:
                         usergame = user.usergames.get(game=game, user=user)
                     except:
-                        # create new UserGame
+                        # Create new UserGame
                         usergame = UserGame.objects.create(user=user, game=game)
                         if score != DOESNT_EXIST:
                             usergame.score = score
@@ -667,7 +666,7 @@ def usergames(request, userid, gameid):
                                                    'desc': "new UserGame created"
                                                    })
                         return HttpResponse(responseData, content_type="application/json", status=CREATED)
-                    # update existing UserGame
+                    # Update existing UserGame
                     if score != DOESNT_EXIST:
                         usergame.score = score
                     if state != DOESNT_EXIST:
@@ -701,7 +700,7 @@ def usergames(request, userid, gameid):
         responseData = json.dumps({'status': "failure", 'desc': "You need to log in first"})
         return HttpResponse(responseData, content_type="application/json", status=UNAUTHORIZED)
     else:
-        # not a GET or POST method
+        # Not a GET or POST method
         responseData = json.dumps({'status': "failure", 'desc': "Wrong request method"})
         return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
 
@@ -711,7 +710,6 @@ def usergames(request, userid, gameid):
 def game_analytic(request, gameid):
     # Get game states
     if request.method == 'GET':
-        # PERMISSION CHECKING
         if not request.user.is_anonymous:
             logged_in_user = request.user
             try:
@@ -720,7 +718,7 @@ def game_analytic(request, gameid):
                 responseData = json.dumps({'status': "failure", 'desc': "Game.DoesNotExist"})
                 return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
 
-            # collect relevant information from all related UserGames
+            # Collect relevant information from all related UserGames
             usergames = game.usergames.all()
             info = []
             for usergame in usergames:
@@ -742,18 +740,17 @@ def game_analytic(request, gameid):
             responseData = json.dumps({'status': "failure", 'desc': "You need to log in first"})
             return HttpResponse(responseData, content_type="application/json", status=UNAUTHORIZED)
     else:
-        # not a GET method
+        # Not a GET method
         responseData = json.dumps({'status': "failure", 'desc': "Wrong request method"})
         return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
 
 
 def game_purchase(request):
-    # if logged in and is a player
-    #   Purchase
-    # if logged in but not a player
+    # If logged in and is a player ->
+    #   Purchase the game
+    # If not logged in or logged in but not a player ->
     #   UNAUTHORIZED
-    # if not logged in
-    #   UNAUTHORIZED
+
     if request.method == 'POST':
         user = request.user
         role = get_user_group_name(user)
@@ -792,7 +789,7 @@ def game_purchase(request):
             responseData = json.dumps({'status': "failure", 'desc': "You need to log in first or You're not a Player"})
             return HttpResponse(responseData, content_type="application/json", status=UNAUTHORIZED)
     else:
-        # not a GET method
+        # Not a GET method
         responseData = json.dumps({'status': "failure", 'desc': "Wrong request method"})
         return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
 
@@ -801,7 +798,7 @@ def game_purchase(request):
 
 
 
-############################################## NOT IN USED #########################################
+############################################## NOT IN USE #########################################
 
 def apitest(request):
     data = {'name': 'DeveloperC',
