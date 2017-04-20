@@ -370,13 +370,14 @@ def game_detail(request, gameid):
     try:
         game = Game.objects.get(pk=gameid)
         user = request.user
+        role = get_user_group_name(user)
         # PERMISSION CHECKING
         if not user.is_anonymous:
             # get game details
             if request.method == 'GET':
                 try:
                     # user is the author of the game, get everything
-                    if game.author.username == user.username:
+                    if game.author.username == user.username and role == "UserDeveloper":
                         game_detail = {'gameid': gameid,
                                        'name': game.name,
                                        'author': game.author.username,
@@ -389,11 +390,11 @@ def game_detail(request, gameid):
                                                    'game_detail': game_detail
                                                    })
                         return HttpResponse(responseData, content_type="application/json", status=OK)
-                    else:
+                    if role == "UserPlayer":
                         # user is a player
                         owned_games = user.usergames.all()
                         for owned in owned_games:
-                            if owned.game.pk == gameid:
+                            if str(owned.game.pk) == str(gameid):
                                 # logged in and owns game, get everything
                                 game_detail = {'gameid': gameid,
                                                'name': game.name,
