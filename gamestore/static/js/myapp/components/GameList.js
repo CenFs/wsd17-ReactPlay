@@ -20,11 +20,11 @@ function urlFormatter (cell, row, enumObject, rowIndex) {
     <button type="button" 
       onClick={() => {
         console.log(cell, row, rowIndex);
-        browserHistory.push(`/store/game/${row.id}`);
+        browserHistory.push(`/store/game/${row.gameid}`);
         }}>
       Play
     </button>
-  )
+  );
 }
 
 function enumFormatter(cell, row, enumObject) {

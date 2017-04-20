@@ -8,24 +8,29 @@ class Iframe extends React.Component {
   constructor(props) {
     super(props);
     this.handleFrameTasks = this.handleFrameTasks.bind(this);
-    // console.log("gameId is "+this.props.gameId);
   }
+  
+  componentWillMount() {
+  }
+
 
   componentDidMount() {
-    // this.ifr.onload = () => {
-    //   this.ifr.contentWindow.postMessage('hello', '*');
-    // };
+
+    fetch('/api/games/' + this.props.gameId, {
+      credentials: 'include',
+      method:'get'
+    })
+      .then(x=>x.json())
+      .then(y=>{
+        // console.log(y.game_detail.url);
+        this.setState({gameUrl:y.game_detail.url});
+        console.log(this.state.gameUrl);
+      });
+      
+    console.log(this.props);
+    
     window.addEventListener("message", this.handleFrameTasks);
   }
-
-  // componentWillReceiveProps(nextProps) {
-  //   for (const [objectid, liveData] of Object.entries(nextProps.objectsLive)) {
-  //     const prevOn = this.props.objectsLive[objectid] ? this.props.objectsLive[objectid].on : null;
-  //     if (prevOn !== liveData.on) {
-  //       this.ifr.contentWindow.postMessage({ event: 'onoff', object: objectid, value: liveData.on }, '*');
-  //     }
-  //   }
-  // }
 
   shouldComponentUpdate() {
     return false;
@@ -48,20 +53,14 @@ class Iframe extends React.Component {
         score: 299
       }
     }
-    
+  
     console.log(e.data);
     switch (e.data.messageType) {
       case 'LOAD_REQUEST':
-        // console.log('postMessage to iframe');
-        // shoud dispatch an action which fetch data from back-end, change the state
         this.props.dispatch(loadState({gameId:this.props.gameId, userId:this.props.userId, frame:this.ifr}));
-        // window.postMessage(message,'*');
-        // this.sendToFrame( message );
         break;
       case 'SAVE':
-        // console.log('save score...')
         this.props.dispatch(saveState({gameId:this.props.gameId, userId:this.props.userId, score:e.data.gameState.score, frame:this.ifr}));
-        // this.sendToFrame('the score is saved');
         break;
       default:
         this.sendToFrame('some messages not handled');
@@ -75,7 +74,7 @@ class Iframe extends React.Component {
         <iframe
           sandbox="allow-scripts"
           style={{ width: '100%', height:'100%', position: 'absolute', top:'0', left: '0' }}
-          src="https://www.students.tut.fi/~chenm/index.html"
+          src={this.props.gameUrl}
           ref={(f) => { this.ifr = f }}
         />
       </div>
@@ -84,9 +83,7 @@ class Iframe extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  gameId:2,
-  userId:2
+  gameUrl: state.gamesUrl
 });
 
 export default connect(mapStateToProps)(Iframe);
-// export default Iframe;
