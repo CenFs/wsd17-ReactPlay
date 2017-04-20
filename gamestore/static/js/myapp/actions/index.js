@@ -28,7 +28,14 @@ export const REGISTER = 'REGISTER'
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAIL = 'REGISTER_FAIL';
 
+export const PLAY_A_GAME = 'PLAY_A_GAME';
+
 // simple actions
+export const playGame = (gid) =>({
+    type:PLAY_A_GAME,
+    gameid:gid
+});
+
 export const loginPage = () => ({
     type:LOGIN
 });

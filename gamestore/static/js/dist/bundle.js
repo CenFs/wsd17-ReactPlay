@@ -6156,18 +6156,20 @@ module.exports = ReactElement;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_whatwg_fetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_whatwg_fetch__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router__ = __webpack_require__(139);
 /* unused harmony export REQUEST_DATA */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return RECEIVE_DATA; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return CLEAR_DATA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return RECEIVE_DATA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return CLEAR_DATA; });
 /* unused harmony export LOAD_STATE */
 /* unused harmony export SAVE_STATE */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return RECEIVE_GENRES; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return LOGIN; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return LOGIN_FAIL; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return LOGIN_SUCCESS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return LOGOUT; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return REGISTER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return REGISTER_SUCCESS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return REGISTER_FAIL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return RECEIVE_GENRES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return LOGIN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return LOGIN_FAIL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return LOGIN_SUCCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return LOGOUT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return REGISTER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return REGISTER_SUCCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return REGISTER_FAIL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return PLAY_A_GAME; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return playGame; });
 /* unused harmony export loginPage */
 /* unused harmony export loginSuccess */
 /* unused harmony export loginFailure */
@@ -6179,13 +6181,13 @@ module.exports = ReactElement;
 /* unused harmony export receiveData */
 /* unused harmony export clearData */
 /* unused harmony export receiveGenres */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return loadState; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return saveState; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return saveScore; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return fetchGames; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return fetchGenres; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return loginClick; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return registerClick; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return loadState; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return saveState; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return saveScore; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return fetchGames; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return fetchGenres; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return loginClick; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return registerClick; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return logoutClick; });
 /*
 Action is a function which will return a json object
@@ -6217,7 +6219,16 @@ var REGISTER = 'REGISTER';
 var REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 var REGISTER_FAIL = 'REGISTER_FAIL';
 
+var PLAY_A_GAME = 'PLAY_A_GAME';
+
 // simple actions
+var playGame = function playGame(gid) {
+    return {
+        type: PLAY_A_GAME,
+        gameid: gid
+    };
+};
+
 var loginPage = function loginPage() {
     return {
         type: LOGIN
@@ -36922,6 +36933,8 @@ function priceFormatter(cell, row) {
 // }
 
 function urlFormatter(cell, row, enumObject, rowIndex) {
+  var _this = this;
+
   // return `<Link to='/store/game/1'> ${cell} </Link>`;
   return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
     'button',
@@ -36929,6 +36942,7 @@ function urlFormatter(cell, row, enumObject, rowIndex) {
       onClick: function onClick() {
         console.log(cell, row, rowIndex);
         __WEBPACK_IMPORTED_MODULE_4_react_router__["b" /* browserHistory */].push('/store/game/' + row.gameid);
+        _this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__actions__["b" /* playGame */])(row.gameid));
       } },
     'Play'
   );
@@ -36952,15 +36966,18 @@ var GameList = function (_React$Component) {
   function GameList(props) {
     _classCallCheck(this, GameList);
 
-    return _possibleConstructorReturn(this, (GameList.__proto__ || Object.getPrototypeOf(GameList)).call(this, props));
+    var _this2 = _possibleConstructorReturn(this, (GameList.__proto__ || Object.getPrototypeOf(GameList)).call(this, props));
+
+    _this2.urlFormatter = urlFormatter.bind(_this2);
+    return _this2;
   }
 
   _createClass(GameList, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
       // Fetch genres for the filter
-      this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__actions__["b" /* fetchGenres */])());
-      this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__actions__["c" /* fetchGames */])());
+      this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__actions__["c" /* fetchGenres */])());
+      this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__actions__["d" /* fetchGames */])());
     }
   }, {
     key: 'render',
@@ -36999,7 +37016,7 @@ var GameList = function (_React$Component) {
           ),
           __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
             __WEBPACK_IMPORTED_MODULE_0_react_bootstrap_table__["TableHeaderColumn"],
-            { dataField: 'url', dataFormat: urlFormatter },
+            { dataField: 'url', dataFormat: this.urlFormatter },
             'Buy or Play'
           )
         )
@@ -37139,13 +37156,13 @@ var Iframe = function (_React$Component) {
       console.log(e.data);
       switch (e.data.messageType) {
         case 'LOAD_REQUEST':
-          _this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions__["d" /* loadState */])({ gameId: _this.props.gameId, userId: _this.props.userId, frame: _this.ifr }));
+          _this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions__["e" /* loadState */])({ gameId: _this.props.gameId, userId: _this.props.userId, frame: _this.ifr }));
           break;
         case 'SAVE':
-          _this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions__["e" /* saveState */])({ gameId: _this.props.gameId, userId: _this.props.userId, score: e.data.gameState.score, frame: _this.ifr }));
+          _this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions__["f" /* saveState */])({ gameId: _this.props.gameId, userId: _this.props.userId, score: e.data.gameState.score, frame: _this.ifr }));
           break;
         case 'SCORE':
-          _this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions__["f" /* saveScore */])({ gameId: _this.props.gameId, userId: _this.props.userId, score: e.data.score, frame: _this.ifr }));
+          _this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions__["g" /* saveScore */])({ gameId: _this.props.gameId, userId: _this.props.userId, score: e.data.score, frame: _this.ifr }));
           break;
         default:
           _this.sendToFrame('some messages not handled');
@@ -37153,6 +37170,7 @@ var Iframe = function (_React$Component) {
     };
 
     _this.handleFrameTasks = _this.handleFrameTasks.bind(_this);
+    _this.game = {};
     return _this;
   }
 
@@ -37162,21 +37180,6 @@ var Iframe = function (_React$Component) {
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
-      var _this2 = this;
-
-      fetch('/api/games/' + this.props.gameId, {
-        credentials: 'include',
-        method: 'get'
-      }).then(function (x) {
-        return x.json();
-      }).then(function (y) {
-        // console.log(y.game_detail.url);
-        _this2.setState({ gameUrl: y.game_detail.url });
-        console.log(_this2.state.gameUrl);
-      });
-
-      console.log(this.props);
-
       window.addEventListener("message", this.handleFrameTasks);
     }
   }, {
@@ -37199,7 +37202,7 @@ var Iframe = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
+      var _this2 = this;
 
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
@@ -37207,9 +37210,9 @@ var Iframe = function (_React$Component) {
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('iframe', {
           sandbox: 'allow-scripts',
           style: { width: '100%', height: '100%', position: 'absolute', top: '0', left: '0' },
-          src: this.props.gameUrl,
+          src: this.props.selectedGame.url,
           ref: function ref(f) {
-            _this3.ifr = f;
+            _this2.ifr = f;
           }
         })
       );
@@ -37221,7 +37224,9 @@ var Iframe = function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    gameUrl: state.gamesUrl
+    selectedGame: state.games.filter(function (g) {
+      return g.playing;
+    })[0]
   };
 };
 
@@ -37268,7 +37273,7 @@ var Login = function (_React$Component) {
       event.preventDefault();
       var username = __WEBPACK_IMPORTED_MODULE_4_react_dom___default.a.findDOMNode(_this.username).value;
       var password = __WEBPACK_IMPORTED_MODULE_4_react_dom___default.a.findDOMNode(_this.password).value;
-      _this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions__["h" /* loginClick */])({ username: username, password: password }));
+      _this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions__["i" /* loginClick */])({ username: username, password: password }));
     };
 
     _this.handleSubmit = _this.handleSubmit.bind(_this);
@@ -37561,7 +37566,7 @@ var Register = function (_React$Component) {
         alert("password does not match!");
       } else {
         // Send register dispatch
-        _this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions__["g" /* registerClick */])({ username: username, password: password, email: email, role: role }));
+        _this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions__["h" /* registerClick */])({ username: username, password: password, email: email, role: role }));
       }
     };
 
@@ -37823,7 +37828,7 @@ var genres = function genres() {
     var action = arguments[1];
 
     switch (action.type) {
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["i" /* RECEIVE_GENRES */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["j" /* RECEIVE_GENRES */]:
             return action.genres;
         default:
             return state;
@@ -37835,10 +37840,22 @@ var games = function games() {
     var action = arguments[1];
 
     switch (action.type) {
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["j" /* RECEIVE_DATA */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["k" /* RECEIVE_DATA */]:
             return action.games;
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["k" /* CLEAR_DATA */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["l" /* CLEAR_DATA */]:
             return [];
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["m" /* PLAY_A_GAME */]:
+            var newState = JSON.parse(JSON.stringify(state));
+            var gid = action.gameid;
+            console.log("newState is " + JSON.stringify(newState));
+            newState.forEach(function (g) {
+                if (g.gameid == gid) {
+                    g.playing = true;
+                } else {
+                    g.playing = false;
+                }
+            });
+            return newState;
         default:
             return state;
     }
@@ -37849,17 +37866,17 @@ var loading = function loading() {
     var action = arguments[1];
 
     switch (action.type) {
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["l" /* LOGIN */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["n" /* LOGIN */]:
             return true;
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["m" /* REGISTER */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["o" /* REGISTER */]:
             return true;
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["n" /* LOGIN_SUCCESS */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["p" /* LOGIN_SUCCESS */]:
             return false;
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["o" /* LOGIN_FAIL */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["q" /* LOGIN_FAIL */]:
             return false;
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["p" /* REGISTER_SUCCESS */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["r" /* REGISTER_SUCCESS */]:
             return false;
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["q" /* REGISTER_FAIL */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["s" /* REGISTER_FAIL */]:
             return false;
         default:
             return state;
@@ -37871,13 +37888,13 @@ var user = function user() {
     var action = arguments[1];
 
     switch (action.type) {
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["n" /* LOGIN_SUCCESS */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["p" /* LOGIN_SUCCESS */]:
             return action.data;
             break;
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["p" /* REGISTER_SUCCESS */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["r" /* REGISTER_SUCCESS */]:
             return action.data;
             break;
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["r" /* LOGOUT */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["t" /* LOGOUT */]:
             return {};
         default:
             return state;
