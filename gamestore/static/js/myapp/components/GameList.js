@@ -43,40 +43,12 @@ function genreTypeFormatter(cell, row, enumObject) {
 class GameList extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   genreTypes: {},
-    //   games: []
-    // };
-    // this.props.genreTypes = {};
   }
   
   componentDidMount() {
     // Fetch genres for the filter
     this.props.dispatch(fetchGenres());
-    // fetch('/api/genres')
-    //   .then(x=>x.json())
-    //   .then(y=> {
-    //     var genres = {};
-    //     for (var i = 0; i < y.genrelist.length; ++i) {
-    //       genres[i] = y.genrelist[i].name;
-    //     }
-    //     this.setState({genreTypes:genres});
-    //   });
-    
-    // Fetch games from the API
     this.props.dispatch(fetchGames());
-    // fetch('/api/games', {
-    //   credentials: 'include',
-    //   method:'get'})
-    //   .then(x=>x.json())
-    //   .then(y=> {
-    //     var gamelist = [];
-    //     for (var i = 0; i < y.gamelist.length; ++i) {
-    //       gamelist[i] = y.gamelist[i];
-    //     }
-    //     this.setState({games:gamelist});
-    //   })
-    
   }
   
   render () {
