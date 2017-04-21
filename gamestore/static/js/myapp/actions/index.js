@@ -213,6 +213,41 @@ export const addGame = (game_name, game_desc, genre_id, game_price, game_url) =>
             });
 };
 
+// Initialize payment
+export const initializePayment = (game_id) => dispatch => {
+	return fetch('/api/payment/initiate/', {
+				credentials: 'include',
+				method:'post',
+				body: JSON.stringify({gameid: game_id})
+			})
+			.then(x=>x.json())
+			.then(result=>{
+                if (result.status === "failure") {
+                  alert(result.desc);
+                } else {
+					dispatch(executePayment(result.pid, result.sid, result.amount, result.checksum));
+				}
+			});
+};
+
+export const executePayment = (pid, sid, amount, checksum) => dispatch => {
+	return fetch('https://simplepayments.herokuapp.com/pay/', {
+		method:'post',
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded'
+		},
+		mode:'no-cors',
+		body: 
+			'pid=' + pid +
+			'&sid=' + sid +
+			'&amount=' + amount +
+			'&success_url=' + 'http://127.0.0.1:8000/store/player' +
+			'&cancel_url=' + 'http://127.0.0.1:8000/store/player' +
+			'&error_url=' + 'http://127.0.0.1:8000/store/player' +
+			'&checksum=' + checksum
+	})
+};
+
 /* the procedure of login is divided into several phases
 which are startLogin => fetching data => endLogin
 we dispatch several actions for the login, first is loginPage, which will tell the app now we are login-ing in,
