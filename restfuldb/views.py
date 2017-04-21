@@ -762,55 +762,6 @@ def game_analytic(request, gameid):
         return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
 
 
-def game_purchase(request):
-    # If logged in and is a player ->
-    #   Purchase the game
-    # If not logged in or logged in but not a player ->
-    #   UNAUTHORIZED
-
-    if request.method == 'POST':
-        user = request.user
-        role = get_user_group_name(user)
-        if not user.is_anonymous and role == "UserPlayer":
-            postData = json.loads(request.body)
-            try:
-                gameid = postData['gameid']
-                purchase_price = postData['purchase_price']
-            except:
-                responseData = json.dumps({'status': "failure", 'desc': "gameid or purchase_price missing"})
-                return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
-            try:
-                game = Game.objects.get(pk=gameid)
-                if own_this_game(user, game):
-                    desc = "You've owned this game, cannot purchase again!"
-                    responseData = json.dumps({'status': "failure", 'desc': desc})
-                    return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
-                else:
-                    usergame = UserGame.objects.create(user=user, game=game, purchase_price=purchase_price)
-                    usergame.save()
-                    responseData = json.dumps({'status': "success",
-                                               'desc': "purchased successfully!"
-                                               })
-                    return HttpResponse(responseData, content_type="application/json", status=OK)
-            except Game.DoesNotExist:
-                responseData = json.dumps({'status': "failure", 'desc': "Game.DoesNotExist"})
-                return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
-            except UserGame.DoesNotExist:
-                responseData = json.dumps({'status': "failure", 'desc': "UserGame.DoesNotExist"})
-                return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
-            except:
-                responseData = json.dumps({'status': "failure", 'desc': "Other unknown problems..."})
-                return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
-        else:
-            # UNAUTHORIZED
-            responseData = json.dumps({'status': "failure", 'desc': "You need to log in first or You're not a Player"})
-            return HttpResponse(responseData, content_type="application/json", status=UNAUTHORIZED)
-    else:
-        # Not a GET method
-        responseData = json.dumps({'status': "failure", 'desc': "Wrong request method"})
-        return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
-
-
 
 
 
