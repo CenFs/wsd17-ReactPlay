@@ -26,21 +26,11 @@ def own_this_game(user, game):
     role = get_user_group_name(user)
     if role == "UserPlayer":
         owned_games = user.usergames.all()
-        for eachusergame in owned_games:
-            if str(eachusergame.game.pk) == str(game.pk):
-                return True
     if role == "UserDeveloper":
-<<<<<<< HEAD
-        owned_games = Game.objects.filter(author=user)
-        for eachusergame in owned_games:
-            if str(eachusergame.game.pk) == str(game.pk):
-                return True
-=======
         owned_games = user.developedgames.all()
     for owned_game in owned_games:
         if owned_game == game:
             return True
->>>>>>> d561536... returns only authored games for developers, any games for players (minus url if not owned)
     return False
 
 
