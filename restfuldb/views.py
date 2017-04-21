@@ -26,13 +26,15 @@ def own_this_game(user, game):
     role = get_user_group_name(user)
     if role == "UserPlayer":
         owned_games = user.usergames.all()
+        for eachusergame in owned_games:
+            if str(eachusergame.game.pk) == str(game.pk):
+                return True
     if role == "UserDeveloper":
         owned_games = Game.objects.filter(author=user)
-    for eachusergame in owned_games:
-        if str(eachusergame.game.pk) == str(game.pk):
-            return True
+        for eachusergame in owned_games:
+            if str(eachusergame.game.pk) == str(game.pk):
+                return True
     return False
-
 
 
 def login(request):
@@ -47,11 +49,11 @@ def login(request):
                     'email': user.email,
                     'role': get_user_group_name(user)
                     }
-        responseData = json.dumps({'status': "logged-in-user",
+        responseData = json.dumps({'status': "success",
                                    'desc': "already logged in",
                                    'userinfo': userinfo
                                    })
-        return HttpResponse(responseData, content_type="application/json", status=CONTINUE)
+        return HttpResponse(responseData, content_type="application/json", status=OK)
 
     # Anonymous User
     if request.method == 'POST':
@@ -233,7 +235,7 @@ def user_info(request, userid):
                                   'gamename': usergame.game.name,
                                   'gameauthor': usergame.game.author.username,
                                   'gameurl': usergame.game.url,
-                                  'gamegenre': usergame.game.genre.name,
+                                  'gamegenre': usergame.game.genre.id,
                                   'gamedescription': usergame.game.description
                                   }
                     usergameinfo = {'gameheader': gameheader,
@@ -249,7 +251,7 @@ def user_info(request, userid):
                 for eachgame in owned_games:
                     gameheader = {'gameid': eachgame.pk,
                                   'name': eachgame.name,
-                                  'genre': eachgame.genre.name,
+                                  'genre': eachgame.genre.id,
                                   'description': eachgame.description,
                                   'price': eachgame.price,
                                   'url': eachgame.url
@@ -343,7 +345,7 @@ def all_games(request):
             game_detail = {'gameid': game.id,
                            'name': game.name,
                            'author': game.author.username,
-                           'genre': game.genre.name,
+                           'genre': game.genre.id,
                            'price': game.price,
                            'description': game.description,
                            'url': game.url
@@ -397,7 +399,7 @@ def all_games(request):
                 gamelist = []
                 user = request.user
                 role = get_user_group_name(user)
-                if role == "UserPlayer":
+                if role == "UserPlayer" or role == "UserDeveloper":
                     for eachgame in games:
                         if own_this_game(user, eachgame):
                             gamelist.append({'gameid': eachgame.id,
@@ -465,7 +467,8 @@ def game_detail(request, gameid):
                                        'author': game.author.username,
                                        'price': game.price,
                                        'description': game.description,
-                                       'url': game.url
+                                       'url': game.url,
+                                       'genre': game.genre.id
                                        }
                         responseData = json.dumps({'status': "success",
                                                    'desc': "logged in and you're the author of this game",
@@ -483,7 +486,8 @@ def game_detail(request, gameid):
                                                'author': game.author.username,
                                                'price': game.price,
                                                'description': game.description,
-                                               'url': game.url
+                                               'url': game.url,
+                                               'genre': game.genre.id
                                                }
                                 responseData = json.dumps({'status': "success",
                                                            'desc': "logged in and own this game",
@@ -496,7 +500,8 @@ def game_detail(request, gameid):
                                        'name': game.name,
                                        'author': game.author.username,
                                        'price': game.price,
-                                       'description': game.description
+                                       'description': game.description,
+                                       'genre': game.genre.id
                                        }
                         responseData = json.dumps({'status': "success",
                                                    'desc': "logged in but does not own game",
@@ -537,7 +542,8 @@ def game_detail(request, gameid):
                                            'author': game.author.username,
                                            'price': game.price,
                                            'description': game.description,
-                                           'url': game.url
+                                           'url': game.url,
+                                           'genre': game.genre.id
                                            }
                     responseData = json.dumps({'status': "success",
                                                'desc': "Updated game details successfully",
@@ -556,7 +562,8 @@ def game_detail(request, gameid):
                                'name': game.name,
                                'author': game.author.username,
                                'price': game.price,
-                               'description': game.description
+                               'description': game.description,
+                               'genre': game.genre.id
                                }
                 responseData = json.dumps({'status': "success",
                                            'desc': "not logged in",
@@ -867,7 +874,8 @@ def game_register(request):
             game_detail = {'gameid': game.id,
                            'name': game.name,
                            'author': game.author.username,
-                           'genre': game.genre.name,
+                           'genre': {'genreid': game.genre.id,
+                                     'genrename': game.genre.name},
                            'price': game.price,
                            'description': game.description,
                            'url': game.url
