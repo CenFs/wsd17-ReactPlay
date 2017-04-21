@@ -57,7 +57,8 @@ class GameList extends React.Component {
     return (
       <div>
         <BootstrapTable data={this.props.games} pagination>
-            <TableHeaderColumn dataField='gameid' isKey={true} width='10%'>Game ID</TableHeaderColumn>
+            <TableHeaderColumn dataField='gameid' isKey={true} hidden>Game ID</TableHeaderColumn>
+            <TableHeaderColumn dataField='author' width='10%'>Author</TableHeaderColumn>
             <TableHeaderColumn dataField='name' filter={{ type: 'TextFilter', delay: 200 }} width='20%'>Game Name</TableHeaderColumn>
             <TableHeaderColumn dataField='description' tdStyle={{ whiteSpace: 'normal' }}>Description</TableHeaderColumn>
             <TableHeaderColumn dataField='genre' filterFormatted dataFormat={ enumFormatter } formatExtraData={ this.props.genreTypes }
