@@ -8,7 +8,6 @@ class Iframe extends React.Component {
   constructor(props) {
     super(props);
     this.handleFrameTasks = this.handleFrameTasks.bind(this);
-    this.game = {};
   }
   
   componentWillMount() {
@@ -73,7 +72,8 @@ class Iframe extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  selectedGame: state.games.filter((g)=>{return g.playing})[0]
+  selectedGame: state.games.filter((g)=>{return g.playing})[0],
+  userId: state.user.userid
 });
 
 export default connect(mapStateToProps)(Iframe);
