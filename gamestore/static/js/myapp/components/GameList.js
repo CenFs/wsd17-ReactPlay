@@ -35,7 +35,7 @@ function urlFormatter (cell, row, enumObject, rowIndex) {
           this.props.dispatch(playGame(row.gameid));
         } else {
           // TODO:buy game
-          alert("Buy game first, you poor guy!")
+          alert("Buy game first, you poor guy!");
           // this.props.dispatch(buyGame(row.gameid));
         }
         }}>
