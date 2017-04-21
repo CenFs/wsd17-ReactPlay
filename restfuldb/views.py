@@ -37,8 +37,8 @@ def own_this_game(user, game):
                 return True
 =======
         owned_games = user.developedgames.all()
-    for eachusergame in owned_games:
-        if str(eachusergame.game.pk) == str(game.pk):
+    for owned_game in owned_games:
+        if owned_game == game:
             return True
 >>>>>>> d561536... returns only authored games for developers, any games for players (minus url if not owned)
     return False
