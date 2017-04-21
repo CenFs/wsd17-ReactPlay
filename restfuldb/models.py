@@ -31,12 +31,12 @@ class Game(models.Model):
 
 
 class UserGame(models.Model):
-    """Contains information of a game that is related to a user."""
+    """Contains information of a game that is related to a user. Indicates that the player owns the game."""
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='usergames')
     game = models.ForeignKey(Game, related_name='usergames')
     purchase_date = models.DateField(auto_now_add=True)
-    purchase_price = models.IntegerField(default=0)
+    purchase_price = models.DecimalField(max_digits=9, decimal_places=2, default=0)
     score = models.IntegerField(default=0)
     state = models.TextField(default='')
 
@@ -53,3 +53,13 @@ class UserGame(models.Model):
 
     class Meta:
         unique_together = ('user', 'game')
+
+
+
+class Transaction(models.Model):
+    """Contains information of a transaction for a game by a single user."""
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='usertransactions')
+    game = models.ForeignKey(Game)
+    amount = models.DecimalField(max_digits=9, decimal_places=2)
+    ref = models.IntegerField(blank=True, null=True) # if null, transaction not successful/completed

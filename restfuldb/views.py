@@ -1,9 +1,10 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 import json
-from restfuldb.models import Game, GameGenre, UserGame
+from restfuldb.models import Game, GameGenre, UserGame, Transaction
 from django.contrib.auth.models import User, Group
 from django.contrib import auth
+from hashlib import md5
 
 UNAUTHORIZED = 401
 BAD_REQUEST = 400
@@ -13,11 +14,17 @@ NOT_FOUND = 404
 CREATED = 201
 CONTINUE = 100
 
+SIMPLE_PAYMENT_SELLER_ID = 'WebReactPlay'
+SIMPLE_PAYMENT_SECRET_KEY = 'd58ce81cde2fcb2fd64deead1159494a'
+
 DOESNT_EXIST = "This attr in request.body doesn't exist!"
 
 # Helpers to get user group (user should never be assigned more than 1 group)
 def get_user_group_name(user):
-    return user.groups.first().name
+    if user.is_anonymous:
+        return ''
+    else:
+        return user.groups.first().name
 
 # To check if the user own that game or not
 # The user is a Player -> the game he bought
@@ -809,8 +816,135 @@ def game_purchase(request):
 
 
 
+def initiate_payment(request):
+    
+    if request.method != 'POST':
+
+        # Only players can buy games
+        user = request.user
+        if get_user_group_name(user) != "UserPlayer":
+            responseData = json.dumps({'status': "failure", 'desc': "You need to log in first or You're not a Player"})
+            return HttpResponse(responseData, content_type="application/json", status=UNAUTHORIZED)
+            
+        # Check post parameters
+        postData = json.loads(request.body)
+        try:
+            gameid = postData['gameid']
+        except:
+            responseData = json.dumps({'status': "failure", 'desc': "gameid missing"})
+            return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
+
+        # Get game, check if user already owns the game
+        game = Game.objects.get(pk=gameid)
+        if own_this_game(user, game):
+            desc = "You've owned this game, cannot purchase again!"
+            responseData = json.dumps({'status': "failure", 'desc': desc})
+            return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
+        
+        # Create transaction model already, so we know the payments that are not completed
+        transaction = Transaction.objects.create(user=user, game=game, amount=game.price)
+        transaction.save()
+        
+        # Create checksum
+        checksumstr = "pid={}&sid={}&amount={}&token={}".format(transaction.id, SIMPLE_PAYMENT_SELLER_ID, transaction.amount, SIMPLE_PAYMENT_SECRET_KEY)
+        m = md5(checksumstr.encode("ascii"))
+        checksum = m.hexdigest()
+        
+        # Create response json
+        responseData = json.dumps(
+            {'status': "success", 
+             'desc': "payment initiated",
+             'pid': transaction.id,
+             'sid': SIMPLE_PAYMENT_SELLER_ID,
+             'amount': transaction.amount,
+             'checksum': checksum})
+        
+        return HttpResponse(responseData, content_type="application/json", status=OK)
+
+    else:
+        # Not a GET method
+        responseData = json.dumps({'status': "failure", 'desc': "not a POST request"})
+        return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
+
+
+
+
+def finalize_payment(request):
+    
+    if request.method != 'POST':
+
+        # Only players can buy games
+        user = request.user
+        if get_user_group_name(user) != "UserPlayer":
+            responseData = json.dumps({'status': "failure", 'desc': "You need to log in first or You're not a Player"})
+            return HttpResponse(responseData, content_type="application/json", status=UNAUTHORIZED)
+            
+        # Check post parameters
+        postData = json.loads(request.body)
+        try:
+            pid = postData['pid']
+            ref = postData['ref']
+            result = postData['result']
+            checksum = postData['checksum']
+        except:
+            responseData = json.dumps({'status': "failure", 'desc': "pid, ref, result or checksum missing"})
+            return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
+
+        # Get the transaction
+        try:
+            transaction = Transaction.objects.get(id=pid)
+        except Transaction.DoesNotExist:
+            responseData = json.dumps({'status': "failure", 'desc': "transaction does not exist"})
+            return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
+        
+        # Check it is the authenticated users transaction (don't tell them!)
+        if user != transaction.user:
+            responseData = json.dumps({'status': "failure", 'desc': "transaction does not exist"})
+            return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
+        
+        # Recreate response checksum
+        checksumstr = "pid={}&ref={}&result={}&token={}".format(pid, ref, result, SIMPLE_PAYMENT_SECRET_KEY)
+        m = md5(checksumstr.encode("ascii"))
+        checksum_recreated = m.hexdigest()
+        
+        # Check that the checksums match
+        if checksum != checksum_recreated:
+            responseData = json.dumps({'status': "failure", 'desc': "checksum failed"})
+            return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
+        
+        # Check that the payment has not been already completed
+        if transaction.ref is not None:
+            transaction.ref = ref
+            transaction.save()
+        
+        # Create usergame
+        usergame = UserGame.objects.create(user=transaction.user, game=transaction.game, purchase_price=transaction.amount)
+        usergame.save()
+        
+        # Send response
+        responseData = json.dumps({'status': "success",
+                                   'desc': "purchased successfully!"
+                                   })
+        return HttpResponse(responseData, content_type="application/json", status=OK)
+
+    else:
+        # Not a GET method
+        responseData = json.dumps({'status': "failure", 'desc': "not a POST request"})
+        return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
+
+
+
+
+
+
+
+
+
+
+
 
 ############################################## NOT IN USE #########################################
+
 
 def apitest(request):
     data = {'name': 'DeveloperC',

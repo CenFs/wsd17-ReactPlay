@@ -79,7 +79,7 @@ def CreateDebugData(sender, **kwargs):
         'name': 'Lucky Beer',
         'author': developer,
         'genre': genre,
-        'price': 10,
+        'price': 9.99,
         'description': 'If you are luck, you will have a lot of beer',
         'url': 'https://www.students.tut.fi/~chenm/index.html',
     }
@@ -92,7 +92,7 @@ def CreateDebugData(sender, **kwargs):
         'name': 'Really Stupid Jumping Gaem',
         'author': developer,
         'genre': genre,
-        'price': 20,
+        'price': 19.99,
         'description': 'Really stupid game, where try to avoid the floor.',
         'url': 'https://solidi.kapsi.fi/WSD17/',
     }
