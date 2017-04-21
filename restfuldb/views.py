@@ -30,10 +30,17 @@ def own_this_game(user, game):
             if str(eachusergame.game.pk) == str(game.pk):
                 return True
     if role == "UserDeveloper":
+<<<<<<< HEAD
         owned_games = Game.objects.filter(author=user)
         for eachusergame in owned_games:
             if str(eachusergame.game.pk) == str(game.pk):
                 return True
+=======
+        owned_games = user.developedgames.all()
+    for eachusergame in owned_games:
+        if str(eachusergame.game.pk) == str(game.pk):
+            return True
+>>>>>>> d561536... returns only authored games for developers, any games for players (minus url if not owned)
     return False
 
 
@@ -399,8 +406,10 @@ def all_games(request):
                 gamelist = []
                 user = request.user
                 role = get_user_group_name(user)
+
                 if role == "UserPlayer" or role == "UserDeveloper":
                     for eachgame in games:
+                        # Return owned/authored games with url
                         if own_this_game(user, eachgame):
                             gamelist.append({'gameid': eachgame.id,
                                              'name': eachgame.name,
@@ -410,6 +419,7 @@ def all_games(request):
                                              'genre': eachgame.genre.id,
                                              'url': eachgame.url
                                              })
+                        # Return other games without URL
                         else:
                             gamelist.append({'gameid': eachgame.id,
                                              'name': eachgame.name,
@@ -418,6 +428,7 @@ def all_games(request):
                                              'description': eachgame.description,
                                              'genre': eachgame.genre.id
                                              })
+
                 responseData = json.dumps({'status': "success",
                                            'desc': "gamelist - GET all games",
                                            'gamelist': gamelist
