@@ -205,8 +205,10 @@ export const addGame = (game_name, game_desc, genre_id, game_price, game_url) =>
             })
             .then(x=>x.json())
             .then(result=>{
-                // TODO: add result game to table
-                console.log(result);
+                if (result.status === "failure") {
+                  alert(result.desc);
+                }
+                dispatch(fetchGames());
             });
 };
 

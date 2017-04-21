@@ -46,12 +46,7 @@ const cellEditProp = {
 
 
 function onAfterInsertRow(row) {
-  let newRowStr = '';
-
-  for (const prop in row) {
-    newRowStr += prop + ': ' + row[prop] + ' \n';
-  }
-  //alert('The new row is:\n ' + newRowStr);
+  this.props.dispatch(addGame(row['name'], row['description'], row['genre'], row['price'], row['row']));
 }
 
 const options = {
@@ -67,15 +62,14 @@ class DevList extends React.Component {
     // Fetch genres for the filter
     this.props.dispatch(fetchGenres());
     this.props.dispatch(fetchGames());
-    //this.props.dispatch(addGame("test2", "desc2", 2, 13, "asdf2"));
   }
   
   render () {
     return (
       <div>
         <BootstrapTable data={this.props.games} cellEdit={cellEditProp} insertRow={true} options={options} pagination>
-            <TableHeaderColumn dataField='gameid' isKey={true} hidden hiddenInInsert>Game ID</TableHeaderColumn>
-            <TableHeaderColumn dataField='author' width='10%'>Author</TableHeaderColumn>
+            <TableHeaderColumn dataField='gameid' isKey={true} hidden hiddenOnInsert autoValue>Game ID</TableHeaderColumn>
+            <TableHeaderColumn dataField='author' width='10%' hiddenOnInsert>Author</TableHeaderColumn>
             <TableHeaderColumn dataField='name' filter={{ type: 'TextFilter', delay: 200 }} width='20%'>Game Name</TableHeaderColumn>
             <TableHeaderColumn dataField='description' tdStyle={{ whiteSpace: 'normal' }}>Description</TableHeaderColumn>
             <TableHeaderColumn dataField='genre' filterFormatted dataFormat={ enumFormatter } formatExtraData={ this.props.genreTypes }>Game Genre</TableHeaderColumn>
