@@ -40,13 +40,34 @@ const cellEditProp = {
   afterSaveCell: onAfterSaveCell  // a hook for after saving cell
 };
 
+// add new game
+function addGame(game_name, game_desc, genre_id, game_price, game_url) {
+    return fetch('/api/games/', {
+                credentials: 'include',
+                method:'post',
+                body: JSON.stringify({
+                    gamename: game_name,
+                    description: game_desc,
+                    genreid: genre_id,
+                    price: game_price,
+                    url: game_url
+                })
+            })
+            .then(x=>x.json())
+            .then(result=>{
+                // TODO: add result game to table
+                console.log(result);
+            });
+}
+
 function onAfterInsertRow(row) {
   let newRowStr = '';
 
   for (const prop in row) {
     newRowStr += prop + ': ' + row[prop] + ' \n';
   }
-  alert('The new row is:\n ' + newRowStr);
+  //alert('The new row is:\n ' + newRowStr);
+    addGame("test", "desc", 1, 13, "asdf");
 }
 
 const options = {
