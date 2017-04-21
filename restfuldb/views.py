@@ -767,7 +767,7 @@ def game_analytic(request, gameid):
 
 def initiate_payment(request):
     
-    if request.method != 'POST':
+    if request.method == 'POST':
 
         # Only players can buy games
         user = request.user
@@ -820,7 +820,7 @@ def initiate_payment(request):
 
 def finalize_payment(request):
     
-    if request.method != 'POST':
+    if request.method == 'POST':
 
         # Only players can buy games
         user = request.user
