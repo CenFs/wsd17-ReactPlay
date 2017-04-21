@@ -613,7 +613,6 @@ def usergames(request, userid, gameid):
                     try:
                         owned_games = user.usergames.all()
                         for ownedgame in owned_games:
-                            print ("ownedgame.game.pk is "+str(ownedgame.game.pk))
                             if str(ownedgame.game.pk) == str(gameid):
                                 usergame_info = {'userid': user.id,
                                                  'gameid': game.id,
@@ -743,9 +742,11 @@ def game_analytic(request, gameid):
                     info.append({'purchase_date': usergame.purchase_date.strftime('%d-%m-%Y'),
                                  'purchase_price': usergame.purchase_price,
                                  'score': usergame.score,
+                                 'username': usergame.user.username
                                  })
                 else:
                     info.append({'score': usergame.score})
+                info = sorted(info,key=lambda k: k['score'], reverse=True)
             responseData = json.dumps({'status': "success",
                                        'desc': "collect relevant information from all related UserGames",
                                        'info': info
