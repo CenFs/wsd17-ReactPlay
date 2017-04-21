@@ -28,8 +28,9 @@ def own_this_game(user, game):
         owned_games = user.usergames.all()
     if role == "UserDeveloper":
         owned_games = user.developedgames.all()
+    # print ("owned_games is "+str(owned_games.name))
     for owned_game in owned_games:
-        if owned_game == game:
+        if owned_game.game == game:
             return True
     return False
 
@@ -399,8 +400,10 @@ def all_games(request):
 
                 if role == "UserPlayer" or role == "UserDeveloper":
                     for eachgame in games:
+                        print ("lalala eachgame is "+str(eachgame))
                         # Return owned/authored games with url
                         if own_this_game(user, eachgame):
+                            print ("own!")
                             gamelist.append({'gameid': eachgame.id,
                                              'name': eachgame.name,
                                              'author': eachgame.author.username,
@@ -411,6 +414,7 @@ def all_games(request):
                                              })
                         # Return other games without URL
                         else:
+                            print ("not own!")
                             gamelist.append({'gameid': eachgame.id,
                                              'name': eachgame.name,
                                              'author': eachgame.author.username,
