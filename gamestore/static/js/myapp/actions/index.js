@@ -91,6 +91,7 @@ export const loadState = json => dispatch => {
                 method:'get'})
             .then(x=>x.json())
             .then(y=>{
+                console.log("y.usergame_info "+JSON.stringify(y));
                 if (!y.usergame_info.state)
                 {
                     console.log("empty state y: "+JSON.stringify(y.usergame_info.state));

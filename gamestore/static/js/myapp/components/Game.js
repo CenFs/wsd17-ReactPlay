@@ -14,7 +14,7 @@ class Game extends React.Component{
           <div>
             <NavBar />
             <Iframe gameId={this.props.params.gameId}/>
-            <HighScores />
+            <HighScores gameId={this.props.params.gameId}/>
           </div>
         );
     }

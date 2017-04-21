@@ -35,7 +35,6 @@ def own_this_game(user, game):
         owned_games = user.usergames.all()
     if role == "UserDeveloper":
         owned_games = user.developedgames.all()
-    # print ("owned_games is "+str(owned_games.name))
     for owned_game in owned_games:
         if owned_game.game == game:
             return True
@@ -407,10 +406,8 @@ def all_games(request):
 
                 if role == "UserPlayer" or role == "UserDeveloper":
                     for eachgame in games:
-                        print ("lalala eachgame is "+str(eachgame))
                         # Return owned/authored games with url
                         if own_this_game(user, eachgame):
-                            print ("own!")
                             gamelist.append({'gameid': eachgame.id,
                                              'name': eachgame.name,
                                              'author': eachgame.author.username,
@@ -421,7 +418,6 @@ def all_games(request):
                                              })
                         # Return other games without URL
                         else:
-                            print ("not own!")
                             gamelist.append({'gameid': eachgame.id,
                                              'name': eachgame.name,
                                              'author': eachgame.author.username,
@@ -617,13 +613,14 @@ def usergames(request, userid, gameid):
                     try:
                         owned_games = user.usergames.all()
                         for ownedgame in owned_games:
+                            print ("ownedgame.game.pk is "+str(ownedgame.game.pk))
                             if str(ownedgame.game.pk) == str(gameid):
                                 usergame_info = {'userid': user.id,
                                                  'gameid': game.id,
                                                  'purchase_date': ownedgame.purchase_date.strftime('%d-%m-%Y'),
                                                  'score': ownedgame.score,
                                                  'state': ownedgame.state,
-                                                 'purchase_price': ownedgame.purchase_price
+                                                 'purchase_price': str(ownedgame.purchase_price)
                                                  }
                                 responseData = json.dumps({'status': "success",
                                                            'desc': "usergame_info",
