@@ -286,6 +286,7 @@ def user_info(request, userid):
 
 def all_genres(request):
     # Return all genres as {id, name}
+    print ("fuck you !")
     genreobjs = GameGenre.objects.all()
     genrelist = []
     for genre in genreobjs:

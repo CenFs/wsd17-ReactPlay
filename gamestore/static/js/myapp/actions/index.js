@@ -28,7 +28,14 @@ export const REGISTER = 'REGISTER'
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAIL = 'REGISTER_FAIL';
 
+export const PLAY_A_GAME = 'PLAY_A_GAME';
+
 // simple actions
+export const playGame = (gid) =>({
+    type:PLAY_A_GAME,
+    gameid:gid
+});
+
 export const loginPage = () => ({
     type:LOGIN
 });
@@ -108,7 +115,6 @@ export const loadState = json => dispatch => {
 };
 
 export const saveState = json => dispatch => {
-    console.log("saving "+json.score);
     return fetch('/api/users/'+json.userId+'/games/'+json.gameId+'/',{
       credentials: 'include',
       method:'post',
@@ -118,6 +124,33 @@ export const saveState = json => dispatch => {
       }, 
       // body:JSON.stringify({'score':json.score})
       body:JSON.stringify({"state":JSON.stringify({score:json.score})})
+    })
+    .then(x=>x.json())
+    .then(result=>{
+        console.log(result);
+        if (result.status === "success")
+        {
+            console.log("success saved!");
+        }
+        else
+        {
+            console.log("fail saved!");
+        }
+    })
+    ;
+};
+
+// save score
+export const saveScore = json => dispatch => {
+    return fetch('/api/users/'+json.userId+'/games/'+json.gameId+'/',{
+      credentials: 'include',
+      method:'post',
+      headers:
+      {
+        'Content-Type': 'application/json'
+      }, 
+      // body:JSON.stringify({'score':json.score})
+      body:JSON.stringify({"score":json.score})
     })
     .then(x=>x.json())
     .then(result=>{

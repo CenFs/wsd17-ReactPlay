@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ReactDOM from 'react-dom';
 import { browserHistory } from 'react-router';
-import { fetchGames, fetchGenres } from '../actions';
+import { fetchGames, fetchGenres, playGame } from '../actions';
 
 
 function priceFormatter (cell, row) {
@@ -21,6 +21,7 @@ function urlFormatter (cell, row, enumObject, rowIndex) {
       onClick={() => {
         console.log(cell, row, rowIndex);
         browserHistory.push(`/store/game/${row.gameid}`);
+        this.props.dispatch(playGame(row.gameid));
         }}>
       Play
     </button>
@@ -43,6 +44,7 @@ function genreTypeFormatter(cell, row, enumObject) {
 class GameList extends React.Component {
   constructor(props) {
     super(props);
+    this.urlFormatter = urlFormatter.bind(this);
   }
   
   componentDidMount() {
@@ -61,7 +63,7 @@ class GameList extends React.Component {
             <TableHeaderColumn dataField='genre' filterFormatted dataFormat={ enumFormatter } formatExtraData={ this.props.genreTypes }
               filter={ { type: 'SelectFilter', options: this.props.genreTypes } }>Game Genre</TableHeaderColumn>
             <TableHeaderColumn dataField='price' dataSort={true} dataFormat={priceFormatter} width='10%'>Price</TableHeaderColumn>
-            <TableHeaderColumn dataField='url' dataFormat={urlFormatter}>Buy or Play</TableHeaderColumn>
+            <TableHeaderColumn dataField='url' dataFormat={this.urlFormatter}>Buy or Play</TableHeaderColumn>
         </BootstrapTable>
       </div>
     );

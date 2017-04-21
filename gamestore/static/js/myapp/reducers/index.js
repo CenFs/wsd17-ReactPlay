@@ -3,7 +3,7 @@
 // Every reducer should be pure function! You are recommended to learn reducer more from internet, it's easy
 
 import {REQUEST_DATA, RECEIVE_DATA, RECEIVE_GENRES, CLEAR_DATA, LOGIN, LOGIN_SUCCESS, LOGIN_FAIL,LOGOUT,
-REGISTER, REGISTER_SUCCESS, REGISTER_FAIL
+REGISTER, REGISTER_SUCCESS, REGISTER_FAIL, PLAY_A_GAME
 } from '../actions';
 import { combineReducers } from 'redux';
 
@@ -34,6 +34,23 @@ const games = (state=[],action) => {
             return action.games;
         case CLEAR_DATA:
             return [];
+        case PLAY_A_GAME:
+            let newState = JSON.parse(JSON.stringify(state));
+            let gid = action.gameid;
+            console.log("newState is "+JSON.stringify(newState));
+            newState.forEach(
+                g=>{
+                    if (g.gameid == gid)
+                    {
+                        g.playing = true;
+                    }
+                    else
+                    {
+                        g.playing = false;
+                    }
+                }
+            );
+            return newState;
         default:
             return state;
     }

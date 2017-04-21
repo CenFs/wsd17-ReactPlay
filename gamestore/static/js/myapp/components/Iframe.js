@@ -1,13 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ReactDOM from 'react-dom'
-import { loadState, saveState } from '../actions';
+import { loadState, saveState, saveScore} from '../actions';
 
 class Iframe extends React.Component {
 
   constructor(props) {
     super(props);
     this.handleFrameTasks = this.handleFrameTasks.bind(this);
+    this.game = {};
   }
   
   componentWillMount() {
@@ -15,20 +16,6 @@ class Iframe extends React.Component {
 
 
   componentDidMount() {
-
-    fetch('/api/games/' + this.props.gameId, {
-      credentials: 'include',
-      method:'get'
-    })
-      .then(x=>x.json())
-      .then(y=>{
-        // console.log(y.game_detail.url);
-        this.setState({gameUrl:y.game_detail.url});
-        console.log(this.state.gameUrl);
-      });
-      
-    console.log(this.props);
-    
     window.addEventListener("message", this.handleFrameTasks);
   }
 
@@ -62,6 +49,9 @@ class Iframe extends React.Component {
       case 'SAVE':
         this.props.dispatch(saveState({gameId:this.props.gameId, userId:this.props.userId, score:e.data.gameState.score, frame:this.ifr}));
         break;
+      case 'SCORE':
+        this.props.dispatch(saveScore({gameId:this.props.gameId, userId:this.props.userId, score:e.data.score, frame:this.ifr}));
+        break;
       default:
         this.sendToFrame('some messages not handled');
     }
@@ -74,7 +64,7 @@ class Iframe extends React.Component {
         <iframe
           sandbox="allow-scripts"
           style={{ width: '100%', height:'100%', position: 'absolute', top:'0', left: '0' }}
-          src={this.props.gameUrl}
+          src={ this.props.selectedGame.url }
           ref={(f) => { this.ifr = f }}
         />
       </div>
@@ -83,7 +73,7 @@ class Iframe extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  gameUrl: state.gamesUrl
+  selectedGame: state.games.filter((g)=>{return g.playing})[0]
 });
 
 export default connect(mapStateToProps)(Iframe);
