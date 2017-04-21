@@ -83,7 +83,7 @@ def CreateDebugData(sender, **kwargs):
         'description': 'If you are luck, you will have a lot of beer',
         'url': 'https://www.students.tut.fi/~chenm/index.html',
     }
-    game, created = Game.objects.get_or_create(**game_data)
+    game1, created = Game.objects.get_or_create(**game_data)
     
     #--------------------------------------------------------------------
     # Create a game
@@ -108,6 +108,15 @@ def CreateDebugData(sender, **kwargs):
         'state': '',
     }
     usergame, created = UserGame.objects.get_or_create(**usergame_data)
+
+    usergame_data2 = {
+        'user': player,
+        'game': game1,
+        'purchase_date': datetime.now(),
+        'score': 1337,
+        'state': '',
+    }
+    usergame, created = UserGame.objects.get_or_create(**usergame_data2)
 
 
 class RestfuldbConfig(AppConfig):
