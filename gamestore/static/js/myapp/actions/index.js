@@ -183,10 +183,31 @@ export const fetchGames = () => dispatch => {
             });
 };
 
+// fetch genres
 export const fetchGenres = () => dispatch => {
     return fetch('/api/genres')
             .then(x=>x.json())
             .then(y=>dispatch(receiveGenres({genres:y.genrelist})));
+};
+
+// send new game to backend
+export const addGame = (game_name, game_desc, genre_id, game_price, game_url) => dispatch => {
+    return fetch('/api/games/', {
+                credentials: 'include',
+                method:'post',
+                body: JSON.stringify({
+                    gamename: game_name,
+                    description: game_desc,
+                    genreid: genre_id,
+                    price: game_price,
+                    url: game_url
+                })
+            })
+            .then(x=>x.json())
+            .then(result=>{
+                // TODO: add result game to table
+                console.log(result);
+            });
 };
 
 /* the procedure of login is divided into several phases

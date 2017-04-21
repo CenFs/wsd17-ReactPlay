@@ -1,19 +1,23 @@
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import React from 'react';
+import { connect } from 'react-redux';
 import ReactDOM from 'react-dom';
+import { fetchGames, fetchGenres, addGame } from '../actions';
 
-const games = [{id: 1, name: "BrowserQuest", price: 3.99, desc: "A Massively Multiplayer Adventure", url:"http://browserquest.mozilla.org/"},
-{id:2, name:"HEXGL", price:5.99, desc: "A futuristic, fast-paced racing game", url:"http://hexgl.bkcore.com/play/"},
-{id:3, name:"HEXGL 2", price:6.99, desc: "A new, fast-paced racing game", url:"http://hexgl.bkcore.com/play/"},
-{id:4, name:"HEXGL 3", price:6.99, desc: "A new, fast-paced racing game", url:"http://hexgl.bkcore.com/play/"},
-{id:5, name:"HEXGL 4", price:6.99, desc: "A new, fast-paced racing game", url:"http://hexgl.bkcore.com/play/"},
-{id:6, name:"HEXGL 5", price:6.99, desc: "A new, fast-paced racing game", url:"http://hexgl.bkcore.com/play/"},
-{id:7, name:"HEXGL 6", price:6.99, desc: "A new, fast-paced racing game", url:"http://hexgl.bkcore.com/play/"},
-{id:8, name:"HEXGL 7", price:6.99, desc: "A new, fast-paced racing game", url:"http://hexgl.bkcore.com/play/"}
-]
 
 function priceFormatter (cell, row) {
   return `<i class='glyphicon glyphicon-euro'></i> ${cell}`;
+}
+
+function enumFormatter(cell, row, enumObject) {
+  return enumObject[cell];
+}
+function genreTypeFormatter(cell, row, enumObject) {
+  if (enumObject[row.genre] && enumObject[row.genre].name)
+  {
+    return enumObject[row.genre].name;
+  }
+  return cell;
 }
 
 function onAfterSaveCell(row, cellName, cellValue) {
@@ -40,25 +44,6 @@ const cellEditProp = {
   afterSaveCell: onAfterSaveCell  // a hook for after saving cell
 };
 
-// add new game
-function addGame(game_name, game_desc, genre_id, game_price, game_url) {
-    return fetch('/api/games/', {
-                credentials: 'include',
-                method:'post',
-                body: JSON.stringify({
-                    gamename: game_name,
-                    description: game_desc,
-                    genreid: genre_id,
-                    price: game_price,
-                    url: game_url
-                })
-            })
-            .then(x=>x.json())
-            .then(result=>{
-                // TODO: add result game to table
-                console.log(result);
-            });
-}
 
 function onAfterInsertRow(row) {
   let newRowStr = '';
@@ -67,7 +52,6 @@ function onAfterInsertRow(row) {
     newRowStr += prop + ': ' + row[prop] + ' \n';
   }
   //alert('The new row is:\n ' + newRowStr);
-    addGame("test", "desc", 1, 13, "asdf");
 }
 
 const options = {
@@ -75,13 +59,26 @@ const options = {
 };
 
 class DevList extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  
+  componentDidMount() {
+    // Fetch genres for the filter
+    this.props.dispatch(fetchGenres());
+    this.props.dispatch(fetchGames());
+    //this.props.dispatch(addGame("test2", "desc2", 2, 13, "asdf2"));
+  }
+  
   render () {
     return (
       <div>
-        <BootstrapTable data={games} cellEdit={cellEditProp} insertRow={true} options={options} pagination>
-            <TableHeaderColumn dataField='id' isKey={true} width='10%'>Game ID</TableHeaderColumn>
+        <BootstrapTable data={this.props.games} cellEdit={cellEditProp} insertRow={true} options={options} pagination>
+            <TableHeaderColumn dataField='gameid' isKey={true} hidden hiddenInInsert>Game ID</TableHeaderColumn>
+            <TableHeaderColumn dataField='author' width='10%'>Author</TableHeaderColumn>
             <TableHeaderColumn dataField='name' filter={{ type: 'TextFilter', delay: 200 }} width='20%'>Game Name</TableHeaderColumn>
-            <TableHeaderColumn dataField='desc' tdStyle={{ whiteSpace: 'normal' }}>Description</TableHeaderColumn>
+            <TableHeaderColumn dataField='description' tdStyle={{ whiteSpace: 'normal' }}>Description</TableHeaderColumn>
+            <TableHeaderColumn dataField='genre' filterFormatted dataFormat={ enumFormatter } formatExtraData={ this.props.genreTypes }>Game Genre</TableHeaderColumn>
             <TableHeaderColumn dataField='price' dataSort={true} dataFormat={priceFormatter} width='10%'>Price</TableHeaderColumn>
             <TableHeaderColumn dataField='url'>URL</TableHeaderColumn>
         </BootstrapTable>
@@ -90,4 +87,20 @@ class DevList extends React.Component {
   }
 }
 
-export default DevList;
+function transform_genres(arr)
+{
+  var genres = {};
+  for (var i = 0; i < arr.length; ++i) 
+  {
+    genres[i] = arr[i].name;
+  }
+  return genres;
+}
+
+const mapStateToProps = (state) => ({
+  games:state.games,
+  genreTypes: transform_genres(state.genres)
+});
+
+// connect the state of the application to Login component, so we can use dispatch at handleSubmit
+export default connect(mapStateToProps)(DevList);
