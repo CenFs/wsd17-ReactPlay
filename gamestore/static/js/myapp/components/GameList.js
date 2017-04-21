@@ -18,13 +18,16 @@ function urlFormatter (cell, row, enumObject, rowIndex) {
   // return `<Link to='/store/game/1'> ${cell} </Link>`;
   this.props.games.map(game=>{console.log(game.url)});
   let buy_or_play;
+  let buttonStyle;
   if (row.url) {
-    buy_or_play = "Play"
+    buy_or_play = "Play";
+    buttonStyle = "btn btn-success";
   } else {
-    buy_or_play = "Buy"
+    buy_or_play = "Buy";
+    buttonStyle = "btn btn-danger";
   }
   return (
-    <button type="button" 
+    <button className={buttonStyle} 
       onClick={() => {
         console.log(cell, row, rowIndex);
         if (row.url) {
