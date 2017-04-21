@@ -10,13 +10,7 @@ function priceFormatter (cell, row) {
   return `<i class='glyphicon glyphicon-euro'></i> ${cell}`;
 }
 
-//  function onClickSelected(cell, row, rowIndex){
-//   console.log(cell, row, rowIndex);
-// }
-
 function urlFormatter (cell, row, enumObject, rowIndex) {
-  // return `<Link to='/store/game/1'> ${cell} </Link>`;
-  this.props.games.map(game=>{console.log(game.url)});
   let buy_or_play;
   let buttonStyle;
   if (row.url) {
@@ -36,7 +30,7 @@ function urlFormatter (cell, row, enumObject, rowIndex) {
         } else {
           // TODO:buy game
           alert("Buy game first, you poor guy!");
-          // this.props.dispatch(buyGame(row.gameid));
+          this.props.dispatch(initializePayment(row.gameid));
         }
         }}>
       {buy_or_play}
@@ -44,31 +38,30 @@ function urlFormatter (cell, row, enumObject, rowIndex) {
   );
 }
 
-function enumFormatter(cell, row, enumObject) {
+function enumFormatter (cell, row, enumObject) {
   return enumObject[cell];
 }
-function genreTypeFormatter(cell, row, enumObject) {
+
+function genreTypeFormatter (cell, row, enumObject) {
   if (enumObject[row.genre] && enumObject[row.genre].name)
   {
     return enumObject[row.genre].name;
   }
   return cell;
 }
-// <TableHeaderColumn dataField='genre' filter={{ type: 'SelectFilter', options: genreType, condition: 'eq'}}>Game Genre</TableHeaderColumn>
-// <TableHeaderColumn dataField='genre'>Game Genre</TableHeaderColumn>
 
 class GameList extends React.Component {
   constructor(props) {
     super(props);
     this.urlFormatter = urlFormatter.bind(this);
   }
-  
+
   componentDidMount() {
     // Fetch genres for the filter
     this.props.dispatch(fetchGenres());
     this.props.dispatch(fetchGames());
   }
-  
+
   render () {
     return (
       <div>
@@ -87,10 +80,9 @@ class GameList extends React.Component {
   }
 }
 
-function transform_genres(arr)
-{
+function transform_genres (arr) {
   var genres = {};
-  for (var i = 0; i < arr.length; ++i) 
+  for (var i = 0; i < arr.length; ++i)
   {
     genres[i] = arr[i].name;
   }
@@ -98,7 +90,7 @@ function transform_genres(arr)
 }
 
 const mapStateToProps = (state) => ({
-  games:state.games,
+  games: state.games,
   genreTypes: transform_genres(state.genres)
 });
 
