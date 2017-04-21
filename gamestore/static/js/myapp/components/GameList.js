@@ -16,14 +16,27 @@ function priceFormatter (cell, row) {
 
 function urlFormatter (cell, row, enumObject, rowIndex) {
   // return `<Link to='/store/game/1'> ${cell} </Link>`;
+  this.props.games.map(game=>{console.log(game.url)});
+  let buy_or_play;
+  if (row.url) {
+    buy_or_play = "Play"
+  } else {
+    buy_or_play = "Buy"
+  }
   return (
     <button type="button" 
       onClick={() => {
         console.log(cell, row, rowIndex);
-        browserHistory.push(`/store/game/${row.gameid}`);
-        this.props.dispatch(playGame(row.gameid));
+        if (row.url) {
+          browserHistory.push(`/store/game/${row.gameid}`);
+          this.props.dispatch(playGame(row.gameid));
+        } else {
+          // TODO:buy game
+          alert("Buy game first, you poor guy!")
+          // this.props.dispatch(buyGame(row.gameid));
+        }
         }}>
-      Play
+      {buy_or_play}
     </button>
   );
 }
