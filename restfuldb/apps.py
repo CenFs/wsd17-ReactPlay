@@ -99,6 +99,19 @@ def CreateDebugData(sender, **kwargs):
     game, created = Game.objects.get_or_create(**game_data)
     
     #--------------------------------------------------------------------
+    # Create a game
+    genre = GameGenre.objects.get(id=3)
+    game_data = {
+        'name': 'Django unchained',
+        'author': developer,
+        'genre': genre,
+        'price': 9.99,
+        'description': 'Your hero should collect as much as diamonds as he can and not be caught by the ghosts.',
+        'url': 'https://pedram-ghazi.github.io/',
+    }
+    game3, created = Game.objects.get_or_create(**game_data)
+    
+    #--------------------------------------------------------------------
     # Create a usergame
     usergame_data = {
         'user': player,
