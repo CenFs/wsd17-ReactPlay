@@ -414,7 +414,8 @@ def all_games(request):
                                              'price': eachgame.price,
                                              'description': eachgame.description,
                                              'genre': eachgame.genre.id,
-                                             'url': eachgame.url
+                                             'url': eachgame.url,
+                                             'scorelist':[]
                                              })
                         # Return other games without URL
                         else:
@@ -423,7 +424,8 @@ def all_games(request):
                                              'author': eachgame.author.username,
                                              'price': eachgame.price,
                                              'description': eachgame.description,
-                                             'genre': eachgame.genre.id
+                                             'genre': eachgame.genre.id,
+                                             'scorelist':[]
                                              })
 
                 responseData = json.dumps({'status': "success",
@@ -745,7 +747,7 @@ def game_analytic(request, gameid):
                                  'username': usergame.user.username
                                  })
                 else:
-                    info.append({'score': usergame.score})
+                    info.append({'score': usergame.score, 'username': usergame.user.username})
                 info = sorted(info,key=lambda k: k['score'], reverse=True)
             responseData = json.dumps({'status': "success",
                                        'desc': "collect relevant information from all related UserGames",

@@ -66,6 +66,11 @@ def CreateDebugData(sender, **kwargs):
     # Create a player
     player = _get_or_create_user('player', 'debugpass', 'nobody@nowhere.com', 'UserPlayer')
     player.save()
+
+    #--------------------------------------------------------------------
+    # Create another player
+    Martti = _get_or_create_user('Martti', 'debugpass', 'nobody@nowhere.com', 'UserPlayer')
+    Martti.save()
     
     #--------------------------------------------------------------------
     # Create a developer
@@ -126,11 +131,19 @@ def CreateDebugData(sender, **kwargs):
         'user': player,
         'game': game1,
         'purchase_date': datetime.now(),
-        'score': 1337,
+        'score': 23,
         'state': '',
     }
     usergame, created = UserGame.objects.get_or_create(**usergame_data2)
 
+    usergame_data3 = {
+        'user': Martti,
+        'game': game1,
+        'purchase_date': datetime.now(),
+        'score': 121,
+        'state': '',
+    }
+    usergame, created = UserGame.objects.get_or_create(**usergame_data3)
 
 class RestfuldbConfig(AppConfig):
     name = 'restfuldb'

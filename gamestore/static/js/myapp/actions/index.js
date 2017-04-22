@@ -15,6 +15,8 @@ export const RECEIVE_DATA = 'RECEIVE_DATA';
 export const CLEAR_DATA = 'CLEAR_DATA';
 export const LOAD_STATE = 'LOAD_STATE';
 export const SAVE_STATE = 'SAVE_STATE';
+export const REQUEST_HIGHSCORES = 'REQUEST_HIGHSCORES';
+export const UPDATE_GAMELIST = 'UPDATE_GAMELIST';
 
 // genres
 export const RECEIVE_GENRES = 'RECEIVE_GENRES';
@@ -31,9 +33,21 @@ export const REGISTER_FAIL = 'REGISTER_FAIL';
 export const PLAY_A_GAME = 'PLAY_A_GAME';
 
 // simple actions
+export const updateGamelist = (gid,list) => ({
+    type:UPDATE_GAMELIST,
+    gameid:gid,
+    list:list
+});
+
+export const highScores = (gid,scorelist) =>({
+    type:REQUEST_HIGHSCORES,
+    gameid:gid,
+    scorelist:scorelist
+});
+
 export const playGame = (gid) =>({
     type:PLAY_A_GAME,
-    gameid:gid
+    gameid:gid,
 });
 
 export const loginPage = () => ({
@@ -84,6 +98,38 @@ export const receiveGenres = (json) => ({
     genres:json.genres
 });
 
+// playGame, fetch highscores from backend
+export const fetch_playGame = (gid) => dispatch => {
+    return fetch('/api/games/'+gid+'/analytic/',
+                    {
+                        credentials: 'include',
+                        method:'get'
+                    }
+                )
+                .then(x=>x.json())
+                .then(y=>{
+                    console.log("fetching!!! " + JSON.stringify(y.info));
+                    dispatch(playGame(gid,y.info));
+                })
+                ;
+}
+
+// request the high score list for a game
+export const load_highScores = (gid) => dispatch => {
+    return fetch('/api/games/'+gid+'/analytic/',
+                    {
+                        credentials: 'include',
+                        method:'get'
+                    }
+                )
+                .then(x=>x.json())
+                .then(y=>{
+                    // console.log("load_highScores y "+JSON.stringify(y.info));
+                    dispatch(highScores(gid,y.info));
+                })
+                ;
+};
+
 //
 export const loadState = json => dispatch => {
     return fetch('/api/users/'+json.userId+'/games/'+json.gameId,{
@@ -91,15 +137,14 @@ export const loadState = json => dispatch => {
                 method:'get'})
             .then(x=>x.json())
             .then(y=>{
-                console.log("y.usergame_info "+JSON.stringify(y));
+                // console.log("y.usergame_info "+JSON.stringify(y));
                 if (!y.usergame_info.state)
                 {
-                    console.log("empty state y: "+JSON.stringify(y.usergame_info.state));
+                    // console.log("empty state y: "+JSON.stringify(y.usergame_info.state));
                     const message = {
                         messageType: "LOAD",
                         gameState: {score: 0}
                     };
-                    // window.postMessage(message,"*");
                     json.frame.contentWindow.postMessage(message, '*');
                 }
                 else
@@ -158,11 +203,24 @@ export const saveScore = json => dispatch => {
         console.log(result);
         if (result.status === "success")
         {
-            console.log("success saved!");
+            console.log("score success saved!, now should update game scorelist");
+            fetch('/api/games/'+json.gameId+'/analytic/',
+                    {
+                        credentials: 'include',
+                        method:'get'
+                    }
+            ).then(x=>x.json())
+             .then(y=>{
+                    console.log("update list!!! " + JSON.stringify(y.info));
+                    dispatch(updateGamelist(json.gameId,y.info));
+                    // this.setState({
+                    //   scoreList:y.info
+                    // });
+         });
         }
         else
         {
-            console.log("fail saved!");
+            console.log("score save fail!");
         }
     })
     ;
@@ -211,41 +269,6 @@ export const addGame = (game_name, game_desc, genre_id, game_price, game_url) =>
                 }
                 dispatch(fetchGames());
             });
-};
-
-// Initialize payment
-export const initializePayment = (game_id) => dispatch => {
-	return fetch('/api/payment/initiate/', {
-				credentials: 'include',
-				method:'post',
-				body: JSON.stringify({gameid: game_id})
-			})
-			.then(x=>x.json())
-			.then(result=>{
-                if (result.status === "failure") {
-                  alert(result.desc);
-                } else {
-					dispatch(executePayment(result.pid, result.sid, result.amount, result.checksum));
-				}
-			});
-};
-
-export const executePayment = (pid, sid, amount, checksum) => dispatch => {
-	return fetch('https://simplepayments.herokuapp.com/pay/', {
-		method:'post',
-		headers: {
-			'Content-Type': 'application/x-www-form-urlencoded'
-		},
-		mode:'no-cors',
-		body: 
-			'pid=' + pid +
-			'&sid=' + sid +
-			'&amount=' + amount +
-			'&success_url=' + 'http://127.0.0.1:8000/store/player' +
-			'&cancel_url=' + 'http://127.0.0.1:8000/store/player' +
-			'&error_url=' + 'http://127.0.0.1:8000/store/player' +
-			'&checksum=' + checksum
-	})
 };
 
 /* the procedure of login is divided into several phases
