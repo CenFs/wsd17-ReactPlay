@@ -85,10 +85,10 @@ class DevList extends React.Component {
             <TableHeaderColumn dataField='author' width='10%' hiddenOnInsert>Author</TableHeaderColumn>
             <TableHeaderColumn dataField='name' filter={{ type: 'TextFilter', delay: 200 }} width='20%'>Game Name</TableHeaderColumn>
             <TableHeaderColumn dataField='description' tdStyle={{ whiteSpace: 'normal' }}>Description</TableHeaderColumn>
-            <TableHeaderColumn dataField='genre' filterFormatted dataFormat={ enumFormatter } formatExtraData={ this.props.genreTypes }>Game Genre</TableHeaderColumn>
+            <TableHeaderColumn dataField='genre' filterFormatted dataFormat={enumFormatter} formatExtraData={ this.props.genreTypes }>Game Genre</TableHeaderColumn>
             <TableHeaderColumn dataField='price' dataSort={true} dataFormat={priceFormatter} width='10%'>Price</TableHeaderColumn>
             <TableHeaderColumn dataField='url'>URL</TableHeaderColumn>
-            <TableHeaderColumn dataFormat={this.analyticsFormatter}>Analytics</TableHeaderColumn>
+            <TableHeaderColumn dataFormat={this.analyticsFormatter} editable={false}>Analytics</TableHeaderColumn>
         </BootstrapTable>
       </div>
     );
