@@ -235,6 +235,7 @@ export const fetchGames = () => dispatch => {
             .then(result=>{
                 if (result.status === "failure") {
                   alert("Please login first!");
+                  console.log("receive from backend: "+JSON.stringify(result));
                   browserHistory.push('/store/login');
                 } else if (result.status === "success") {
                   dispatch(receiveData({games:result.gamelist}));

@@ -33,11 +33,14 @@ def own_this_game(user, game):
     role = get_user_group_name(user)
     if role == "UserPlayer":
         owned_games = user.usergames.all()
+        for owned_game in owned_games:
+            if owned_game.game == game:
+                return True
     if role == "UserDeveloper":
         owned_games = user.developedgames.all()
-    for owned_game in owned_games:
-        if owned_game.game == game:
-            return True
+        for owned_game in owned_games:
+            if owned_game==game:
+                return True
     return False
 
 
@@ -212,6 +215,7 @@ def all_users(request):
         responseData = json.dumps({'status': "failure", 'desc': "User.DoesNotExist"})
         return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
     except:
+        print ("all users error")
         responseData = json.dumps({'status': "failure", 'desc': "Other unknown problems... Need to Debug!"})
         return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
 
@@ -427,7 +431,6 @@ def all_games(request):
                                              'genre': eachgame.genre.id,
                                              'scorelist':[]
                                              })
-
                 responseData = json.dumps({'status': "success",
                                            'desc': "gamelist - GET all games",
                                            'gamelist': gamelist
@@ -587,6 +590,7 @@ def game_detail(request, gameid):
         responseData = json.dumps({'status': "failure", 'desc': "Game.DoesNotExist"})
         return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
     except:
+        print ("game detail error")
         responseData = json.dumps({'status': "failure", 'desc': "Other unknown problems... Need to debug!"})
         return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
 
