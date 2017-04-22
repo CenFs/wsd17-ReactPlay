@@ -46,7 +46,7 @@ const cellEditProp = {
 
 
 function onAfterInsertRow(row) {
-  this.props.dispatch(addGame(row['name'], row['description'], row['genre'], row['price'], row['row']));
+  this.props.dispatch(addGame(row['name'], row['description'], row['genre'], row['price'], row['url']));
 }
 
 function analyticsFormatter (cell, row, enumObject, rowIndex) {
