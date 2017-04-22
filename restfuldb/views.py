@@ -431,12 +431,12 @@ def all_games(request):
                                              'genre': eachgame.genre.id,
                                              'scorelist':[]
                                              })
-                print("asdf")
+
                 responseData = json.dumps({'status': "success",
                                            'desc': "gamelist - GET all games",
                                            'gamelist': gamelist
                                            })
-                print("asdf")
+
                 return HttpResponse(responseData, content_type="application/json", status=OK)
             except Game.DoesNotExist:
                 responseData = json.dumps({'status': 'failure', 'desc': "Game.DoesNotExist"})
