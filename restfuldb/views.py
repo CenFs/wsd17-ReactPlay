@@ -248,7 +248,7 @@ def user_info(request, userid):
                                   }
                     usergameinfo = {'gameheader': gameheader,
                                     'purchase_date': usergame.purchase_date.ctime(),
-                                    'pruchase_price': usergame.purchase_price,
+                                    'pruchase_price': str(usergame.purchase_price),
                                     'score': usergame.score
                                     }
                     gamelist.append(usergameinfo)
@@ -261,7 +261,7 @@ def user_info(request, userid):
                                   'name': eachgame.name,
                                   'genre': eachgame.genre.id,
                                   'description': eachgame.description,
-                                  'price': eachgame.price,
+                                  'price': str(eachgame.price),
                                   'url': eachgame.url
                                   }
                     gamelist.append(gameheader)
@@ -354,7 +354,7 @@ def all_games(request):
                            'name': game.name,
                            'author': game.author.username,
                            'genre': game.genre.id,
-                           'price': game.price,
+                           'price': str(game.price),
                            'description': game.description,
                            'url': game.url
                            }
@@ -384,7 +384,7 @@ def all_games(request):
             #        gamelist.append({'gameid': eachgame.id,
             #                         'name': eachgame.name,
             #                         'author': eachgame.author.username,
-            #                         'price': eachgame.price,
+            #                         'price': str(eachgame.price),
             #                         'description': eachgame.description,
             #                         'genre': {'genreid': eachgame.genre.id,
             #                                   'genrename': eachgame.genre.name}
@@ -415,7 +415,7 @@ def all_games(request):
                             gamelist.append({'gameid': eachgame.id,
                                              'name': eachgame.name,
                                              'author': eachgame.author.username,
-                                             'price': eachgame.price,
+                                             'price': str(eachgame.price),
                                              'description': eachgame.description,
                                              'genre': eachgame.genre.id,
                                              'url': eachgame.url,
@@ -426,15 +426,17 @@ def all_games(request):
                             gamelist.append({'gameid': eachgame.id,
                                              'name': eachgame.name,
                                              'author': eachgame.author.username,
-                                             'price': eachgame.price,
+                                             'price': str(eachgame.price),
                                              'description': eachgame.description,
                                              'genre': eachgame.genre.id,
                                              'scorelist':[]
                                              })
+                print("asdf")
                 responseData = json.dumps({'status': "success",
                                            'desc': "gamelist - GET all games",
                                            'gamelist': gamelist
                                            })
+                print("asdf")
                 return HttpResponse(responseData, content_type="application/json", status=OK)
             except Game.DoesNotExist:
                 responseData = json.dumps({'status': 'failure', 'desc': "Game.DoesNotExist"})
@@ -478,7 +480,7 @@ def game_detail(request, gameid):
                         game_detail = {'gameid': gameid,
                                        'name': game.name,
                                        'author': game.author.username,
-                                       'price': game.price,
+                                       'price': str(game.price),
                                        'description': game.description,
                                        'url': game.url,
                                        'genre': game.genre.id
@@ -497,7 +499,7 @@ def game_detail(request, gameid):
                                 game_detail = {'gameid': gameid,
                                                'name': game.name,
                                                'author': game.author.username,
-                                               'price': game.price,
+                                               'price': str(game.price),
                                                'description': game.description,
                                                'url': game.url,
                                                'genre': game.genre.id
@@ -512,7 +514,7 @@ def game_detail(request, gameid):
                         game_detail = {'gameid': gameid,
                                        'name': game.name,
                                        'author': game.author.username,
-                                       'price': game.price,
+                                       'price': str(game.price),
                                        'description': game.description,
                                        'genre': game.genre.id
                                        }
@@ -553,7 +555,7 @@ def game_detail(request, gameid):
                     updated_game_detail = {'gameid': gameid,
                                            'name': game.name,
                                            'author': game.author.username,
-                                           'price': game.price,
+                                           'price': str(game.price),
                                            'description': game.description,
                                            'url': game.url,
                                            'genre': game.genre.id
@@ -574,7 +576,7 @@ def game_detail(request, gameid):
                 game_detail = {'gameid': gameid,
                                'name': game.name,
                                'author': game.author.username,
-                               'price': game.price,
+                               'price': str(game.price),
                                'description': game.description,
                                'genre': game.genre.id
                                }
@@ -746,7 +748,7 @@ def game_analytic(request, gameid):
                 # Check for author
                 if logged_in_user == game.author or logged_in_user.is_superuser:
                     info.append({'purchase_date': usergame.purchase_date.strftime('%d-%m-%Y'),
-                                 'purchase_price': usergame.purchase_price,
+                                 'purchase_price': str(usergame.purchase_price),
                                  'score': usergame.score,
                                  'username': usergame.user.username
                                  })
@@ -799,9 +801,9 @@ def initiate_payment(request):
         # Create transaction model already, so we know the payments that are not completed
         transaction = Transaction.objects.create(user=user, game=game, amount=game.price)
         transaction.save()
-        
+
         # Create checksum
-        checksumstr = "pid={}&sid={}&amount={}&token={}".format(transaction.id, SIMPLE_PAYMENT_SELLER_ID, transaction.amount, SIMPLE_PAYMENT_SECRET_KEY)
+        checksumstr = "pid={}&sid={}&amount={}&token={}".format(transaction.id, SIMPLE_PAYMENT_SELLER_ID, str(transaction.amount), SIMPLE_PAYMENT_SECRET_KEY)
         m = md5(checksumstr.encode("ascii"))
         checksum = m.hexdigest()
         
@@ -811,7 +813,7 @@ def initiate_payment(request):
              'desc': "payment initiated",
              'pid': transaction.id,
              'sid': SIMPLE_PAYMENT_SELLER_ID,
-             'amount': transaction.amount,
+             'amount': str(transaction.amount),
              'checksum': checksum})
         
         return HttpResponse(responseData, content_type="application/json", status=OK)
@@ -969,7 +971,7 @@ def game_register(request):
                            'name': game.name,
                            'author': game.author.username,
                            'genre': game.genre.id,
-                           'price': game.price,
+                           'price': str(game.price),
                            'description': game.description,
                            'url': game.url
                            }

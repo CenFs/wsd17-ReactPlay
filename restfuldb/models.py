@@ -16,7 +16,7 @@ class Game(models.Model):
     name = models.CharField(max_length=255, unique=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='developedgames')
     genre = models.ForeignKey(GameGenre, related_name='developedgames', null=True)
-    price = models.PositiveIntegerField(default=0)
+    price = models.DecimalField(max_digits=9, decimal_places=2, default=0)
     description = models.TextField()
     url = models.URLField()
 
