@@ -49,6 +49,18 @@ function onAfterInsertRow(row) {
   this.props.dispatch(addGame(row['name'], row['description'], row['genre'], row['price'], row['row']));
 }
 
+function analyticsFormatter (cell, row, enumObject, rowIndex) {
+  return (
+    <button className="btn btn-info"
+      onClick={() => {
+          // browserHistory.push(`/store/game/${row.gameid}`);
+          // this.props.dispatch(playGame(row.gameid));
+        }}>
+      Details
+    </button>
+  );
+}
+
 const options = {
   afterInsertRow: onAfterInsertRow   // A hook for after insert rows
 };
@@ -56,6 +68,7 @@ const options = {
 class DevList extends React.Component {
   constructor(props) {
     super(props);
+    this.analyticsFormatter = analyticsFormatter.bind(this);
   }
   
   componentDidMount() {
@@ -75,6 +88,7 @@ class DevList extends React.Component {
             <TableHeaderColumn dataField='genre' filterFormatted dataFormat={ enumFormatter } formatExtraData={ this.props.genreTypes }>Game Genre</TableHeaderColumn>
             <TableHeaderColumn dataField='price' dataSort={true} dataFormat={priceFormatter} width='10%'>Price</TableHeaderColumn>
             <TableHeaderColumn dataField='url'>URL</TableHeaderColumn>
+            <TableHeaderColumn dataFormat={this.analyticsFormatter}>Analytics</TableHeaderColumn>
         </BootstrapTable>
       </div>
     );
