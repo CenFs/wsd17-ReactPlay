@@ -272,6 +272,108 @@ export const addGame = (game_name, game_desc, genre_id, game_price, game_url) =>
             });
 };
 
+
+// Handy cookie getter
+// https://stackoverflow.com/questions/10730362/get-cookie-by-name#15724300
+export const getCookie = (name) => {
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + name + "=");
+    if (parts.length == 2) return parts.pop().split(";").shift();
+}
+
+// Handy query param getter, slighty modified
+// http://stackoverflow.com/a/1099670
+export const getQueryParams = (qs) => {
+
+    if (qs[1] && qs[1] == '&'){
+        qs = qs.substr(1);
+    }
+
+    qs = qs.split('+').join(' ');
+
+    var params = {},
+        tokens,
+        re = /[?&]?([^=]+)=([^&]*)/g;
+
+    while (tokens = re.exec(qs)) {
+        params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+    }
+
+    return params;
+}
+
+// Initialize payment
+export const initializePayment = (game_id) => dispatch => {
+    return fetch('/api/payment/initiate/', {
+                credentials: 'include',
+                method:'post',
+                body: JSON.stringify({gameid: game_id})
+            })
+            .then(x=>x.json())
+            .then(result=>{
+                if (result.status === "failure") {
+                  alert(result.desc);
+                } else {
+                    dispatch(executePayment(result.pid, result.sid, result.amount, result.checksum));
+                }
+            });
+};
+
+// Execute payment in external service
+export const executePayment = (pid, sid, amount, checksum) => dispatch => {
+    // Create form to send to the payment service
+    var form = document.createElement('form');
+    form.setAttribute('method', 'post');
+    form.setAttribute('action', 'https://simplepayments.herokuapp.com/pay/');
+    
+    // Parameters for payment service request
+    var params = {
+        'csrfmiddlewaretoken': getCookie('csrftoken'),
+        'pid': pid,
+        'sid': sid,
+        'amount': amount,
+        'success_url': 'http://127.0.0.1:8000/store/player',
+        'cancel_url': 'http://127.0.0.1:8000/store/player',
+        'error_url': 'http://127.0.0.1:8000/store/player',
+        'checksum': checksum
+    };
+    
+    // Create form fields
+    for (var key in params) {
+        var field = document.createElement('input');
+        field.setAttribute('type', 'hidden');
+        field.setAttribute('name', key);
+        field.setAttribute('value', params[key]);
+        form.appendChild(field);
+    }
+    
+    // Submit form
+    document.body.appendChild(form);
+    form.submit();
+};
+
+// Finalize payment
+export const finalizePayment = (pid, ref, result, checksum) => dispatch => {
+    return fetch('/api/payment/finalize/', {
+                credentials: 'include',
+                method:'post',
+                body: JSON.stringify({
+                    pid: pid,
+                    ref: ref,
+                    result: result,
+                    checksum: checksum
+                })
+            })
+            .then(x=>x.json())
+            .then(result=>{
+                if (result.status === "failure") {
+                  alert(result.desc);
+                } else {
+                    dispatch(fetchGames());
+                }
+            });
+};
+
 /* the procedure of login is divided into several phases
 which are startLogin => fetching data => endLogin
 we dispatch several actions for the login, first is loginPage, which will tell the app now we are login-ing in,

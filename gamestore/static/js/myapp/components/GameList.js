@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ReactDOM from 'react-dom';
 import { browserHistory } from 'react-router';
-import { fetchGames, fetchGenres, playGame } from '../actions';
+import { fetchGames, fetchGenres, playGame, initializePayment, finalizePayment, getQueryParams } from '../actions';
 
 
 function priceFormatter (cell, row) {
@@ -28,8 +28,6 @@ function urlFormatter (cell, row, enumObject, rowIndex) {
           browserHistory.push(`/store/game/${row.gameid}`);
           this.props.dispatch(playGame(row.gameid));
         } else {
-          // TODO:buy game
-          alert("Buy game first, you poor guy!");
           this.props.dispatch(initializePayment(row.gameid));
         }
         }}>
@@ -57,9 +55,15 @@ class GameList extends React.Component {
   }
 
   componentDidMount() {
-    // Fetch genres for the filter
+    // Fetch genres and games
     this.props.dispatch(fetchGenres());
     this.props.dispatch(fetchGames());
+
+    // Check if we received payment parameters
+    var payment = getQueryParams(window.location.search);
+    if (payment && payment.result && payment.result == 'success') {
+        this.props.dispatch(finalizePayment(payment.pid, payment.ref, payment.result, payment.checksum));
+    }
   }
 
   render () {
