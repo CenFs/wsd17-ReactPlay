@@ -2,7 +2,7 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import React from 'react';
 import { connect } from 'react-redux';
 import ReactDOM from 'react-dom';
-import { fetchGames, fetchGenres, addGame } from '../actions';
+import { fetchGames, fetchGenres, addGame, analticsGame } from '../actions';
 
 
 function priceFormatter (cell, row) {
@@ -54,10 +54,11 @@ function analyticsFormatter (cell, row, enumObject, rowIndex) {
     <button className="btn btn-info"
       onClick={() => {
           // browserHistory.push(`/store/game/${row.gameid}`);
-          // this.props.dispatch(playGame(row.gameid));
-        }}>
+          this.props.dispatch(analticsGame(row.gameid));
+        }} >
       Details
     </button>
+
   );
 }
 

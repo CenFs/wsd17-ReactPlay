@@ -1,5 +1,7 @@
 import React from 'react';
 import { Analytics } from '../actions';
+import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import NavBar from './NavBar';
 
 class Analytics extends React.Component {
 
@@ -11,7 +13,7 @@ class Analytics extends React.Component {
   render () {
     return (
       <div>
-       <h1> Analytics </h1>
+       <h4> Analytics </h4>
        <div> </div>
       </div>
     );

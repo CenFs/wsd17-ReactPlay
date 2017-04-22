@@ -374,6 +374,25 @@ export const finalizePayment = (pid, ref, result, checksum) => dispatch => {
             });
 };
 
+
+  // analtics of Game
+  export const analticsGame = (gameId) => dispatch => {
+      return fetch('/api/games/' + gameId + '/analytic',{
+                  credentials: 'include',
+                  method:'get'})
+              .then(x=>x.json())
+              .then(result=>{
+                  if (result.status === "failure") {
+                    alert(result);
+                    console.log("receive from backend: "+JSON.stringify(result));
+                    browserHistory.push('/store/login');
+                  } else if (result.status === "success") {
+                    alert(JSON.stringify(result.info));
+                  }
+              });
+  };
+
+
 /* the procedure of login is divided into several phases
 which are startLogin => fetching data => endLogin
 we dispatch several actions for the login, first is loginPage, which will tell the app now we are login-ing in,
