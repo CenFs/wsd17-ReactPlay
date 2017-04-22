@@ -69,6 +69,8 @@ class DevList extends React.Component {
   constructor(props) {
     super(props);
     this.analyticsFormatter = analyticsFormatter.bind(this);
+    this.onAfterInsertRow = onAfterInsertRow.bind(this);
+    this.options = {afterInsertRow:this.onAfterInsertRow};
   }
   
   componentDidMount() {
@@ -80,7 +82,7 @@ class DevList extends React.Component {
   render () {
     return (
       <div>
-        <BootstrapTable data={this.props.games} cellEdit={cellEditProp} insertRow={true} options={options} pagination>
+        <BootstrapTable data={this.props.games} cellEdit={cellEditProp} insertRow={true} options={this.options} pagination>
             <TableHeaderColumn dataField='gameid' isKey={true} hidden hiddenOnInsert autoValue>Game ID</TableHeaderColumn>
             <TableHeaderColumn dataField='author' width='10%' hiddenOnInsert>Author</TableHeaderColumn>
             <TableHeaderColumn dataField='name' filter={{ type: 'TextFilter', delay: 200 }} width='20%'>Game Name</TableHeaderColumn>
