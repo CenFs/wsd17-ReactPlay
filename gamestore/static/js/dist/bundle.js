@@ -13458,42 +13458,6 @@ var NavBar = function (_React$Component) {
                 { href: '#' },
                 'Home'
               )
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'li',
-              null,
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'a',
-                { href: '#' },
-                'Game Store'
-              )
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'li',
-              null,
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'a',
-                { href: '#' },
-                'My Games'
-              )
-            )
-          ),
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'form',
-            { className: 'navbar-form navbar-left' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'div',
-              { className: 'input-group' },
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Search Game' }),
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'div',
-                { className: 'input-group-btn' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  'button',
-                  { className: 'btn btn-default', type: 'submit' },
-                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('i', { className: 'glyphicon glyphicon-search' })
-                )
-              )
             )
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
