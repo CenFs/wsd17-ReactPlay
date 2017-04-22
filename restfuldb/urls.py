@@ -18,7 +18,7 @@ from restfuldb import views as restviews
 from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
-    url(r'^test', restviews.apitest),
+    # url(r'^test', restviews.apitest),
     url(r'^users/$', restviews.all_users),
     url(r'^users/(?P<userid>[0-9]+)/$', restviews.user_info),
     url(r'^users/(?P<userid>[0-9]+)/games/(?P<gameid>[0-9]+)/$', csrf_exempt(restviews.usergames)),

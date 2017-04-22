@@ -117,11 +117,11 @@ def register(request):
                     'email': user.email,
                     'role': get_user_group_name(user)
                     }
-        responseData = json.dumps({'status': "logged-in-user",
+        responseData = json.dumps({'status': "success",
                                    'desc': "already logged in",
                                    'userinfo': userinfo
                                    })
-        return HttpResponse(responseData, content_type="application/json", status=CONTINUE)
+        return HttpResponse(responseData, content_type="application/json", status=OK)
 
     # Anonymous User
     if request.method == 'POST':
@@ -215,7 +215,7 @@ def all_users(request):
         responseData = json.dumps({'status': "failure", 'desc': "User.DoesNotExist"})
         return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
     except:
-        print ("all users error")
+        # print("all users error")
         responseData = json.dumps({'status': "failure", 'desc': "Other unknown problems... Need to Debug!"})
         return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
 
