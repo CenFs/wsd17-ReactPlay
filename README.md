@@ -97,10 +97,12 @@ Cons
 
 ## Distribuation of works
 
-Mengyang Chen | 256481 | 
-Enbo Chen | 256331 | 
-Pauli Tupeli | 228926 | 
-Jingyi Bai | 267936 | 
+Name | StudentId | Works
+----------- | ------------ | ------------
+Mengyang Chen | 256481 | ...
+Enbo Chen | 256331 | ...
+Pauli Tupeli | 228926 | ...
+Jingyi Bai | 267936 | ...
 
 ## How to use
 
