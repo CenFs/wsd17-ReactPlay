@@ -15,7 +15,7 @@ const Analytics = React.createClass({
           <TableHeaderColumn dataField='score' isKey={true} autoValue={true}>No.</TableHeaderColumn>
           <TableHeaderColumn dataField='username' dataSort={true}>User Name</TableHeaderColumn>
           <TableHeaderColumn dataField='purchase_price' dataSort={true}>Purchase Price</TableHeaderColumn>
-          <TableHeaderColumn dataField='purchase_date' dataSort={true}>Product Date</TableHeaderColumn>
+          <TableHeaderColumn dataField='purchase_date' dataSort={true}>Purchase Date</TableHeaderColumn>
           </BootstrapTable>
         </Modal.Body>
         <Modal.Footer>

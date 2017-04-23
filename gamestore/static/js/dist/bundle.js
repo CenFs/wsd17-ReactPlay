@@ -11460,15 +11460,10 @@ var _default = {
   // We calculate an offset here in order to properly fetch the indexed data,
   // despite the page start index not always being 1
   getNormalizedPage: function getNormalizedPage(pageStartIndex, page) {
+    pageStartIndex = this.getFirstPage(pageStartIndex);
     if (page === undefined) page = pageStartIndex;
-    var normalizedPage = void 0;
-    if (pageStartIndex !== undefined) {
-      var offset = Math.abs(_Const2.default.PAGE_START_INDEX - pageStartIndex);
-      normalizedPage = page + offset;
-    } else {
-      normalizedPage = page;
-    }
-    return normalizedPage;
+    var offset = Math.abs(_Const2.default.PAGE_START_INDEX - pageStartIndex);
+    return page + offset;
   },
   getFirstPage: function getFirstPage(pageStartIndex) {
     return pageStartIndex !== undefined ? pageStartIndex : _Const2.default.PAGE_START_INDEX;
@@ -36964,7 +36959,7 @@ var Analytics = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createClass({
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             __WEBPACK_IMPORTED_MODULE_1_react_bootstrap_table__["TableHeaderColumn"],
             { dataField: 'purchase_date', dataSort: true },
-            'Product Date'
+            'Purchase Date'
           )
         )
       ),
@@ -37014,10 +37009,14 @@ var DevHome = function (_React$Component) {
   }
 
   _createClass(DevHome, [{
-    key: 'render',
-
-
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      console.log(this.props);
+    }
     // developers' home page
+
+  }, {
+    key: 'render',
     value: function render() {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
@@ -58088,7 +58087,7 @@ BootstrapTable.defaultProps = {
     nextPageTitle: _Const2.default.NEXT_PAGE_TITLE,
     firstPageTitle: _Const2.default.FIRST_PAGE_TITLE,
     lastPageTitle: _Const2.default.LAST_PAGE_TITLE,
-    pageStartIndex: undefined,
+    pageStartIndex: 1,
     searchDelayTime: undefined,
     exportCSVText: _Const2.default.EXPORT_CSV_TEXT,
     insertText: _Const2.default.INSERT_BTN_TEXT,
