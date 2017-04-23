@@ -3,7 +3,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ReactDOM from 'react-dom';
 import { fetchGames, fetchGenres, addGame, analticsGame } from '../actions';
-
+import Analytics from './Analytic'
+import { Button } from 'react-bootstrap';
 
 function priceFormatter (cell, row) {
   return `<i class='glyphicon glyphicon-euro'></i> ${cell}`;
@@ -72,16 +73,21 @@ class DevList extends React.Component {
     this.analyticsFormatter = analyticsFormatter.bind(this);
     this.onAfterInsertRow = onAfterInsertRow.bind(this);
     this.options = {afterInsertRow:this.onAfterInsertRow};
+    this.state = {smShow: false, lgShow: false};
   }
-  
+
   componentDidMount() {
     // Fetch genres for the filter
     this.props.dispatch(fetchGenres());
     this.props.dispatch(fetchGames());
   }
-  
+
   render () {
-    return (
+    // will change in redux way
+    let smClose = () => this.setState({ smShow: false });
+    let lgClose = () => this.setState({ lgShow: false });
+    
+    return (    
       <div>
         <BootstrapTable data={this.props.games} cellEdit={cellEditProp} insertRow={true} options={this.options} pagination>
             <TableHeaderColumn dataField='gameid' isKey={true} hidden hiddenOnInsert autoValue>Game ID</TableHeaderColumn>
@@ -93,6 +99,15 @@ class DevList extends React.Component {
             <TableHeaderColumn dataField='url'>URL</TableHeaderColumn>
             <TableHeaderColumn dataFormat={this.analyticsFormatter} editable={false}>Analytics</TableHeaderColumn>
         </BootstrapTable>
+        
+      <Button bsStyle="primary" onClick={()=>{
+          this.setState({ lgShow: true });    
+          this.props.dispatch(analticsGame('1'));}
+      }>
+        Launch modal
+      </Button>
+      
+      <Analytics show={this.state.lgShow} onHide={lgClose} data={this.props.analytics} />
       </div>
     );
   }
@@ -110,7 +125,8 @@ function transform_genres(arr)
 
 const mapStateToProps = (state) => ({
   games:state.games,
-  genreTypes: transform_genres(state.genres)
+  genreTypes: transform_genres(state.genres),
+  analytics:state.analytics
 });
 
 // connect the state of the application to Login component, so we can use dispatch at handleSubmit

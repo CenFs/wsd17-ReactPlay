@@ -1,23 +1,27 @@
 import React from 'react';
-import { Analytics } from '../actions';
+// import { Analytics } from '../actions';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import { Modal, Button } from 'react-bootstrap';
 import NavBar from './NavBar';
 
-class Analytics extends React.Component {
-
-  componentDidMount () {
-    // Fetch genres for the filter
-    // this.props.dispatch(fetchAnalytics(gameId));
-  }
-
-  render () {
+const Analytics = React.createClass({
+  render() {
+    console.log(this.props);
     return (
-      <div>
-       <h4> Analytics </h4>
-       <div> </div>
-      </div>
+      <Modal {...this.props} bsSize="large" aria-labelledby="contained-modal-title-lg">
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-lg">Analytics</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <h4>Sales Info:</h4>
+          <div>{JSON.stringify(this.props.data)}</div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={this.props.onHide}>Close</Button>
+        </Modal.Footer>
+      </Modal>
     );
   }
-}
+});
 
 export default Analytics;

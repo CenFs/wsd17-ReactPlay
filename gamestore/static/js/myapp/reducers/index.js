@@ -3,7 +3,7 @@
 // Every reducer should be pure function! You are recommended to learn reducer more from internet, it's easy
 
 import {REQUEST_DATA, RECEIVE_DATA, RECEIVE_GENRES, CLEAR_DATA, LOGIN, LOGIN_SUCCESS, LOGIN_FAIL,LOGOUT,
-REGISTER, REGISTER_SUCCESS, REGISTER_FAIL, PLAY_A_GAME, UPDATE_GAMELIST
+REGISTER, REGISTER_SUCCESS, REGISTER_FAIL, PLAY_A_GAME, UPDATE_GAMELIST, ANALYTICS_DATA
 } from '../actions';
 import { combineReducers } from 'redux';
 
@@ -26,6 +26,16 @@ const genres = (state=[],action) => {
         default:
             return state;
     }
+}
+
+const analytics = (state=[],action) => {
+  switch (action.type) {
+    case ANALYTICS_DATA:
+        console.log(action.analytics);
+        return action.analytics;
+    default: 
+        return state;
+  }
 }
 
 const games = (state=[],action) => {
@@ -112,6 +122,7 @@ const user = (state={},action) => {
 // combine all reducers into single reducer, and export it
 const rootReducer = combineReducers({
   games,
+  analytics,
   loading,
   user,
   genres

@@ -18,6 +18,9 @@ export const SAVE_STATE = 'SAVE_STATE';
 export const REQUEST_HIGHSCORES = 'REQUEST_HIGHSCORES';
 export const UPDATE_GAMELIST = 'UPDATE_GAMELIST';
 
+// analytics
+export const ANALYTICS_DATA = 'ANALYTICS_DATA';
+
 // genres
 export const RECEIVE_GENRES = 'RECEIVE_GENRES';
 
@@ -96,6 +99,11 @@ export const clearData = () => ({
 export const receiveGenres = (json) => ({
     type: RECEIVE_GENRES,
     genres:json.genres
+});
+
+export const analyticsData = (json) => ({
+  type: ANALYTICS_DATA,
+  analytics: json.analytics.info
 });
 
 // playGame, fetch highscores from backend
@@ -376,21 +384,22 @@ export const finalizePayment = (pid, ref, result, checksum) => dispatch => {
 
 
   // analtics of Game
-  export const analticsGame = (gameId) => dispatch => {
-      return fetch('/api/games/' + gameId + '/analytic',{
-                  credentials: 'include',
-                  method:'get'})
-              .then(x=>x.json())
-              .then(result=>{
-                  if (result.status === "failure") {
-                    alert(result);
-                    console.log("receive from backend: "+JSON.stringify(result));
-                    browserHistory.push('/store/login');
-                  } else if (result.status === "success") {
-                    alert(JSON.stringify(result.info));
-                  }
-              });
-  };
+export const analticsGame = (gameId) => dispatch => {
+    return fetch('/api/games/' + gameId + '/analytic',{
+                credentials: 'include',
+                method:'get'})
+            .then(x=>x.json())
+            .then(result=>{
+                if (result.status === "failure") {
+                  alert(result);
+                  console.log("receive from backend: "+JSON.stringify(result));
+                  browserHistory.push('/store/login');
+                } else if (result.status === "success") {
+                  dispatch(analyticsData({analytics: result}));
+                  // alert(JSON.stringify(result.info));
+                }
+            });
+};
 
 
 /* the procedure of login is divided into several phases
