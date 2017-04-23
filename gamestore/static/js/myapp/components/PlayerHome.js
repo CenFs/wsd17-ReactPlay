@@ -2,9 +2,16 @@
 import React from 'react';
 import NavBar from './NavBar';
 import GameList from './GameList';
+import { browserHistory } from 'react-router';
 
 class PlayerHome extends React.Component {
 
+  componentDidMount() {
+    if (this.props.location.key === null) {
+      alert('Please login first!');
+      browserHistory.push('/store/login');
+    }
+  }
   // combine other components
   render () {
     return (
