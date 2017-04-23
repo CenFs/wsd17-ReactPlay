@@ -872,16 +872,20 @@ def finalize_payment(request):
         # Check that the payment has not been already completed
         if transaction.ref is not None:
             transaction.ref = ref
+            transaction.result = result
             transaction.save()
         
-        # Create usergame
-        usergame = UserGame.objects.create(user=transaction.user, game=transaction.game, purchase_price=transaction.amount)
-        usergame.save()
+        # Check that the payment was successful
+        if result == 'success':
+            # Create usergame
+            usergame = UserGame.objects.create(user=transaction.user, game=transaction.game, purchase_price=transaction.amount)
+            usergame.save()
+        
+        responseData = json.dumps({'status': "success",
+                                   'desc': "payment processed successfully!"
+                                   })
         
         # Send response
-        responseData = json.dumps({'status': "success",
-                                   'desc': "purchased successfully!"
-                                   })
         return HttpResponse(responseData, content_type="application/json", status=OK)
 
     else:

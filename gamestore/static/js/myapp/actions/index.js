@@ -116,7 +116,7 @@ export const fetch_playGame = (gid) => dispatch => {
                 )
                 .then(x=>x.json())
                 .then(y=>{
-                    console.log("fetching!!! " + JSON.stringify(y.info));
+                    //console.log("fetching!!! " + JSON.stringify(y.info));
                     dispatch(playGame(gid,y.info));
                 })
                 ;
@@ -157,7 +157,7 @@ export const loadState = json => dispatch => {
                 }
                 else
                 {
-                    console.log("y.state is "+y.usergame_info.state);
+                    //console.log("y.state is "+y.usergame_info.state);
                     const message = {
                         messageType: "LOAD",
                         gameState: JSON.parse(y.usergame_info.state)
@@ -181,14 +181,14 @@ export const saveState = json => dispatch => {
     })
     .then(x=>x.json())
     .then(result=>{
-        console.log(result);
+        //console.log(result);
         if (result.status === "success")
         {
-            console.log("success saved!");
+            //console.log("success saved!");
         }
         else
         {
-            console.log("fail saved!");
+            //console.log("fail saved!");
         }
     })
     ;
@@ -208,10 +208,10 @@ export const saveScore = json => dispatch => {
     })
     .then(x=>x.json())
     .then(result=>{
-        console.log(result);
+        //console.log(result);
         if (result.status === "success")
         {
-            console.log("score success saved!, now should update game scorelist");
+            //console.log("score success saved!, now should update game scorelist");
             fetch('/api/games/'+json.gameId+'/analytic/',
                     {
                         credentials: 'include',
@@ -219,7 +219,7 @@ export const saveScore = json => dispatch => {
                     }
             ).then(x=>x.json())
              .then(y=>{
-                    console.log("update list!!! " + JSON.stringify(y.info));
+                    //console.log("update list!!! " + JSON.stringify(y.info));
                     dispatch(updateGamelist(json.gameId,y.info));
                     // this.setState({
                     //   scoreList:y.info
@@ -228,7 +228,7 @@ export const saveScore = json => dispatch => {
         }
         else
         {
-            console.log("score save fail!");
+            //console.log("score save fail!");
         }
     })
     ;
@@ -243,7 +243,7 @@ export const fetchGames = () => dispatch => {
             .then(result=>{
                 if (result.status === "failure") {
                   alert("Please login first!");
-                  console.log("receive from backend: "+JSON.stringify(result));
+                  //console.log("receive from backend: "+JSON.stringify(result));
                   browserHistory.push('/store/login');
                 } else if (result.status === "success") {
                   dispatch(receiveData({games:result.gamelist}));
@@ -340,9 +340,9 @@ export const executePayment = (pid, sid, amount, checksum) => dispatch => {
         'pid': pid,
         'sid': sid,
         'amount': amount,
-        'success_url': 'http://127.0.0.1:8000/store/player',
-        'cancel_url': 'http://127.0.0.1:8000/store/player',
-        'error_url': 'http://127.0.0.1:8000/store/player',
+        'success_url': window.location.href,
+        'cancel_url': window.location.href,
+        'error_url': window.location.href,
         'checksum': checksum
     };
     
@@ -377,7 +377,8 @@ export const finalizePayment = (pid, ref, result, checksum) => dispatch => {
                 if (result.status === "failure") {
                   alert(result.desc);
                 } else {
-                    dispatch(fetchGames());
+                    // Clear up the parameters from url, refresh
+                    window.location.replace(window.location.href.split('?')[0]);
                 }
             });
 };
@@ -392,7 +393,7 @@ export const analticsGame = (gameId) => dispatch => {
             .then(result=>{
                 if (result.status === "failure") {
                   alert(result);
-                  console.log("receive from backend: "+JSON.stringify(result));
+                  //console.log("receive from backend: "+JSON.stringify(result));
                   browserHistory.push('/store/login');
                 } else if (result.status === "success") {
                   dispatch(analyticsData({analytics: result}));
@@ -410,7 +411,7 @@ finally when get the result, dispatch loginSuccess or loginFailure
 */
 export const loginClick = formData => dispatch => {
     dispatch(loginPage());
-    console.log("JSON.stringify(formData) is "+JSON.stringify(formData));
+    //console.log("JSON.stringify(formData) is "+JSON.stringify(formData));
     return fetch('/api/login', {
       credentials: 'include',
       method:'post', headers: {
@@ -419,7 +420,7 @@ export const loginClick = formData => dispatch => {
     })
         .then(x=>x.json())
         .then(result=>{
-            console.log(result);
+            //console.log(result);
             if (result.status === "success")
             {
                 dispatch(loginSuccess(result.userinfo));
@@ -441,7 +442,7 @@ export const loginClick = formData => dispatch => {
 // register actions, the same login with login
 export const registerClick = formData => dispatch => {
     dispatch(registerPage());
-    console.log("JSON.stringify(formData) is "+JSON.stringify(formData));
+    //console.log("JSON.stringify(formData) is "+JSON.stringify(formData));
     return fetch('/api/register', {
       credentials: 'include',
       method:'post', headers: {
@@ -450,7 +451,7 @@ export const registerClick = formData => dispatch => {
     })
         .then(x=>x.json())
         .then(result=>{
-            console.log(result);
+            //console.log(result);
             if (result.status === "success")
             {
                 dispatch(registerSuccess(result.userinfo));
@@ -468,7 +469,7 @@ export const registerClick = formData => dispatch => {
 
 export const logoutClick = () => dispatch => {
     dispatch(logoutPage());
-    console.log('logout');
+    //console.log('logout');
     return fetch('/api/logout', {
       credentials: 'include',
       method:'post', headers: {
@@ -477,7 +478,7 @@ export const logoutClick = () => dispatch => {
     })
         .then(x=>x.json())
         .then(result=>{
-            console.log(result);
+            //console.log(result);
             if (result.status === "success")
             {
                 // dispatch(logoutSuccess(result.userinfo));

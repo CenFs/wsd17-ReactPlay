@@ -23,7 +23,7 @@ function urlFormatter (cell, row, enumObject, rowIndex) {
   return (
     <button className={buttonStyle} 
       onClick={() => {
-        console.log(cell, row, rowIndex);
+        //console.log(cell, row, rowIndex);
         if (row.url) {
           browserHistory.push(`/store/game/${row.gameid}`);
           this.props.dispatch(playGame(row.gameid));
@@ -61,8 +61,8 @@ class GameList extends React.Component {
 
     // Check if we received payment parameters
     var payment = getQueryParams(window.location.search);
-    if (payment && payment.result && payment.result == 'success') {
-        this.props.dispatch(finalizePayment(payment.pid, payment.ref, payment.result, payment.checksum));
+    if (payment && payment.result) {
+      this.props.dispatch(finalizePayment(payment.pid, payment.ref, payment.result, payment.checksum));
     }
   }
 

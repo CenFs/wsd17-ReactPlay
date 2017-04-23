@@ -62,4 +62,5 @@ class Transaction(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='usertransactions')
     game = models.ForeignKey(Game)
     amount = models.DecimalField(max_digits=9, decimal_places=2)
-    ref = models.IntegerField(blank=True, null=True) # if null, transaction not successful/completed
+    ref = models.IntegerField(blank=True, null=True)
+    result = models.CharField(max_length=16, default='unfinalized')
