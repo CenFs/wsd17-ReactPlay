@@ -11,8 +11,8 @@ const Analytics = React.createClass({
         </Modal.Header>
         <Modal.Body>
           <h4>Sales Info:</h4>
-          <BootstrapTable data={ this.props.data }>
-          <TableHeaderColumn dataField='id' isKey>No.</TableHeaderColumn>
+          <BootstrapTable data={this.props.data} striped hover condensed exportCSV>
+          <TableHeaderColumn dataField='score' isKey={true} autoValue={true}>No.</TableHeaderColumn>
           <TableHeaderColumn dataField='username' dataSort={true}>User Name</TableHeaderColumn>
           <TableHeaderColumn dataField='purchase_price' dataSort={true}>Purchase Price</TableHeaderColumn>
           <TableHeaderColumn dataField='purchase_date' dataSort={true}>Product Date</TableHeaderColumn>

@@ -88263,10 +88263,10 @@ var Analytics = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createClass({
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           __WEBPACK_IMPORTED_MODULE_1_react_bootstrap_table__["BootstrapTable"],
-          { data: this.props.data },
+          { data: this.props.data, striped: true, hover: true, condensed: true, exportCSV: true },
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             __WEBPACK_IMPORTED_MODULE_1_react_bootstrap_table__["TableHeaderColumn"],
-            { dataField: 'id', isKey: true },
+            { dataField: 'score', isKey: true, autoValue: true },
             'No.'
           ),
           __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
