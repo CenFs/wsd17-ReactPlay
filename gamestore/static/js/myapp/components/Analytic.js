@@ -1,8 +1,6 @@
 import React from 'react';
-// import { Analytics } from '../actions';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { Modal, Button } from 'react-bootstrap';
-import NavBar from './NavBar';
 
 const Analytics = React.createClass({
   render() {
@@ -13,7 +11,12 @@ const Analytics = React.createClass({
         </Modal.Header>
         <Modal.Body>
           <h4>Sales Info:</h4>
-          <div>{JSON.stringify(this.props.data)}</div>
+          <BootstrapTable data={ this.props.data }>
+          <TableHeaderColumn dataField='id' isKey>No.</TableHeaderColumn>
+          <TableHeaderColumn dataField='username' dataSort={true}>User Name</TableHeaderColumn>
+          <TableHeaderColumn dataField='purchase_price' dataSort={true}>Purchase Price</TableHeaderColumn>
+          <TableHeaderColumn dataField='purchase_date' dataSort={true}>Product Date</TableHeaderColumn>
+          </BootstrapTable>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this.props.onHide}>Close</Button>

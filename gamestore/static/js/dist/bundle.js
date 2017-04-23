@@ -88232,11 +88232,8 @@ module.exports = __webpack_require__(398);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_bootstrap_table__ = __webpack_require__(319);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_bootstrap_table___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_bootstrap_table__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_bootstrap__ = __webpack_require__(348);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__NavBar__ = __webpack_require__(143);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-
-// import { Analytics } from '../actions';
 
 
 
@@ -88265,9 +88262,28 @@ var Analytics = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createClass({
           'Sales Info:'
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'div',
-          null,
-          JSON.stringify(this.props.data)
+          __WEBPACK_IMPORTED_MODULE_1_react_bootstrap_table__["BootstrapTable"],
+          { data: this.props.data },
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_1_react_bootstrap_table__["TableHeaderColumn"],
+            { dataField: 'id', isKey: true },
+            'No.'
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_1_react_bootstrap_table__["TableHeaderColumn"],
+            { dataField: 'username', dataSort: true },
+            'User Name'
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_1_react_bootstrap_table__["TableHeaderColumn"],
+            { dataField: 'purchase_price', dataSort: true },
+            'Purchase Price'
+          ),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_1_react_bootstrap_table__["TableHeaderColumn"],
+            { dataField: 'purchase_date', dataSort: true },
+            'Product Date'
+          )
         )
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
