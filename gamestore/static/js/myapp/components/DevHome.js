@@ -5,11 +5,11 @@ import DevList from './DevList';
 class DevHome extends React.Component {
   
   componentDidMount() {
-    if (this.props.location.key === null) {
-      alert('Please login first!');
-      // browserHistory.push('/store/login');
-      this.props.router.push('/store/login');
-    }
+    // console.log(this.props)
+    // if (this.props.location.key === null) {
+    //   alert('Please login first!');
+    //   this.props.router.push('/store/login');
+    // }
   }
   // developers' home page
   render () {

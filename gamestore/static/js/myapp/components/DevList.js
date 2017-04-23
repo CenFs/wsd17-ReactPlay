@@ -38,7 +38,6 @@ function analyticsFormatter (cell, row, enumObject, rowIndex) {
   return (
     <button className="btn btn-info"
       onClick={() => {
-          // browserHistory.push(`/store/game/${row.gameid}`);
           this.props.dispatch(analticsGame(row.gameid));
           this.setState({ lgShow: true });    
         }} >
