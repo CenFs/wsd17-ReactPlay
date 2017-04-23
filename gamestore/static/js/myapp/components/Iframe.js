@@ -71,6 +71,7 @@ class Iframe extends React.Component {
   }
 }
 
+// transform the current Redux store state into the props
 const mapStateToProps = (state) => ({
   selectedGame: state.games.filter((g)=>{return g.playing})[0],
   userId: state.user.userid

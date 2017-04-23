@@ -13435,7 +13435,6 @@ var NavBar = function (_React$Component) {
 
     _this.goHome = function (event) {
       event.preventDefault();
-      console.log(__WEBPACK_IMPORTED_MODULE_3_react_router__["b" /* browserHistory */].getCurrentLocation().pathname);
       var currentPath = __WEBPACK_IMPORTED_MODULE_3_react_router__["b" /* browserHistory */].getCurrentLocation().pathname;
       if (currentPath !== '/store/player' || currentPath !== '/store/developer') {
         __WEBPACK_IMPORTED_MODULE_3_react_router__["b" /* browserHistory */].goBack();
@@ -13449,8 +13448,14 @@ var NavBar = function (_React$Component) {
   // handler submission of login form
 
 
+  // go back to home page 
+
+
   _createClass(NavBar, [{
     key: 'render',
+
+
+    // render the navgation bar
     value: function render() {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'nav',
@@ -13514,12 +13519,15 @@ var NavBar = function (_React$Component) {
   return NavBar;
 }(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
 
+// transform the current Redux store state into the props
+
+
 var mapStateToProps = function mapStateToProps(state) {
   return {
     Username: state.user.username
   };
 };
-// export default NavBar;
+
 /* harmony default export */ __webpack_exports__["a"] = (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_react_redux__["b" /* connect */])(mapStateToProps)(NavBar));
 
 /***/ }),
@@ -37114,6 +37122,7 @@ function transform_genres(arr) {
   return genres;
 }
 
+// transform the current Redux store state into the props
 var mapStateToProps = function mapStateToProps(state) {
   return {
     games: state.games,
@@ -37180,6 +37189,7 @@ var Game = function (_React$Component) {
 
 ;
 
+// transform the current Redux store state into the props
 var mapStateToProps = function mapStateToProps(state) {
   return {};
 };
@@ -37344,6 +37354,7 @@ function transform_genres(arr) {
   return genres;
 }
 
+// transform the current Redux store state into the props
 var mapStateToProps = function mapStateToProps(state) {
   return {
     games: state.games,
@@ -37448,6 +37459,9 @@ var HighScores = function (_React$Component) {
 
   return HighScores;
 }(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
+// transform the current Redux store state into the props
+
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
@@ -37567,6 +37581,9 @@ var Iframe = function (_React$Component) {
 
   return Iframe;
 }(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
+// transform the current Redux store state into the props
+
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
@@ -37713,6 +37730,9 @@ var Login = function (_React$Component) {
 
   return Login;
 }(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
+// transform the current Redux store state into the props
+
 
 var mapStateToProps = function mapStateToProps(state) {
   return {};

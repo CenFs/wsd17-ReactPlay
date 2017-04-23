@@ -20,6 +20,7 @@ class Game extends React.Component{
     }
 };
 
+// transform the current Redux store state into the props
 const mapStateToProps = (state) => ({
 });
 

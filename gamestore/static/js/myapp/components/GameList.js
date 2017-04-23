@@ -93,6 +93,7 @@ function transform_genres (arr) {
   return genres;
 }
 
+// transform the current Redux store state into the props
 const mapStateToProps = (state) => ({
   games: state.games,
   genreTypes: transform_genres(state.genres)

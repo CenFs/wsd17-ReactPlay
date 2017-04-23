@@ -17,15 +17,16 @@ class NavBar extends React.Component {
       this.props.dispatch(logoutClick());
   }
   
+  // go back to home page 
   goHome = event => {
     event.preventDefault();
-    console.log(browserHistory.getCurrentLocation().pathname);
     const currentPath = browserHistory.getCurrentLocation().pathname
     if (currentPath !== '/store/player' || currentPath !== '/store/developer') {
       browserHistory.goBack();
     }
   }
 
+  // render the navgation bar
   render () {
     return (
       <nav className="navbar navbar-inverse">
@@ -46,9 +47,10 @@ class NavBar extends React.Component {
   }
 }
 
+// transform the current Redux store state into the props
 const mapStateToProps = (state) => ({
   Username: state.user.username
 });
-// export default NavBar;
+
 export default connect(mapStateToProps)(NavBar);
 
