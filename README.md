@@ -60,9 +60,9 @@ Front-end will have the views and static files required for the user interfaces.
         * DONE. Game detail (details of a single game)
             * Players can buy, play and check highscores.
             * Developer can modify and see sales statistics.
-        * DONE. User detail (Details of the currently logged in user)
+        * User detail (Details of the currently logged in user)
             * Basic user info.
-            * Players have a list of bought games.
+            * DONE(Bought games and other games are in the same list with different button). Players have a list of bought games.
             * Developers have a list of their published games.
     * Used technologies
         * React (A popular front-end framework, we will use it to write different components)
@@ -137,13 +137,22 @@ In general, everyone works as the previous plan, but all of us helped others in 
 
 ## Instructions
 
-Login/register first, then...
+Click "login" or "register" button, submit the infomation to "login" or "register".
+The system will show the login page after the register.
+After login, the system shows the gamelist directly.
+For the Player, if you owned the game, there will be "play" button, if not, there will be "buy" button.
+Just buy and pay the payment freely, then the game is able to play.
+For the Developer, the system will show all the games you published.
+You can check the game details and highscores by clicking "details" button, and can register a new game by clicking "+new" button and submiting relevant infomation.
+Logout button on the upper right corner is for logout, after clicked it the system will show the login page directly.
+
 The following table shows the created accounts for testing:
 
 Role | Username | Password
 ----------- | ------------ | ------------
 Player | player | debugpass
 Developer | developer | debugpass
+SuperUser | super | debugpass
 
 
 Heroku: https://reactplaytut.herokuapp.com/
