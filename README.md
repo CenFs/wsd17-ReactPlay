@@ -88,12 +88,14 @@ Presentation | **Reserve a time slot, prep and execute presentation.** | **2017-
 
 ## Implemented features
 
-Project Demonstration document link
+Project Demonstration document: https://docs.google.com/document/d/1T4KgI6FCulCn-Wz8rs0dR0BtvPG9R644nyI7qAxfu2U/edit?usp=sharing
 
 ## Self assessments
 
 Pros
+
 Cons
+
 
 ## Distribuation of works
 
@@ -104,8 +106,14 @@ Enbo Chen | 256331 | ...
 Pauli Tupeli | 228926 | ...
 Jingyi Bai | 267936 | ...
 
-## How to use
+## Instructions
 
-Instructions (how to use, account/password)
-Heroku link
+How to use
+Created accounts for testing
+Role | Username | Password
+----------- | ------------ | ------------
+Player | player | debugpass
+Developer | developer | debugpass
+
+Heroku: link
 
