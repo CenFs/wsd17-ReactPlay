@@ -1,6 +1,7 @@
 import React from 'react';
 import { logoutClick } from '../actions';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 class NavBar extends React.Component {
   
@@ -15,6 +16,15 @@ class NavBar extends React.Component {
       event.preventDefault();
       this.props.dispatch(logoutClick());
   }
+  
+  goHome = event => {
+    event.preventDefault();
+    console.log(browserHistory.getCurrentLocation().pathname);
+    const currentPath = browserHistory.getCurrentLocation().pathname
+    if (currentPath !== '/store/player' || currentPath !== '/store/developer') {
+      browserHistory.goBack();
+    }
+  }
 
   render () {
     return (
@@ -24,7 +34,7 @@ class NavBar extends React.Component {
           <a className="navbar-brand" href="#">React Play</a>
         </div>
         <ul className="nav navbar-nav">
-          <li className="active"><a href="#">Home</a></li>
+          <li className="active"><a href="#" onClick={this.goHome}>Home</a></li>
         </ul>
         <ul className="nav navbar-nav navbar-right">
           <li><a href="#"><span className="glyphicon glyphicon-user"></span> {this.props.Username} </a></li>
