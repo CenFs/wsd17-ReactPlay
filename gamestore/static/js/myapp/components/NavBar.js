@@ -21,7 +21,7 @@ class NavBar extends React.Component {
   goHome = event => {
     event.preventDefault();
     const currentPath = browserHistory.getCurrentLocation().pathname
-    if (currentPath !== '/store/player' || currentPath !== '/store/developer') {
+    if (currentPath !== '/store/player' && currentPath !== '/store/developer' ) {
       browserHistory.goBack();
     }
   }
