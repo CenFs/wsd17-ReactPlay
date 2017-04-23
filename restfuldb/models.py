@@ -43,9 +43,11 @@ class UserGame(models.Model):
     def __str__(self):
         return "{} {}".format(self.user, self.game)
 
+    # Update highscore
     def set_score(self, score):
-        self.score = score
-        return self.save()
+        if (score > self.score):
+            self.score = score
+            return self.save()
 
     def set_state(self, state):
         self.state = state

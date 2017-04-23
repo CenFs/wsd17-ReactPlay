@@ -681,7 +681,7 @@ def usergames(request, userid, gameid):
                         # Create new UserGame
                         usergame = UserGame.objects.create(user=user, game=game)
                         if score != DOESNT_EXIST:
-                            usergame.score = score
+                            usergame.set_score(score)
                         if state != DOESNT_EXIST:
                             usergame.state = state
                         usergame.save()
@@ -691,7 +691,7 @@ def usergames(request, userid, gameid):
                         return HttpResponse(responseData, content_type="application/json", status=CREATED)
                     # Update existing UserGame
                     if score != DOESNT_EXIST:
-                        usergame.score = score
+                        usergame.set_score(score)
                     if state != DOESNT_EXIST:
                         usergame.state = state
                     usergame.save()
