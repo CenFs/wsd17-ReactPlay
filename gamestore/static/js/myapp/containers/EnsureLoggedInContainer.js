@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 
-// check more details here: https://medium.com/the-many/adding-login-and-authentication-sections-to-your-react-or-react-native-app-7767fd251bd1
-
 function isLoggedIn () {
   // here just for simple test (try return false)
   // real mechaniam to check loginedIn status should be implelemented here
