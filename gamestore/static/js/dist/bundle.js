@@ -5393,25 +5393,25 @@ module.exports = reactProdInvariant;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_whatwg_fetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_whatwg_fetch__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router__ = __webpack_require__(102);
 /* unused harmony export REQUEST_DATA */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return RECEIVE_DATA; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return CLEAR_DATA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return RECEIVE_DATA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return CLEAR_DATA; });
 /* unused harmony export LOAD_STATE */
 /* unused harmony export SAVE_STATE */
 /* unused harmony export REQUEST_HIGHSCORES */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return UPDATE_GAMELIST; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return ANALYTICS_DATA; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return RECEIVE_GENRES; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return LOGIN; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "x", function() { return LOGIN_FAIL; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return LOGIN_SUCCESS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "A", function() { return LOGOUT; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return REGISTER; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "y", function() { return REGISTER_SUCCESS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "z", function() { return REGISTER_FAIL; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return PLAY_A_GAME; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return UPDATE_GAMELIST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return ANALYTICS_DATA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return RECEIVE_GENRES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return LOGIN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "y", function() { return LOGIN_FAIL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "x", function() { return LOGIN_SUCCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "B", function() { return LOGOUT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return REGISTER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "z", function() { return REGISTER_SUCCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "A", function() { return REGISTER_FAIL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return PLAY_A_GAME; });
 /* unused harmony export updateGamelist */
 /* unused harmony export highScores */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return playGame; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return playGame; });
 /* unused harmony export loginPage */
 /* unused harmony export loginSuccess */
 /* unused harmony export loginFailure */
@@ -5426,21 +5426,22 @@ module.exports = reactProdInvariant;
 /* unused harmony export analyticsData */
 /* unused harmony export fetch_playGame */
 /* unused harmony export load_highScores */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return loadState; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return saveState; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return saveScore; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return fetchGames; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return fetchGenres; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return addGame; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return loadState; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return saveState; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return saveScore; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return fetchGames; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return fetchGenres; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return addGame; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return updateGame; });
 /* unused harmony export getCookie */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return getQueryParams; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return initializePayment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return getQueryParams; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return initializePayment; });
 /* unused harmony export executePayment */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return finalizePayment; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return analticsGame; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return loginClick; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return registerClick; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return logoutClick; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return finalizePayment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return analticsGame; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return loginClick; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return registerClick; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return logoutClick; });
 /*
 Action is a function which will return a json object
 We will handle actions inside reducers
@@ -5739,6 +5740,24 @@ var addGame = function addGame(game_name, game_desc, genre_id, game_price, game_
                 price: game_price,
                 url: game_url
             })
+        }).then(function (x) {
+            return x.json();
+        }).then(function (result) {
+            if (result.status === "failure") {
+                alert(result.desc);
+            }
+            dispatch(fetchGames());
+        });
+    };
+};
+
+// Update a game in the backend
+var updateGame = function updateGame(gameid, fields) {
+    return function (dispatch) {
+        return fetch('/api/games/' + gameid + '/', {
+            credentials: 'include',
+            method: 'post',
+            body: JSON.stringify(fields)
         }).then(function (x) {
             return x.json();
         }).then(function (result) {
@@ -11441,10 +11460,15 @@ var _default = {
   // We calculate an offset here in order to properly fetch the indexed data,
   // despite the page start index not always being 1
   getNormalizedPage: function getNormalizedPage(pageStartIndex, page) {
-    pageStartIndex = this.getFirstPage(pageStartIndex);
     if (page === undefined) page = pageStartIndex;
-    var offset = Math.abs(_Const2.default.PAGE_START_INDEX - pageStartIndex);
-    return page + offset;
+    var normalizedPage = void 0;
+    if (pageStartIndex !== undefined) {
+      var offset = Math.abs(_Const2.default.PAGE_START_INDEX - pageStartIndex);
+      normalizedPage = page + offset;
+    } else {
+      normalizedPage = page;
+    }
+    return normalizedPage;
   },
   getFirstPage: function getFirstPage(pageStartIndex) {
     return pageStartIndex !== undefined ? pageStartIndex : _Const2.default.PAGE_START_INDEX;
@@ -13708,7 +13732,7 @@ var NavBar = function (_React$Component) {
 
     _this.handleLogout = function (event) {
       event.preventDefault();
-      _this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__actions__["e" /* logoutClick */])());
+      _this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__actions__["f" /* logoutClick */])());
     };
 
     _this.goHome = function (event) {
@@ -37060,31 +37084,14 @@ function genreTypeFormatter(cell, row, enumObject) {
 }
 
 function onAfterSaveCell(row, cellName, cellValue) {
-  alert('Save cell ' + cellName + ' with value ' + cellValue);
 
-  var rowStr = '';
-  for (var prop in row) {
-    rowStr += prop + ': ' + row[prop] + '\n';
-  }
+  if (row['scorelist']) delete row['scorelist'];
 
-  alert('Thw whole row :\n' + rowStr);
+  this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions__["a" /* updateGame */])(row['gameid'], row));
 }
-
-function onBeforeSaveCell(row, cellName, cellValue) {
-  // You can do any validation on here for editing value,
-  // return false for reject the editing
-  return true;
-}
-
-var cellEditProp = {
-  mode: 'click',
-  blurToSave: true,
-  beforeSaveCell: onBeforeSaveCell, // a hook for before saving cell
-  afterSaveCell: onAfterSaveCell // a hook for after saving cell
-};
 
 function onAfterInsertRow(row) {
-  this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions__["a" /* addGame */])(row['name'], row['description'], row['genre'], row['price'], row['url']));
+  this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions__["b" /* addGame */])(row['name'], row['description'], row['genre'], row['price'], row['url']));
 }
 
 function analyticsFormatter(cell, row, enumObject, rowIndex) {
@@ -37095,16 +37102,12 @@ function analyticsFormatter(cell, row, enumObject, rowIndex) {
     { className: 'btn btn-info',
       onClick: function onClick() {
         // browserHistory.push(`/store/game/${row.gameid}`);
-        _this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions__["b" /* analticsGame */])(row.gameid));
+        _this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions__["c" /* analticsGame */])(row.gameid));
         _this.setState({ lgShow: true });
       } },
     'Details'
   );
 }
-
-var options = {
-  afterInsertRow: onAfterInsertRow // A hook for after insert rows
-};
 
 var DevList = function (_React$Component) {
   _inherits(DevList, _React$Component);
@@ -37117,7 +37120,11 @@ var DevList = function (_React$Component) {
 
     _this2.analyticsFormatter = analyticsFormatter.bind(_this2);
     _this2.onAfterInsertRow = onAfterInsertRow.bind(_this2);
+    _this2.onAfterSaveCell = onAfterSaveCell.bind(_this2);
     _this2.options = { afterInsertRow: _this2.onAfterInsertRow };
+    _this2.cellEditProp = { mode: 'click',
+      blurToSave: true,
+      afterSaveCell: _this2.onAfterSaveCell };
     _this2.state = { smShow: false, lgShow: false };
     return _this2;
   }
@@ -37126,8 +37133,8 @@ var DevList = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       // Fetch genres for the filter
-      this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions__["c" /* fetchGenres */])());
-      this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions__["d" /* fetchGames */])());
+      this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions__["d" /* fetchGenres */])());
+      this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions__["e" /* fetchGames */])());
     }
   }, {
     key: 'render',
@@ -37147,7 +37154,7 @@ var DevList = function (_React$Component) {
         null,
         __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
           __WEBPACK_IMPORTED_MODULE_0_react_bootstrap_table__["BootstrapTable"],
-          { data: this.props.games, cellEdit: cellEditProp, insertRow: true, options: this.options, pagination: true },
+          { data: this.props.games, cellEdit: this.cellEditProp, insertRow: true, options: this.options, pagination: true },
           __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
             __WEBPACK_IMPORTED_MODULE_0_react_bootstrap_table__["TableHeaderColumn"],
             { dataField: 'gameid', isKey: true, hidden: true, hiddenOnInsert: true, autoValue: true },
@@ -37155,7 +37162,7 @@ var DevList = function (_React$Component) {
           ),
           __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
             __WEBPACK_IMPORTED_MODULE_0_react_bootstrap_table__["TableHeaderColumn"],
-            { dataField: 'author', width: '10%', hiddenOnInsert: true },
+            { dataField: 'author', width: '10%', hiddenOnInsert: true, editable: false },
             'Author'
           ),
           __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
@@ -37336,9 +37343,9 @@ function urlFormatter(cell, row, enumObject, rowIndex) {
         //console.log(cell, row, rowIndex);
         if (row.url) {
           __WEBPACK_IMPORTED_MODULE_4_react_router__["b" /* browserHistory */].push('/store/game/' + row.gameid);
-          _this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__actions__["f" /* playGame */])(row.gameid));
+          _this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__actions__["g" /* playGame */])(row.gameid));
         } else {
-          _this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__actions__["g" /* initializePayment */])(row.gameid));
+          _this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__actions__["h" /* initializePayment */])(row.gameid));
         }
       } },
     buy_or_play
@@ -37372,13 +37379,13 @@ var GameList = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       // Fetch genres and games
-      this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__actions__["c" /* fetchGenres */])());
-      this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__actions__["d" /* fetchGames */])());
+      this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__actions__["d" /* fetchGenres */])());
+      this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__actions__["e" /* fetchGames */])());
 
       // Check if we received payment parameters
-      var payment = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__actions__["h" /* getQueryParams */])(window.location.search);
+      var payment = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__actions__["i" /* getQueryParams */])(window.location.search);
       if (payment && payment.result) {
-        this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__actions__["i" /* finalizePayment */])(payment.pid, payment.ref, payment.result, payment.checksum));
+        this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__actions__["j" /* finalizePayment */])(payment.pid, payment.ref, payment.result, payment.checksum));
       }
     }
   }, {
@@ -37609,13 +37616,13 @@ var Iframe = function (_React$Component) {
 
       switch (e.data.messageType) {
         case 'LOAD_REQUEST':
-          _this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions__["j" /* loadState */])({ gameId: _this.props.gameId, userId: _this.props.userId, frame: _this.ifr }));
+          _this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions__["k" /* loadState */])({ gameId: _this.props.gameId, userId: _this.props.userId, frame: _this.ifr }));
           break;
         case 'SAVE':
-          _this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions__["k" /* saveState */])({ gameId: _this.props.gameId, userId: _this.props.userId, score: e.data.gameState.score, frame: _this.ifr }));
+          _this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions__["l" /* saveState */])({ gameId: _this.props.gameId, userId: _this.props.userId, score: e.data.gameState.score, frame: _this.ifr }));
           break;
         case 'SCORE':
-          _this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions__["l" /* saveScore */])({ gameId: _this.props.gameId, userId: _this.props.userId, score: e.data.score, frame: _this.ifr }));
+          _this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__actions__["m" /* saveScore */])({ gameId: _this.props.gameId, userId: _this.props.userId, score: e.data.score, frame: _this.ifr }));
           break;
         default:
           _this.sendToFrame('some messages not handled');
@@ -37737,7 +37744,7 @@ var Login = function (_React$Component) {
       event.preventDefault();
       var username = __WEBPACK_IMPORTED_MODULE_4_react_dom___default.a.findDOMNode(_this.username).value;
       var password = __WEBPACK_IMPORTED_MODULE_4_react_dom___default.a.findDOMNode(_this.password).value;
-      _this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions__["n" /* loginClick */])({ username: username, password: password }));
+      _this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions__["o" /* loginClick */])({ username: username, password: password }));
     };
 
     _this.handleSubmit = _this.handleSubmit.bind(_this);
@@ -38039,7 +38046,7 @@ var Register = function (_React$Component) {
         alert("password does not match!");
       } else {
         // Send register dispatch
-        _this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions__["m" /* registerClick */])({ username: username, password: password, email: email, role: role }));
+        _this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions__["n" /* registerClick */])({ username: username, password: password, email: email, role: role }));
       }
     };
 
@@ -38291,7 +38298,7 @@ var genres = function genres() {
     var action = arguments[1];
 
     switch (action.type) {
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["o" /* RECEIVE_GENRES */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["p" /* RECEIVE_GENRES */]:
             return action.genres;
         default:
             return state;
@@ -38304,7 +38311,7 @@ var analytics = function analytics() {
     var action = arguments[1];
 
     switch (action.type) {
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["p" /* ANALYTICS_DATA */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["q" /* ANALYTICS_DATA */]:
             // console.log(action.analytics);
             return action.analytics;
         default:
@@ -38318,11 +38325,11 @@ var games = function games() {
     var action = arguments[1];
 
     switch (action.type) {
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["q" /* RECEIVE_DATA */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["r" /* RECEIVE_DATA */]:
             return action.games;
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["r" /* CLEAR_DATA */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["s" /* CLEAR_DATA */]:
             return [];
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["s" /* PLAY_A_GAME */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["t" /* PLAY_A_GAME */]:
             var newState = JSON.parse(JSON.stringify(state));
             var gid = action.gameid;
             newState.forEach(function (g) {
@@ -38333,7 +38340,7 @@ var games = function games() {
                 }
             });
             return newState;
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["t" /* UPDATE_GAMELIST */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["u" /* UPDATE_GAMELIST */]:
             var newState1 = JSON.parse(JSON.stringify(state));
             var gid1 = action.gameid;
             var list = action.list;
@@ -38355,17 +38362,17 @@ var loading = function loading() {
     var action = arguments[1];
 
     switch (action.type) {
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["u" /* LOGIN */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["v" /* LOGIN */]:
             return true;
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["v" /* REGISTER */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["w" /* REGISTER */]:
             return true;
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["w" /* LOGIN_SUCCESS */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["x" /* LOGIN_SUCCESS */]:
             return false;
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["x" /* LOGIN_FAIL */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["y" /* LOGIN_FAIL */]:
             return false;
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["y" /* REGISTER_SUCCESS */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["z" /* REGISTER_SUCCESS */]:
             return false;
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["z" /* REGISTER_FAIL */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["A" /* REGISTER_FAIL */]:
             return false;
         default:
             return state;
@@ -38378,13 +38385,13 @@ var user = function user() {
     var action = arguments[1];
 
     switch (action.type) {
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["w" /* LOGIN_SUCCESS */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["x" /* LOGIN_SUCCESS */]:
             return action.data;
             break;
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["y" /* REGISTER_SUCCESS */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["z" /* REGISTER_SUCCESS */]:
             return action.data;
             break;
-        case __WEBPACK_IMPORTED_MODULE_0__actions__["A" /* LOGOUT */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["B" /* LOGOUT */]:
             return {};
         default:
             return state;
@@ -58081,7 +58088,7 @@ BootstrapTable.defaultProps = {
     nextPageTitle: _Const2.default.NEXT_PAGE_TITLE,
     firstPageTitle: _Const2.default.FIRST_PAGE_TITLE,
     lastPageTitle: _Const2.default.LAST_PAGE_TITLE,
-    pageStartIndex: 1,
+    pageStartIndex: undefined,
     searchDelayTime: undefined,
     exportCSVText: _Const2.default.EXPORT_CSV_TEXT,
     insertText: _Const2.default.INSERT_BTN_TEXT,

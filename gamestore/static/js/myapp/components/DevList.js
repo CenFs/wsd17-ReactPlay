@@ -2,7 +2,7 @@ import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import React from 'react';
 import { connect } from 'react-redux';
 import ReactDOM from 'react-dom';
-import { fetchGames, fetchGenres, addGame, analticsGame } from '../actions';
+import { fetchGames, fetchGenres, addGame, updateGame, analticsGame } from '../actions';
 import Analytics from './Analytic'
 import { Button } from 'react-bootstrap';
 
@@ -22,28 +22,12 @@ function genreTypeFormatter(cell, row, enumObject) {
 }
 
 function onAfterSaveCell(row, cellName, cellValue) {
-  alert(`Save cell ${cellName} with value ${cellValue}`);
 
-  let rowStr = '';
-  for (const prop in row) {
-    rowStr += prop + ': ' + row[prop] + '\n';
-  }
+  if (row['scorelist'])
+    delete row['scorelist'];
 
-  alert('Thw whole row :\n' + rowStr);
+  this.props.dispatch(updateGame(row['gameid'], row));
 }
-
-function onBeforeSaveCell(row, cellName, cellValue) {
-  // You can do any validation on here for editing value,
-  // return false for reject the editing
-  return true;
-}
-
-const cellEditProp = {
-  mode: 'click',
-  blurToSave: true,
-  beforeSaveCell: onBeforeSaveCell, // a hook for before saving cell
-  afterSaveCell: onAfterSaveCell  // a hook for after saving cell
-};
 
 
 function onAfterInsertRow(row) {
@@ -64,17 +48,17 @@ function analyticsFormatter (cell, row, enumObject, rowIndex) {
   );
 }
 
-const options = {
-  afterInsertRow: onAfterInsertRow   // A hook for after insert rows
-};
-
 class DevList extends React.Component {
   // constructor
   constructor(props) {
     super(props);
     this.analyticsFormatter = analyticsFormatter.bind(this);
     this.onAfterInsertRow = onAfterInsertRow.bind(this);
+    this.onAfterSaveCell = onAfterSaveCell.bind(this);
     this.options = {afterInsertRow:this.onAfterInsertRow};
+    this.cellEditProp = {mode: 'click',
+                         blurToSave: true,
+                         afterSaveCell: this.onAfterSaveCell};
     this.state = {smShow: false, lgShow: false};
   }
 
@@ -91,9 +75,9 @@ class DevList extends React.Component {
     
     return (    
       <div>
-        <BootstrapTable data={this.props.games} cellEdit={cellEditProp} insertRow={true} options={this.options} pagination>
+        <BootstrapTable data={this.props.games} cellEdit={this.cellEditProp} insertRow={true} options={this.options} pagination>
             <TableHeaderColumn dataField='gameid' isKey={true} hidden hiddenOnInsert autoValue>Game ID</TableHeaderColumn>
-            <TableHeaderColumn dataField='author' width='10%' hiddenOnInsert>Author</TableHeaderColumn>
+            <TableHeaderColumn dataField='author' width='10%' hiddenOnInsert editable={false}>Author</TableHeaderColumn>
             <TableHeaderColumn dataField='name' filter={{ type: 'TextFilter', delay: 200 }} width='20%'>Game Name</TableHeaderColumn>
             <TableHeaderColumn dataField='description' tdStyle={{ whiteSpace: 'normal' }}>Description</TableHeaderColumn>
             <TableHeaderColumn dataField='genre' filterFormatted dataFormat={enumFormatter} formatExtraData={ this.props.genreTypes }>Game Genre</TableHeaderColumn>

@@ -280,6 +280,22 @@ export const addGame = (game_name, game_desc, genre_id, game_price, game_url) =>
             });
 };
 
+// Update a game in the backend
+export const updateGame = (gameid, fields) => dispatch => {
+    return fetch('/api/games/' + gameid + '/', {
+                credentials: 'include',
+                method:'post',
+                body: JSON.stringify(fields)
+            })
+            .then(x=>x.json())
+            .then(result=>{
+                if (result.status === "failure") {
+                  alert(result.desc);
+                }
+                dispatch(fetchGames());
+            });
+};
+
 
 // Handy cookie getter
 // https://stackoverflow.com/questions/10730362/get-cookie-by-name#15724300

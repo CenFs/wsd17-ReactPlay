@@ -530,14 +530,21 @@ def game_detail(request, gameid):
             # Update game details (if user is author of the game)
             if request.method == 'POST':
                 if game.author.username == user.username:
+                    # Try to find fields to update
                     postData = json.loads(request.body)
                     try:
                         name = postData['name']
+                        if name != game.name and Game.objects.filter(name=name).count()>0:
+                            responseData = json.dumps({'status': "failure", 'desc': "game name already exists!"})
+                            return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
                         game.name = name
                     except:
                         name = DOESNT_EXIST
                     try:
                         price = postData['price']
+                        if price < 0:
+                            responseData = json.dumps({'status': "failure", 'desc': "received invalid price!"})
+                            return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
                         game.price = price
                     except:
                         price = DOESNT_EXIST
@@ -551,6 +558,15 @@ def game_detail(request, gameid):
                         game.url = url
                     except:
                         url = DOESNT_EXIST
+                    try:
+                        genre = postData['genre']
+                        game.genre = GameGenre.objects.get(id=genre)
+                    except Genre.DoesNotExist:
+                        responseData = json.dumps({'status': "failure", 'desc': "received invalid genre!"})
+                        return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
+                    except:
+                        genre = DOESNT_EXIST
+                    # Update the game with the new fields and return it
                     game.save()
                     updated_game_detail = {'gameid': gameid,
                                            'name': game.name,
@@ -592,7 +608,6 @@ def game_detail(request, gameid):
         responseData = json.dumps({'status': "failure", 'desc': "Game.DoesNotExist"})
         return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
     except:
-        print ("game detail error")
         responseData = json.dumps({'status': "failure", 'desc': "Other unknown problems... Need to debug!"})
         return HttpResponse(responseData, content_type="application/json", status=BAD_REQUEST)
 
