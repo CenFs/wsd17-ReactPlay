@@ -85,3 +85,25 @@ Sprint 2 | JavaScript game, uploaded to Heroku.<br>Communication between back-en
 Sprint 3 | All things front-end.<br>Required back-end support for the above.<br>Front-end testing, likely exploratory.<br>**Add other teams games to our service, fix any issues on our side.** | **2017-04-16**
 Sprint 4 | Quality assurance.<br>Optional features.<br>Create report for final submission.<br>**Upload project to Heroku, submit project to course staff.** | **2017-04-23**
 Presentation | **Reserve a time slot, prep and execute presentation.** | **2017-04-28**
+
+## Implemented features
+
+Project Demonstration document link
+
+## Self assessments
+
+Pros
+Cons
+
+## Distribuation of works
+
+Mengyang Chen | 256481 | 
+Enbo Chen | 256331 | 
+Pauli Tupeli | 228926 | 
+Jingyi Bai | 267936 | 
+
+## How to use
+
+Instructions (how to use, account/password)
+Heroku link
+
