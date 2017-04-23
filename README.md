@@ -48,19 +48,19 @@ Back-end will have the database, exposed through a RESTful API.
 Front-end will have the views and static files required for the user interfaces.
 
 * Back-end
-    * Database: sqlite3 for local testing (ease of use), postgre for Heroku (as per Heroku recommendation)
-    * Django Models: User, UserGames, Game, GameScore, GameSave (self explanatory)
-    * Django Views: There will be RESTful API endpoints at least for all listed models, perhaps more.
+    * DONE. Database: sqlite3 for local testing (ease of use), postgre for Heroku (as per Heroku recommendation)
+    * DONE. Django Models: User, UserGame, Game, GameGenre, Transaction
+    * DONE. Django Views: There will be RESTful API endpoints at least for all listed models, perhaps more.
     * Django Tests: Tests for REST endpoints will be written here.
 
 * Front-end
     * Views
-        * Index (frontpage, maybe popular games highlighted)
-        * Game list (with filter/search options)
-        * Game detail (details of a single game)
+        * DONE. Index (frontpage, maybe popular games highlighted)
+        * DONE. Game list (with filter/search options)
+        * DONE. Game detail (details of a single game)
             * Players can buy, play and check highscores.
             * Developer can modify and see sales statistics.
-        * User detail (Details of the currently logged in user)
+        * DONE. User detail (Details of the currently logged in user)
             * Basic user info.
             * Players have a list of bought games.
             * Developers have a list of their published games.
@@ -69,7 +69,10 @@ Front-end will have the views and static files required for the user interfaces.
         * Redux (Good front-end tool which usually come with React, it makes data and state storage in front-end application easier)
 
 * Games
-    * Something moving, with save/load feature.
+    * DONE. Something moving, with save/load feature.
+
+* Documentations
+    * DONE. Project plan, backend API document, final report.
 
 ## Tasks and timetable
 
@@ -89,32 +92,53 @@ Presentation | **Reserve a time slot, prep and execute presentation.** | **2017-
 ## Implemented features and Self assessments
 
 Project Demonstration document: https://docs.google.com/document/d/1T4KgI6FCulCn-Wz8rs0dR0BtvPG9R644nyI7qAxfu2U/edit?usp=sharing
-After the self assessments, we think we should get XXX points.
 
 * Successful things in project
     * We have good separation for frontend and backend. They are in different folders, the backend only provides functional interfaces to the frontend.
     * We used issues tracker to manage the development of the project.
     * We have good graphics both in webshop and the game.
+    * We have the API documentation in ReactPlay/docs/ReactPlay Restfuldb API.pdf and ReactPlay/docs/api.xlsx to make the frontend development more easier.
 * Problems we met in project
     * Communication between React and Django. This is the biggest issue we met when developing. The main issue is to get the authentication working.
     * Scheduling issues. Due to the very different schedules for group members, we cannot figure out the time of meeting. And it's difficult to follow the project plan closely.
     * Quality of codes. 
 
+Here's the estimated points for each requirement module:
+
+Requirements | Estimated Points
+----------- | ------------
+Authentication | 150
+Basic player functionalities | 300
+Basic developer functionalities | 150
+Game/service interaction | 160
+Quality of Work | 100
+Non-functional requirements | 150
+Own JavaScript game | 180
+Save/load and resolution feature | 50
+RESTful API | 80
+
+After the self assessments, we think we should get 1270 points.
+
 ## Distribuation of works
 
-111
+At first everyone has assigned tasks, which is shown in below:
 
 Name | StudentId | Works
 ----------- | ------------ | ------------
-Mengyang Chen | 256481 | ...
-Enbo Chen | 256331 | ...
-Pauli Tupeli | 228926 | ...
-Jingyi Bai | 267936 | ...
+Mengyang Chen | 256481 | Game development, Frontend development.
+Enbo Chen | 256331 | Frontend development, Backend development.
+Pauli Tupeli | 228926 | Backend development, Hook the frontend and backend.
+Jingyi Bai | 267936 | Backend development, Documentation.
+
+But then, we found that we could not complete the module independently.
+We need to cooperate and discuss to solve the problems together.
+So we do not have a clear and detailed work distribuation.
+In general, everyone works as the previous plan, but all of us helped others in different modules when there're some problems in developing or scheduling.
 
 ## Instructions
 
-How to use
-Created accounts for testing
+Login/register first, then...
+The following table shows the created accounts for testing:
 
 Role | Username | Password
 ----------- | ------------ | ------------
