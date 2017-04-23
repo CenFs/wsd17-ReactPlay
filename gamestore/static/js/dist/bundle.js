@@ -38176,7 +38176,7 @@ var analytics = function analytics() {
 
     switch (action.type) {
         case __WEBPACK_IMPORTED_MODULE_0__actions__["p" /* ANALYTICS_DATA */]:
-            console.log(action.analytics);
+            // console.log(action.analytics);
             return action.analytics;
         default:
             return state;
@@ -88244,7 +88244,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 var Analytics = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createClass({
   displayName: 'Analytics',
   render: function render() {
-    console.log(this.props);
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       __WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["a" /* Modal */],
       _extends({}, this.props, { bsSize: 'large', 'aria-labelledby': 'contained-modal-title-lg' }),

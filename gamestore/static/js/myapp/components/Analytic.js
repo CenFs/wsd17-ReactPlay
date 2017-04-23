@@ -6,7 +6,6 @@ import NavBar from './NavBar';
 
 const Analytics = React.createClass({
   render() {
-    console.log(this.props);
     return (
       <Modal {...this.props} bsSize="large" aria-labelledby="contained-modal-title-lg">
         <Modal.Header closeButton>

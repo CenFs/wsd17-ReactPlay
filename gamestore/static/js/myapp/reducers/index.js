@@ -31,7 +31,7 @@ const genres = (state=[],action) => {
 const analytics = (state=[],action) => {
   switch (action.type) {
     case ANALYTICS_DATA:
-        console.log(action.analytics);
+        // console.log(action.analytics);
         return action.analytics;
     default: 
         return state;
