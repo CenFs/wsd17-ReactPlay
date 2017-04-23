@@ -92,10 +92,10 @@ Project Demonstration document: https://docs.google.com/document/d/1T4KgI6FCulCn
 
 ## Self assessments
 
-Pros
-
-Cons
-
+* Successful things in project
+    * 111
+* Problems we met
+    * 222
 
 ## Distribuation of works
 
@@ -110,6 +110,7 @@ Jingyi Bai | 267936 | ...
 
 How to use
 Created accounts for testing
+
 Role | Username | Password
 ----------- | ------------ | ------------
 Player | player | debugpass
