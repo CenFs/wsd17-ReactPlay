@@ -1,3 +1,4 @@
+// Main entry of front-end
 import React from 'react';
 
 const Main = () => (

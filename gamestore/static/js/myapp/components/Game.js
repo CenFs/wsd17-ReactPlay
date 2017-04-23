@@ -9,15 +9,16 @@ class Game extends React.Component{
   componentWillMount() {
   }
 
-    render() {
-        return (
-          <div>
-            <NavBar />
-            <Iframe gameId={this.props.params.gameId}/>
-            <HighScores gameId={this.props.params.gameId}/>
-          </div>
-        );
-    }
+  // game component consists of Iframe and HighScores
+  render() {
+      return (
+        <div>
+          <NavBar />
+          <Iframe gameId={this.props.params.gameId}/>
+          <HighScores gameId={this.props.params.gameId}/>
+        </div>
+      );
+  }
 };
 
 // transform the current Redux store state into the props

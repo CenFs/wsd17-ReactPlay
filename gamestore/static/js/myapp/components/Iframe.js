@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import { loadState, saveState, saveScore} from '../actions';
 
 class Iframe extends React.Component {
-
+  // contructor
   constructor(props) {
     super(props);
     this.handleFrameTasks = this.handleFrameTasks.bind(this);
@@ -15,6 +15,7 @@ class Iframe extends React.Component {
 
 
   componentDidMount() {
+    // add listener
     window.addEventListener("message", this.handleFrameTasks);
   }
 
@@ -23,15 +24,18 @@ class Iframe extends React.Component {
   }
 
   componentWillUnmount() {
+    // remove listener
     window.removeEventListener('message', this.handleFrameTasks);
   }
 
+  // game send message to Iframe
   sendToFrame(data) {
     if(this.ifr){
       this.ifr.contentWindow.postMessage(data, '*');
     }
   }
 
+  // handle messages, dipatch actions according to the message type
   handleFrameTasks = (e) => {
     const message = {
       messageType: "LOAD",
@@ -40,7 +44,6 @@ class Iframe extends React.Component {
       }
     }
   
-    console.log(e.data);
     switch (e.data.messageType) {
       case 'LOAD_REQUEST':
         this.props.dispatch(loadState({gameId:this.props.gameId, userId:this.props.userId, frame:this.ifr}));

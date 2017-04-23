@@ -1,3 +1,4 @@
+// demo, not used in the project
 import React from 'react';
 import Main from '../components/Main';
 import { connect } from 'react-redux';
@@ -12,6 +13,7 @@ const mapDispatchToProps = ({
     logoutClick:logoutPage
 });
 
+// connect global state to the component
 const App = connect(
   mapStateToProps,
   mapDispatchToProps

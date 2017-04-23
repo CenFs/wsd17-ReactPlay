@@ -6,12 +6,13 @@ import ReactDOM from 'react-dom'
 
 // Define Register Component
 class Register extends React.Component{
-
+    // contructor
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    // submit the user
     handleSubmit = event => {
         event.preventDefault();
 
@@ -29,7 +30,6 @@ class Register extends React.Component{
           // Send register dispatch
           this.props.dispatch(registerClick({ username, password, email, role }));
         }
-        
     }
 
     render() {

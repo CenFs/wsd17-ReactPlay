@@ -1,3 +1,4 @@
+// useless file, just a demo for showing how to define a container
 // This container make the Game component dynamic
 // It will pass data and functions from the top state to the Game component's prop
 

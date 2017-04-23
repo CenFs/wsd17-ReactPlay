@@ -69,6 +69,7 @@ const options = {
 };
 
 class DevList extends React.Component {
+  // constructor
   constructor(props) {
     super(props);
     this.analyticsFormatter = analyticsFormatter.bind(this);

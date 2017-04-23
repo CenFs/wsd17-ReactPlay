@@ -2,17 +2,16 @@ import Login from '../components/Login';
 import { connect } from 'react-redux';
 import { loginClick } from '../actions';
 
+// state
 const mapStateToProps = (state) => ({
 });
 
-//let data1 = {username:'player',password:'debugpass'}
-//var data2 = new FormData();
-//data2.append('json',JSON.stringify(data1));
-
+// enable the component to dispatch actions
 const mapDispatchToProps = ({
     loginClick:loginClick
 });
 
+// connect state to the component
 const LoginPage = connect(
   mapStateToProps,
   mapDispatchToProps

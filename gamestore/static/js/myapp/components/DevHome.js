@@ -4,6 +4,7 @@ import DevList from './DevList';
 
 class DevHome extends React.Component {
 
+  // developers' home page
   render () {
     return (
       <div>

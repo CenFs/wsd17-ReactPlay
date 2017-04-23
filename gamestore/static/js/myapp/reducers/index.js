@@ -7,18 +7,7 @@ REGISTER, REGISTER_SUCCESS, REGISTER_FAIL, PLAY_A_GAME, UPDATE_GAMELIST, ANALYTI
 } from '../actions';
 import { combineReducers } from 'redux';
 
-//const name = (state='unknown',action) => {
-//    switch (action.type) {
-//        case RECEIVE_DATA:
-//            return action.name;
-//        case CLEAR_DATA:
-//            return 'unknown-cleared';
-//        default:
-//            return state;
-//    }
-//};
-//
-
+// an array for storing genres of games
 const genres = (state=[],action) => {
     switch (action.type) {
         case RECEIVE_GENRES:
@@ -28,6 +17,7 @@ const genres = (state=[],action) => {
     }
 }
 
+// store the analytics data
 const analytics = (state=[],action) => {
   switch (action.type) {
     case ANALYTICS_DATA:
@@ -38,6 +28,7 @@ const analytics = (state=[],action) => {
   }
 }
 
+// games is an array of games
 const games = (state=[],action) => {
     switch (action.type) {
         case RECEIVE_DATA:
@@ -71,10 +62,6 @@ const games = (state=[],action) => {
                     {
                         g.scorelist = list;
                     }
-                    // else
-                    // {
-                    //     g.playing = false;
-                    // }
                 }
             );
             return newState1;
@@ -83,6 +70,7 @@ const games = (state=[],action) => {
     }
 };
 
+// a loading flag, not used in this assignment, it should be consider in bigger projects
 const loading = (state=false,action) => {
     switch(action.type)
     {
@@ -103,6 +91,7 @@ const loading = (state=false,action) => {
     }
 };
 
+// user information is saved in the store
 const user = (state={},action) => {
     switch(action.type)
     {

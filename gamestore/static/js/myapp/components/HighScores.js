@@ -13,11 +13,11 @@ function HighScoreList (props) {
   );
 }
 
-// hard-coding right now
+// hard-coding test array
 const highScores = [{ "name": "Jingji", "score": 1000 }, { "name": "Pauli", "score": 999 }, { "name": "Mengyang", "score": 998 }];
 
 class HighScores extends React.Component {
-
+  // constructor
   constructor(props) {
     super(props);
     this.state = {
@@ -28,6 +28,7 @@ class HighScores extends React.Component {
   componentWillMount() {
   }
 
+  // fetch game state from 
   componentDidMount() {
     fetch('/api/games/'+this.props.gameId+'/analytic/',
                     {
@@ -36,7 +37,7 @@ class HighScores extends React.Component {
                     }
          ).then(x=>x.json())
           .then(y=>{
-                    console.log("fetching!!! " + JSON.stringify(y.info));
+                    // console.log("fetching!!! " + JSON.stringify(y.info));
                     // this.props.score_list = y.info;
                     this.setState({
                       scoreList:y.info

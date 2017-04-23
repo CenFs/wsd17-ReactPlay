@@ -5,11 +5,12 @@ import ReactDOM from 'react-dom';
 import { browserHistory } from 'react-router';
 import { fetchGames, fetchGenres, playGame, initializePayment, finalizePayment, getQueryParams } from '../actions';
 
-
+// the format of the price column
 function priceFormatter (cell, row) {
   return `<i class='glyphicon glyphicon-euro'></i> ${cell}`;
 }
 
+// format of url column
 function urlFormatter (cell, row, enumObject, rowIndex) {
   let buy_or_play;
   let buttonStyle;
