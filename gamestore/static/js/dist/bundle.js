@@ -37013,7 +37013,8 @@ var DevHome = function (_React$Component) {
     value: function componentDidMount() {
       if (this.props.location.key === null) {
         alert('Please login first!');
-        browserHistory.push('/store/login');
+        // browserHistory.push('/store/login');
+        this.props.router.push('/store/login');
       }
     }
     // developers' home page
@@ -37978,7 +37979,8 @@ var PlayerHome = function (_React$Component) {
     value: function componentDidMount() {
       if (this.props.location.key === null) {
         alert('Please login first!');
-        __WEBPACK_IMPORTED_MODULE_3_react_router__["b" /* browserHistory */].push('/store/login');
+        // browserHistory.push('/store/login');
+        this.props.router.push('/store/login');
       }
     }
     // combine other components

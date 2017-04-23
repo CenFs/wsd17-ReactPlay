@@ -7,7 +7,8 @@ class DevHome extends React.Component {
   componentDidMount() {
     if (this.props.location.key === null) {
       alert('Please login first!');
-      browserHistory.push('/store/login');
+      // browserHistory.push('/store/login');
+      this.props.router.push('/store/login');
     }
   }
   // developers' home page
