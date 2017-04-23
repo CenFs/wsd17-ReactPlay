@@ -56,6 +56,7 @@ function analyticsFormatter (cell, row, enumObject, rowIndex) {
       onClick={() => {
           // browserHistory.push(`/store/game/${row.gameid}`);
           this.props.dispatch(analticsGame(row.gameid));
+          this.setState({ lgShow: true });    
         }} >
       Details
     </button>
@@ -99,15 +100,7 @@ class DevList extends React.Component {
             <TableHeaderColumn dataField='url'>URL</TableHeaderColumn>
             <TableHeaderColumn dataFormat={this.analyticsFormatter} editable={false}>Analytics</TableHeaderColumn>
         </BootstrapTable>
-        
-      <Button bsStyle="primary" onClick={()=>{
-          this.setState({ lgShow: true });    
-          this.props.dispatch(analticsGame('1'));}
-      }>
-        Launch modal
-      </Button>
-      
-      <Analytics show={this.state.lgShow} onHide={lgClose} data={this.props.analytics} />
+        <Analytics show={this.state.lgShow} onHide={lgClose} data={this.props.analytics}/>
       </div>
     );
   }

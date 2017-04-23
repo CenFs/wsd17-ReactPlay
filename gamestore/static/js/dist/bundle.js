@@ -31524,7 +31524,7 @@ TabPane.childContextTypes = childContextTypes;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__BreadcrumbItem__ = __webpack_require__(330);
 /* unused harmony reexport BreadcrumbItem */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Button__ = __webpack_require__(95);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_5__Button__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_5__Button__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ButtonGroup__ = __webpack_require__(331);
 /* unused harmony reexport ButtonGroup */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ButtonToolbar__ = __webpack_require__(712);
@@ -31578,7 +31578,7 @@ TabPane.childContextTypes = childContextTypes;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__MenuItem__ = __webpack_require__(740);
 /* unused harmony reexport MenuItem */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__Modal__ = __webpack_require__(741);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_32__Modal__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_32__Modal__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__ModalBody__ = __webpack_require__(336);
 /* unused harmony reexport ModalBody */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__ModalFooter__ = __webpack_require__(337);
@@ -36994,6 +36994,7 @@ function analyticsFormatter(cell, row, enumObject, rowIndex) {
       onClick: function onClick() {
         // browserHistory.push(`/store/game/${row.gameid}`);
         _this.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions__["b" /* analticsGame */])(row.gameid));
+        _this.setState({ lgShow: true });
       } },
     'Details'
   );
@@ -37084,14 +37085,6 @@ var DevList = function (_React$Component) {
             { dataFormat: this.analyticsFormatter, editable: false },
             'Analytics'
           )
-        ),
-        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
-          __WEBPACK_IMPORTED_MODULE_6_react_bootstrap__["a" /* Button */],
-          { bsStyle: 'primary', onClick: function onClick() {
-              _this3.setState({ lgShow: true });
-              _this3.props.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions__["b" /* analticsGame */])('1'));
-            } },
-          'Launch modal'
         ),
         __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__Analytic__["a" /* default */], { show: this.state.lgShow, onHide: lgClose, data: this.props.analytics })
       );
@@ -37694,7 +37687,7 @@ var Login = function (_React$Component) {
                 __WEBPACK_IMPORTED_MODULE_1_react_bootstrap__["d" /* Col */],
                 { smOffset: 2, sm: 10 },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  __WEBPACK_IMPORTED_MODULE_1_react_bootstrap__["a" /* Button */],
+                  __WEBPACK_IMPORTED_MODULE_1_react_bootstrap__["b" /* Button */],
                   { type: 'submit', onClick: this.handleSubmit },
                   'Sign in'
                 )
@@ -38030,7 +38023,7 @@ var Register = function (_React$Component) {
                 __WEBPACK_IMPORTED_MODULE_1_react_bootstrap__["d" /* Col */],
                 { smOffset: 2, sm: 10 },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                  __WEBPACK_IMPORTED_MODULE_1_react_bootstrap__["a" /* Button */],
+                  __WEBPACK_IMPORTED_MODULE_1_react_bootstrap__["b" /* Button */],
                   { type: 'submit', onClick: this.handleSubmit },
                   'Register'
                 )
@@ -88253,19 +88246,19 @@ var Analytics = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createClass({
   render: function render() {
     console.log(this.props);
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      __WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["b" /* Modal */],
+      __WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["a" /* Modal */],
       _extends({}, this.props, { bsSize: 'large', 'aria-labelledby': 'contained-modal-title-lg' }),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        __WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["b" /* Modal */].Header,
+        __WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["a" /* Modal */].Header,
         { closeButton: true },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          __WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["b" /* Modal */].Title,
+          __WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["a" /* Modal */].Title,
           { id: 'contained-modal-title-lg' },
           'Analytics'
         )
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        __WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["b" /* Modal */].Body,
+        __WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["a" /* Modal */].Body,
         null,
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'h4',
@@ -88279,10 +88272,10 @@ var Analytics = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createClass({
         )
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        __WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["b" /* Modal */].Footer,
+        __WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["a" /* Modal */].Footer,
         null,
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          __WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["a" /* Button */],
+          __WEBPACK_IMPORTED_MODULE_2_react_bootstrap__["b" /* Button */],
           { onClick: this.props.onHide },
           'Close'
         )
