@@ -1,3 +1,4 @@
+// entry file of the game
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
@@ -8,13 +9,14 @@ import thunk from 'redux-thunk';
 
 const middleware = [ thunk ];
 
+// create the redux store
 const store = createStore(
     reducer,
     applyMiddleware(...middleware)
-    );
+);
 
 render(
-<Provider store={store}>
-    <App/>
-</Provider>
+    <Provider store={store}>
+        <App/>
+    </Provider>
 ,document.getElementById('root'));

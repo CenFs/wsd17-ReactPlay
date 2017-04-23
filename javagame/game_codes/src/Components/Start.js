@@ -1,5 +1,6 @@
 import React from 'react';
 
+// simple component which only has a button
 const Start = ({spinning,result,startClick,stopClick}) => (
     <div className="button-div">
         {!spinning && (result<0) ?
@@ -15,8 +16,3 @@ const Start = ({spinning,result,startClick,stopClick}) => (
 );
 
 export default Start;
-
-        // {spinning ?
-        //     (<button onClick={()=>stopClick()}>Stop</button>) :
-        //     (<button disabled>Reset</button>)
-        // }

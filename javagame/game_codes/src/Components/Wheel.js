@@ -1,7 +1,9 @@
 import React from 'react';
 
+// simple component which consists of several images
 const Wheel = ({spinning,degree,result}) => {
 
+    // here we define the animation, it depends on the degree value, dynamically passed to wheel image
     let imgStyle = (degree > 0) ?
                     {transform:`rotate(${degree}deg)`,
                     transition: '-webkit-transform 5s ease-out'} :
@@ -18,14 +20,3 @@ const Wheel = ({spinning,degree,result}) => {
 };
 
 export default Wheel;
-
-
-    /*<div className="wheel-div">
-    </div>*/
-
-// {
-//     spinning ?
-//     <p> Your wheel is spinning</p>
-//     :
-//     (result>0 ? <p> Your result is {result}</p> : <p> Press start button</p>)
-// }

@@ -2,6 +2,7 @@ import Start from '../Components/Start';
 import { connect } from 'react-redux';
 import { startSpin, endSpin, start_end } from '../Actions';
 
+// pass tow props from global state to the component
 const mapStateToProps = (state) => ({
     spinning:state.spinning,
     result:state.result
@@ -9,9 +10,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = ({
     startClick:start_end
-    // stopClick: endSpin
 });
 
+// connect state to the start button, let it be able to dispatch actions.
 const Buttons = connect(
   mapStateToProps,
   mapDispatchToProps

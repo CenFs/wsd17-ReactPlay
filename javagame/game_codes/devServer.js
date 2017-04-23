@@ -1,3 +1,4 @@
+// In dev mode, we open a server for development
 var WebpackDevServer = require('webpack-dev-server');
 var webpack = require('webpack');
 var config = require('./webpack.config.js');
@@ -12,4 +13,5 @@ var server = new WebpackDevServer(compiler, {
     }
 });
 
+// listen on port 8080
 server.listen(8080,'localhost',function(){});

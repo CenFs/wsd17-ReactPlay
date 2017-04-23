@@ -1,7 +1,9 @@
 import React from 'react';
 
+// prize component
 const Prize = ({result,prizeText,resetWheel}) => {
     
+    // control the display of the mask depending on result
     if (result>0)
     {
         if(document.getElementsByClassName("imgs").length)
@@ -21,6 +23,7 @@ const Prize = ({result,prizeText,resetWheel}) => {
         }
     }
 
+    // the prize and onnea image will be shown depending on the result's value
     return (
         <div className="prize">
             {(result>0) ?
@@ -36,30 +39,3 @@ const Prize = ({result,prizeText,resetWheel}) => {
 }
 
 export default Prize;
-
-//<p>Your lucky number is {result}!</p>
-//<h1>ONNEA!</h1>
-
-// {
-//     (result<=50) ?
-//     <img className="prize" src="./tmp/prize1.png"/>
-//     :
-//     (
-//         (result<=62.5) ? 
-//         <img className="prize" src="./tmp/prize2.png"/>
-//         :
-//         (
-//             (result<=75) ? 
-//             <img className="prize" src="./tmp/prize3.png"/>
-//             :
-//             (
-//                 (result<=87.5) ? 
-//                 <img className="prize" src="./tmp/prize4.png"/>
-//                 :
-//                 (
-//                     <img className="prize" src="./tmp/prize5.png"/>
-//                 )
-//             )
-//         )
-//     )
-// }
