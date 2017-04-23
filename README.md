@@ -86,18 +86,23 @@ Sprint 3 | All things front-end.<br>Required back-end support for the above.<br>
 Sprint 4 | Quality assurance.<br>Optional features.<br>Create report for final submission.<br>**Upload project to Heroku, submit project to course staff.** | **2017-04-23**
 Presentation | **Reserve a time slot, prep and execute presentation.** | **2017-04-28**
 
-## Implemented features
+## Implemented features and Self assessments
 
 Project Demonstration document: https://docs.google.com/document/d/1T4KgI6FCulCn-Wz8rs0dR0BtvPG9R644nyI7qAxfu2U/edit?usp=sharing
-
-## Self assessments
+After the self assessments, we think we should get XXX points.
 
 * Successful things in project
-    * 111
-* Problems we met
-    * 222
+    * We have good separation for frontend and backend. They are in different folders, the backend only provides functional interfaces to the frontend.
+    * We used issues tracker to manage the development of the project.
+    * We have good graphics both in webshop and the game.
+* Problems we met in project
+    * Communication between React and Django. This is the biggest issue we met when developing. The main issue is to get the authentication working.
+    * Scheduling issues. Due to the very different schedules for group members, we cannot figure out the time of meeting. And it's difficult to follow the project plan closely.
+    * Quality of codes. 
 
 ## Distribuation of works
+
+111
 
 Name | StudentId | Works
 ----------- | ------------ | ------------
@@ -116,5 +121,6 @@ Role | Username | Password
 Player | player | debugpass
 Developer | developer | debugpass
 
-Heroku: link
+
+Heroku: https://reactplaytut.herokuapp.com/
 
